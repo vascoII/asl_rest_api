@@ -2,17 +2,17 @@
 
 namespace Fds\AslBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 use Fds\AslBundle\Entity\Asl;
 
 class AslController extends Controller
 {
     /**
-     * @Method({"GET"})
+     * @Rest\View()
      */
     public function getAslsAction(Request $request)
     {
@@ -21,23 +21,11 @@ class AslController extends Controller
                 ->findAll();
         /* @var $asls Asl[] */
 
-        $formatted = [];
-        foreach ($asls as $asl) {
-            $formatted[] = [
-               'id' => $asl->getId(),
-               'name' => $asl->getName(),
-               'address' => $asl->getAddress(),
-               'postalCode' => $asl->getPostalCode(),
-               'city' => $asl->getCity(),
-               'country' => $asl->getCountry(),
-            ];
-        }
-
-        return new JsonResponse($formatted);
+        return $asls;
     }
     
     /**
-     * @Method({"GET"})
+     * @Rest\View()
      */
     public function getAslAction(Request $request)
     {
@@ -53,16 +41,7 @@ class AslController extends Controller
             );
         }
         
-        $formatted = [
-            'id' => $asl->getId(),
-            'name' => $asl->getName(),
-            'address' => $asl->getAddress(),
-            'postalCode' => $asl->getPostalCode(),
-            'city' => $asl->getCity(),
-            'country' => $asl->getCountry(),
-        ];
-
-        return new JsonResponse($formatted);
+        return $asl;
     }
 
 }

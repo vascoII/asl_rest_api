@@ -5,8 +5,10 @@ fds_asl_homepage:
 get_asls:
     path:     /asls
     defaults: { _controller: FdsAslBundle:Asl:getAsls }
+    methods:  [GET]
 get_asl:
     path:     /asls/{asl_id}
     defaults: { _controller: FdsAslBundle:Asl:getAsl }
+    methods:  [GET]
     requirements:
         asl_id: '\d+'

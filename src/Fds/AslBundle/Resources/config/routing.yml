@@ -12,3 +12,7 @@ get_asl:
     methods:  [GET]
     requirements:
         asl_id: '\d+'
+post_asl:
+    path:     /asls
+    defaults: { _controller: FdsAslBundle:Asl:postAsls }
+    methods:  [POST]

@@ -6,7 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="asls")
+ * @ORM\Table(name="asls",
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="asls_name_unique",columns={"name"})}
+ * )
  */
 class Asl
 {

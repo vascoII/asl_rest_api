@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
+use Fds\AslBundle\Form\Type\AslType;
 use Fds\AslBundle\Entity\Asl;
 
 class AslController extends Controller
@@ -42,6 +43,26 @@ class AslController extends Controller
         }
         
         return $asl;
+    }
+    
+    /**
+     * @Rest\View()
+     */
+    public function postAslsAction(Request $request)
+    {
+        $asl = new Asl();
+        $form = $this->createForm(AslType::class, $asl);
+
+        $form->submit($request->request->all()); // Validation des données
+
+        if ($form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($asl);
+            $em->flush();
+            return $asl;
+        } else {
+            return $form;
+        }
     }
 
 }

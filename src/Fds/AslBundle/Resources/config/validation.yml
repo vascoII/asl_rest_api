@@ -1,0 +1,20 @@
+# src/FdsAslBundle/Resources/config/validation.yml
+FdsAslBundle\Entity\Asl:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+            - Type: string
+        address:
+            - NotBlank: ~
+            - Type: string
+        postalCode:
+            - NotBlank: ~
+            - Type: string
+        city:
+            - NotBlank: ~
+            - Type: string
+        country:
+            - NotBlank: ~
+            - Type: string

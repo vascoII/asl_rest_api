@@ -18,5 +18,19 @@ post_asl:
     methods:  [POST]
 delete_asl:
     path:     /asls/{asl_id}
-    defaults: { _controller: FdsAslBundle:Asl:removeAsl }
+    defaults: { _controller: FdsAslBundle:Asl:deleteAsl }
     methods:  [DELETE]
+    requirements:
+        asl_id: '\d+'
+put_asl:
+    path:     /asls/{asl_id}
+    defaults: { _controller: FdsAslBundle:Asl:putAsl }
+    methods:  [PUT]
+    requirements:
+        asl_id: '\d+'
+patch_asl:
+    path:     /asls/{asl_id}
+    defaults: { _controller: FdsAslBundle:Asl:patchAsl }
+    methods:  [PATCH]
+    requirements:
+        asl_id: '\d+'

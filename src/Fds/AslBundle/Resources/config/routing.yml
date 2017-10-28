@@ -1,0 +1,7 @@
+fds_asl_homepage:
+    path:     /
+    defaults: { _controller: FdsAslBundle:Default:index }
+
+get_asls:
+    path:     /asls
+    defaults: { _controller: FdsAslBundle:Asl:getAsls }

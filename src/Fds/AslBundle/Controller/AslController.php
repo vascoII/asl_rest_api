@@ -64,5 +64,22 @@ class AslController extends Controller
             return $form;
         }
     }
+    
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/asls/{id}")
+     */
+    public function removeAslAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $asl = $em->getRepository('FdsAslBundle:Asl')
+                    ->find($request->get('asl_id'));
+        /* @var $asl Asl */
+
+        if ($asl) {
+            $em->remove($asl);
+            $em->flush();
+        }
+    }
 
 }

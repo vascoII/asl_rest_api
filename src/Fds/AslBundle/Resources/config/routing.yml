@@ -16,3 +16,7 @@ post_asl:
     path:     /asls
     defaults: { _controller: FdsAslBundle:Asl:postAsls }
     methods:  [POST]
+delete_asl:
+    path:     /asls/{asl_id}
+    defaults: { _controller: FdsAslBundle:Asl:removeAsl }
+    methods:  [DELETE]

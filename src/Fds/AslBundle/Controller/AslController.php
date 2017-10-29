@@ -3,10 +3,9 @@
 namespace Fds\AslBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as FOSRest; // alias pour toutes les annotations
+use FOS\RestBundle\Controller\Annotations as FOSRest; 
 use FOS\RestBundle\View\View as FOSView; 
 use Fds\AslBundle\Form\Type\AslType;
 use Fds\AslBundle\Entity\Asl;
@@ -14,7 +13,7 @@ use Fds\AslBundle\Entity\Asl;
 class AslController extends Controller
 {
     /**
-     * @FOSRest\View()
+     * @FOSRest\View(serializerGroups={"asls"})
      */
     public function getAslsAction(Request $request)
     {
@@ -27,7 +26,7 @@ class AslController extends Controller
     }
     
     /**
-     * @FOSRest\View()
+     * @FOSRest\View(serializerGroups={"asl"})
      */
     public function getAslAction(Request $request)
     {
@@ -47,7 +46,10 @@ class AslController extends Controller
     }
     
     /**
-     * @FOSRest\View()
+     * @FOSRest\View(
+     *     statusCode=Response::HTTP_CREATED,
+     *     serializerGroups={"asl"}
+     *  )
      */
     public function postAslsAction(Request $request)
     {
@@ -67,7 +69,9 @@ class AslController extends Controller
     }
     
     /**
-     * @FOSRest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @FOSRest\View(statusCode=Response::HTTP_NO_CONTENT,
+     *     serializerGroups={"asl"}
+     *  )
      */
     public function deleteAslAction(Request $request)
     {
@@ -76,14 +80,19 @@ class AslController extends Controller
                     ->find($request->get('asl_id'));
         /* @var $asl Asl */
 
-        if ($asl) {
-            $em->remove($asl);
-            $em->flush();
+        if (!$asl) {
+            return;
         }
+
+        foreach ($asl->getProperties() as $property) {
+            $em->remove($property);
+        }
+        $em->remove($asl);
+        $em->flush();
     }
     
     /**
-     * @FOSRest\View()
+     * @FOSRest\View(serializerGroups={"asl"})
      */
     public function putAslAction(Request $request)
     {
@@ -91,7 +100,7 @@ class AslController extends Controller
     }
     
     /**
-     * @FOSRest\View()
+     * @FOSRest\View(serializerGroups={"asl"})
      */
     public function patchAslAction(Request $request)
     {

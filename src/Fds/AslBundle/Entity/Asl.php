@@ -39,11 +39,22 @@ class Asl
      * @ORM\Column(type="string")
      */
     protected $city;
-
+    
     /**
      * @ORM\Column(type="string")
      */
     protected $country;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Property", mappedBy="asl")
+     * @var Property[]
+     */
+    protected $properties;
+
+    public function __construct()
+    {
+        $this->properties = new ArrayCollection();
+    }
     
     public function getId()
     {
@@ -109,6 +120,11 @@ class Asl
     {
         $this->country = $country;
         return $this;
+    }
+    
+    public function getProperties()
+    {
+        return $this->properties;
     }
     
 }

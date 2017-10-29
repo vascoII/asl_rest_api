@@ -1,0 +1,28 @@
+# src/Fds/AslBundle/Resources/config/serialization.yml
+Fds\AslBundle\Entity\Asl:
+    attributes:
+        id:
+            groups: ['asls','asl', 'property']
+        name:
+            groups: ['asls','asl', 'property']
+        address:
+            groups: ['asls','asl', 'property']
+        postalCode:
+            groups: ['asls','asl', 'property']
+        city:
+            groups: ['asls','asl', 'property']
+        country:
+            groups: ['asls','asl', 'property']
+        properties:
+            groups: ['asl']
+
+Fds\AslBundle\Entity\Property:
+    attributes:
+        id:
+            groups: ['asl', 'property']
+        number:
+            groups: ['asl', 'property']
+        type:
+            groups: ['asl', 'property']
+        asl:
+            groups: ['property']

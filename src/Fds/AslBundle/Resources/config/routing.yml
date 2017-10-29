@@ -1,7 +1,7 @@
 fds_asl_homepage:
     path:     /
     defaults: { _controller: FdsAslBundle:Default:index }
-
+#Routing for Asl Entity
 get_asls:
     path:     /asls
     defaults: { _controller: FdsAslBundle:Asl:getAsls }
@@ -34,3 +34,44 @@ patch_asl:
     methods:  [PATCH]
     requirements:
         asl_id: '\d+'
+#Routing for Property Entity        
+get_properties:
+    path:     /asls/{asl_id}/properties
+    defaults: { _controller: FdsAslBundle:Property:getProperties }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+get_property:
+    path:     /asls/{asl_id}/properties/{property_id}
+    defaults: { _controller: FdsAslBundle:Property:getProperty }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+post_property:
+    path:     /asls/{asl_id}/properties
+    defaults: { _controller: FdsAslBundle:Property:postProperties }
+    methods:  [POST]
+    requirements:
+        asl_id: '\d+'
+delete_property:
+    path:     /asls/{asl_id}/properties/{property_id}
+    defaults: { _controller: FdsAslBundle:Property:deleteProperty }
+    methods:  [DELETE]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+put_property:
+    path:     /asls/{asl_id}/properties/{property_id}
+    defaults: { _controller: FdsAslBundle:Property:putProperty }
+    methods:  [PUT]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+patch_property:
+    path:     /asls/{asl_id}/properties/{property_id}
+    defaults: { _controller: FdsAslBundle:Property:patchProperty }
+    methods:  [PATCH]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'

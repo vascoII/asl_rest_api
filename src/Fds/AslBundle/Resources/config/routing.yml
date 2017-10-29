@@ -34,3 +34,23 @@ patch_asl:
     methods:  [PATCH]
     requirements:
         asl_id: '\d+'
+        
+get_properties:
+    path:     /asls/{asl_id}/properties
+    defaults: { _controller: FdsAslBundle:Property:getProperties }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+get_property:
+    path:     /asls/{asl_id}/properties/{property_id}
+    defaults: { _controller: FdsAslBundle:Property:getProperty }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+post_properties:
+    path:     /asls/{asl_id}/properties
+    defaults: { _controller: FdsAslBundle:Property:postProperties }
+    methods:  [POST]
+    requirements:
+        asl_id: '\d+'

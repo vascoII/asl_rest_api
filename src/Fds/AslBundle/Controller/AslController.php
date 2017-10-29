@@ -3,6 +3,7 @@
 namespace Fds\AslBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as FOSRest; // alias pour toutes les annotations
@@ -46,7 +47,7 @@ class AslController extends Controller
     }
     
     /**
-     * @FOSRest\View(statusCode=Response::HTTP_CREATED)
+     * @FOSRest\View()
      */
     public function postAslsAction(Request $request)
     {

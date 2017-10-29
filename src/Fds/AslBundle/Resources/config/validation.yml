@@ -18,14 +18,3 @@ FdsAslBundle\Entity\Asl:
         country:
             - NotBlank: ~
             - Type: string
-            
-FdsAslBundle\Entity\Property:
-    properties:
-        type:
-            - NotNull: ~
-            - Choice:
-                choices: [House, Appartment]
-        number:
-            - NotBlank: ~
-            - Type: string
-

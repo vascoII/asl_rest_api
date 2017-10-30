@@ -2,27 +2,71 @@
 Fds\AslBundle\Entity\Asl:
     attributes:
         id:
-            groups: ['asls','asl', 'property']
+            groups: ['asls','asl', 'property', 'owner']
         name:
-            groups: ['asls','asl', 'property']
+            groups: ['asls','asl', 'property', 'owner']
         address:
-            groups: ['asls','asl', 'property']
+            groups: ['asls','asl', 'property', 'owner']
         postalCode:
-            groups: ['asls','asl', 'property']
+            groups: ['asls','asl', 'property', 'owner']
         city:
-            groups: ['asls','asl', 'property']
+            groups: ['asls','asl', 'property', 'owner']
         country:
-            groups: ['asls','asl', 'property']
+            groups: ['asls','asl', 'property', 'owner']
         properties:
+            groups: ['asl']
+        owners:
+            groups: ['asl']
+        residents:
             groups: ['asl']
 
 Fds\AslBundle\Entity\Property:
     attributes:
         id:
-            groups: ['asl', 'property']
+            groups: ['asl', 'property', 'owner', 'resident']
         number:
-            groups: ['asl', 'property']
+            groups: ['asl', 'property', 'owner', 'resident']
         type:
-            groups: ['asl', 'property']
+            groups: ['asl', 'property', 'owner', 'resident']
         asl:
             groups: ['property']
+        owner:
+            groups: ['asl', 'owner', 'property']
+        resident:
+            groups: ['asl', 'resident', 'property']
+            
+Fds\AslBundle\Entity\Owner:
+    attributes:
+        id:
+            groups: ['owner', 'asl', 'property']
+        firstName:
+            groups: ['owner', 'asl', 'property']
+        lastName:
+            groups: ['owner', 'asl', 'property']
+        email:
+            groups: ['owner', 'asl', 'property']
+        phone:
+            groups: ['owner', 'asl', 'property']
+        propertyAsAdress:
+            groups: ['owner', 'asl', 'property']
+        address:
+            groups: ['owner', 'asl', 'property']
+        postalCode:
+            groups: ['owner', 'asl', 'property']
+        city:
+            groups: ['owner', 'asl', 'property']
+        country:
+            groups: ['owner', 'asl', 'property']
+            
+Fds\AslBundle\Entity\Resident:
+    attributes:
+        id:
+            groups: ['resident', 'asl', 'property']
+        firstName:
+            groups: ['resident', 'asl', 'property']
+        lastName:
+            groups: ['resident', 'asl', 'property']
+        email:
+            groups: ['resident', 'asl', 'property']
+        phone:
+            groups: ['resident', 'asl', 'property'] 

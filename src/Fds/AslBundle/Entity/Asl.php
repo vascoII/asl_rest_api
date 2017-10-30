@@ -50,10 +50,25 @@ class Asl
      * @var Property[]
      */
     protected $properties;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Owner", cascade={"persist"})
+     * @var Owner[]
+     */
+    protected $owners;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Resident", cascade={"persist"})
+     * @var Resident[]
+     */
+    protected $residents;
+  
 
     public function __construct()
     {
         $this->properties = new ArrayCollection();
+        $this->owners = new ArrayCollection();
+        $this->residents = new ArrayCollection();
     }
     
     public function getId()
@@ -125,6 +140,38 @@ class Asl
     public function getProperties()
     {
         return $this->properties;
+    }
+    
+    public function addOwner(Owner $owner)
+    {
+        $this->owners[] = $owner;
+        return $this;
+    }
+
+    public function removeOwner(Owner $owner)
+    {
+        $this->owners->removeElement($owner);
+    }
+    
+    public function getOwners()
+    {
+        return $this->owners;
+    }
+    
+    public function addResident(Resident $resident)
+    {
+        $this->residents[] = $resident;
+        return $this;
+    }
+
+    public function removeResident(Resident $resident)
+    {
+        $this->residents->removeElement($resident);
+    }
+    
+    public function getResidents()
+    {
+        return $this->residents;
     }
     
 }

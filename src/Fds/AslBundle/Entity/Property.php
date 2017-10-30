@@ -45,6 +45,12 @@ class Property
      */
     protected $owner;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="Resident", inversedBy="properties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $resident;
+    
     public function getId()
     {
         return $this->id;
@@ -92,6 +98,17 @@ class Property
     public function getOwner()
     {
         return $this->owner;
+    }
+    
+    public function setResident(Resident $resident)
+    {
+        $this->resident = $resident;
+        return $this;
+    }
+
+    public function getResident()
+    {
+        return $this->resident;
     }
 }
 

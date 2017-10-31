@@ -2,38 +2,51 @@
 Fds\AslBundle\Entity\Asl:
     attributes:
         id:
-            groups: ['asls','asl', 'property', 'owner']
+            groups: ['asls','asl', 'property', 'owner', 'membershipfee']
         name:
-            groups: ['asls','asl', 'property', 'owner']
+            groups: ['asls','asl', 'property', 'owner', 'membershipfee']
         address:
-            groups: ['asls','asl', 'property', 'owner']
+            groups: ['asls','asl', 'property', 'owner', 'membershipfee']
         postalCode:
-            groups: ['asls','asl', 'property', 'owner']
+            groups: ['asls','asl', 'property', 'owner', 'membershipfee']
         city:
-            groups: ['asls','asl', 'property', 'owner']
+            groups: ['asls','asl', 'property', 'owner', 'membershipfee']
         country:
-            groups: ['asls','asl', 'property', 'owner']
+            groups: ['asls','asl', 'property', 'owner', 'membershipfee']
         properties:
             groups: ['asl']
         owners:
             groups: ['asl']
         residents:
             groups: ['asl']
+        membershipfees:
+            groups: ['asl']
 
 Fds\AslBundle\Entity\Property:
     attributes:
         id:
-            groups: ['asl', 'property', 'owner', 'resident']
+            groups: ['asl', 'property', 'owner', 'resident', 'membershipfee']
         number:
-            groups: ['asl', 'property', 'owner', 'resident']
+            groups: ['asl', 'property', 'owner', 'resident', 'membershipfee']
         type:
-            groups: ['asl', 'property', 'owner', 'resident']
+            groups: ['asl', 'property', 'owner', 'resident', 'membershipfee']
         asl:
             groups: ['property']
         owner:
             groups: ['asl', 'owner', 'property']
         resident:
             groups: ['asl', 'resident', 'property']
+            
+Fds\AslBundle\Entity\MembershipFee:
+    attributes:
+        id:
+            groups: ['asl', 'membershipfee']
+        year:
+            groups: ['asl', 'membershipfee']
+        fee:
+            groups: ['asl', 'membershipfee']
+        asl:
+            groups: ['membershipfee']
             
 Fds\AslBundle\Entity\Owner:
     attributes:

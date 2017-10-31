@@ -27,3 +27,14 @@ FdsAslBundle\Entity\Property:
             - NotNull: ~
             - Choice:
                 choices: [House, Appartment]
+                
+Fds\AslBundle\Entity\MembershipFee:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: year
+    properties:
+        year:
+            - NotBlank: ~
+            - Type: date
+        fee:
+            - NotBlank: ~
+            - Type: string

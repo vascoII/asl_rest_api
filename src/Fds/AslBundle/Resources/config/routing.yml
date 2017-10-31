@@ -164,3 +164,37 @@ patch_resident:
         asl_id: '\d+'
         property_id: '\d+'
         resident_id: '\d+'
+#Routing for MembershipFee Entity        
+get_membershipfee:
+    path:     /asls/{asl_id}/membershipfees
+    defaults: { _controller: FdsAslBundle:MembershipFee:getMembershipFees }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+post_membershipfee:
+    path:     /asls/{asl_id}/membershipfees
+    defaults: { _controller: FdsAslBundle:MembershipFee:postMembershipFee }
+    methods:  [POST]
+    requirements:
+        asl_id: '\d+'
+delete_membershipfee:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
+    defaults: { _controller: FdsAslBundle:MembershipFee:deleteMembershipFee }
+    methods:  [DELETE]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'
+put_membershipfee:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
+    defaults: { _controller: FdsAslBundle:MembershipFee:putMembershipFee }
+    methods:  [PUT]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'
+patch_membershipfee:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
+    defaults: { _controller: FdsAslBundle:MembershipFee:patchMembershipFee }
+    methods:  [PATCH]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'

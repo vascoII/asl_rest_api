@@ -52,6 +52,12 @@ class Asl
     protected $properties;
     
     /**
+     * @ORM\OneToMany(targetEntity="MembershipFee", mappedBy="asl")
+     * @var MembershipFee[]
+     */
+    protected $membershipfees;
+    
+    /**
      * @ORM\ManyToMany(targetEntity="Owner", cascade={"persist"})
      * @var Owner[]
      */
@@ -69,6 +75,7 @@ class Asl
         $this->properties = new ArrayCollection();
         $this->owners = new ArrayCollection();
         $this->residents = new ArrayCollection();
+        $this->membershipfees = new ArrayCollection();
     }
     
     public function getId()
@@ -142,6 +149,11 @@ class Asl
         return $this->properties;
     }
     
+    public function getMembershipFees()
+    {
+        return $this->membershipfees;
+    }
+    
     public function addOwner(Owner $owner)
     {
         $this->owners[] = $owner;
@@ -172,6 +184,5 @@ class Asl
     public function getResidents()
     {
         return $this->residents;
-    }
-    
+    }  
 }

@@ -56,7 +56,7 @@ class AslController extends Controller
         $asl = new Asl();
         $form = $this->createForm(AslType::class, $asl);
 
-        $form->submit($request->request->all()); // Validation des données
+        $form->submit($request->request->all()); 
 
         if ($form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');
@@ -80,8 +80,11 @@ class AslController extends Controller
                     ->find($request->get('asl_id'));
         /* @var $asl Asl */
 
-        if (!$asl) {
-            return;
+        if (empty((array) $asl)) {
+            return FOSView::create(
+                ['message' => 'Asl not found'], 
+                Response::HTTP_NOT_FOUND
+            );
         }
 
         foreach ($asl->getProperties() as $property) {
@@ -123,7 +126,7 @@ class AslController extends Controller
         
         $form = $this->createForm(AslType::class, $asl);
 
-        $form->submit($request->request->all(), $clearMissing); // Validation des données
+        $form->submit($request->request->all(), $clearMissing);
 
         if ($form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');

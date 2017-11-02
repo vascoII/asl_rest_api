@@ -3,109 +3,107 @@
 namespace Fds\AslBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * @ORM\Entity()
- * @ORM\Table(name="residents",
- *      uniqueConstraints={
- *          @ORM\UniqueConstraint(
- *              name="residents_firstName_lastName_email_phone_unique",
- *              columns={"first_name", "last_name", "email", "phone"}
- *          )
- *      }
- * )
+ * Resident
+ *
+ * @ORM\Table(name="resident")
+ * @ORM\Entity
  */
 class Resident
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="firstName", type="string", length=255, nullable=false)
      */
-    protected $firstName;
+    private $firstname;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="lastName", type="string", length=255, nullable=false)
      */
-    protected $lastName;
-    
+    private $lastname;
+
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
-    protected $email;
-    
+    private $email;
+
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255, nullable=false)
      */
-    protected $phone; 
-    
+    private $phone;
+
     /**
-     * @ORM\OneToMany(targetEntity="Property", mappedBy="resident")
-     * @var Resident[]
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Fds\AslBundle\Entity\Property", mappedBy="resident")
      */
-    protected $properties;
-    
+    private $property;
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->properties = new ArrayCollection();
+        $this->property = new ArrayCollection();
     }
     
-    public function getId()
-    {
+    function setFirstname($firstname) {
+        $this->firstname = $firstname;
+    }
+
+    function setLastname($lastname) {
+        $this->lastname = $lastname;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
+    function setPhone($phone) {
+        $this->phone = $phone;
+    }
+
+    function getId() {
         return $this->id;
     }
 
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-        return $this;
+    function getFirstname() {
+        return $this->firstname;
     }
 
-    public function getFirstName()
-    {
-        return $this->firstName;
+    function getLastname() {
+        return $this->lastname;
     }
 
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-        return $this;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-    
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getEmail()
-    {
+    function getEmail() {
         return $this->email;
     }
-    
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-        return $this;
-    }
 
-    public function getPhone()
-    {
+    function getPhone() {
         return $this->phone;
     }
-    
-    public function getProperties()
-    {
-        return $this->properties;
+
+    function getProperty() {
+        return $this->property;
     }
+
 }
 

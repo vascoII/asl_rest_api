@@ -3,186 +3,125 @@
 namespace Fds\AslBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="asls",
- *      uniqueConstraints={
- *          @ORM\UniqueConstraint(name="asls_name_unique",columns={"name"})}
- * )
+ * Asl
+ *
+ * @ORM\Table(name="asl")
+ * @ORM\Entity
  */
 class Asl
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    protected $name;
+    private $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     * @ORM\Column(name="address", type="string", length=255, nullable=false)
      */
-    protected $address;
-    
+    private $address;
+
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     * @ORM\Column(name="postalcode", type="string", length=255, nullable=false)
      */
-    protected $postalCode;
-    
+    private $postalcode;
+
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     * @ORM\Column(name="city", type="string", length=255, nullable=false)
      */
-    protected $city;
-    
+    private $city;
+
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     * @ORM\Column(name="country", type="string", length=255, nullable=false)
      */
-    protected $country;
+    private $country;
     
     /**
      * @ORM\OneToMany(targetEntity="Property", mappedBy="asl")
      * @var Property[]
      */
-    protected $properties;
+    private $properties;
     
     /**
-     * @ORM\OneToMany(targetEntity="MembershipFee", mappedBy="asl")
-     * @var MembershipFee[]
+     * @ORM\OneToMany(targetEntity="Membershipfee", mappedBy="asl")
+     * @var Membershipfee[]
      */
-    protected $membershipfees;
+    private $membershipfees;
     
-    /**
-     * @ORM\ManyToMany(targetEntity="Owner", cascade={"persist"})
-     * @var Owner[]
-     */
-    protected $owners;
     
-    /**
-     * @ORM\ManyToMany(targetEntity="Resident", cascade={"persist"})
-     * @var Resident[]
-     */
-    protected $residents;
-  
-
     public function __construct()
     {
         $this->properties = new ArrayCollection();
-        $this->owners = new ArrayCollection();
-        $this->residents = new ArrayCollection();
         $this->membershipfees = new ArrayCollection();
     }
+            
+    function setName($name) {
+        $this->name = $name;
+    }
+
+    function setAddress($address) {
+        $this->address = $address;
+    }
+
+    function setPostalcode($postalcode) {
+        $this->postalcode = $postalcode;
+    }
+
+    function setCity($city) {
+        $this->city = $city;
+    }
+
+    function setCountry($country) {
+        $this->country = $country;
+    }
     
-    public function getId()
-    {
+    function getId() {
         return $this->id;
     }
 
-    public function getName()
-    {
+    function getName() {
         return $this->name;
     }
 
-    public function getAddress()
-    {
+    function getAddress() {
         return $this->address;
     }
-    
-    public function getPostalCode()
-    {
-        return $this->postalCode;
+
+    function getPostalcode() {
+        return $this->postalcode;
     }
 
-    public function getCity()
-    {
+    function getCity() {
         return $this->city;
     }
 
-    public function getCountry()
-    {
+    function getCountry() {
         return $this->country;
     }
     
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function setAddress($address)
-    {
-        $this->address = $address;
-        return $this;
-    }
-    
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-        return $this;
-    }
-
-    public function setCity($city)
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    public function setCountry($country)
-    {
-        $this->country = $country;
-        return $this;
-    }
-    
-    public function getProperties()
-    {
+    function getProperties() {
         return $this->properties;
     }
-    
-    public function getMembershipFees()
-    {
+
+    function getMembershipfees() {
         return $this->membershipfees;
     }
-    
-    public function addOwner(Owner $owner)
-    {
-        $this->owners[] = $owner;
-        return $this;
-    }
 
-    public function removeOwner(Owner $owner)
-    {
-        $this->owners->removeElement($owner);
-    }
-    
-    public function getOwners()
-    {
-        return $this->owners;
-    }
-    
-    public function addResident(Resident $resident)
-    {
-        $this->residents[] = $resident;
-        return $this;
-    }
-
-    public function removeResident(Resident $resident)
-    {
-        $this->residents->removeElement($resident);
-    }
-    
-    public function getResidents()
-    {
-        return $this->residents;
-    }  
 }
+

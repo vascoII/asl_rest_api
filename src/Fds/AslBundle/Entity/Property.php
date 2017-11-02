@@ -3,112 +3,119 @@
 namespace Fds\AslBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * @ORM\Entity()
- * @ORM\Table(name="properties",
- *      uniqueConstraints={
- *          @ORM\UniqueConstraint(
- *              name="properties_number_asl_owner_unique",
- *              columns={"number", "asl_id"}
- *          )
- *      }
- * )
+ * Property
+ *
+ * @ORM\Table(name="property", indexes={@ORM\Index(name="FK_8BF21CDE24E8B3DA", columns={"asl_id"}), @ORM\Index(name="FK_8BF21CDE9C81C6EB", columns={"propertytype_id"})})
+ * @ORM\Entity
  */
 class Property
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="number", type="string", length=255, nullable=false)
      */
-    protected $number;
+    private $number;
 
     /**
-     * @ORM\Column(type="string")
+     * @var \Fds\AslBundle\Entity\Propertytype
+     *
+     * @ORM\ManyToOne(targetEntity="Propertytype")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="propertytype_id", referencedColumnName="id")
+     * })
      */
-    protected $type;
+    private $propertytype;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Asl", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @var Asl
+     *
+     * @ORM\ManyToOne(targetEntity="Asl")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="asl_id", referencedColumnName="id")
+     * })
      */
-    protected $asl;
+    private $asl;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Resident", inversedBy="property")
+     * @ORM\JoinTable(name="property_resident",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="resident_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $residents;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Owner", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Owner", inversedBy="property")
+     * @ORM\JoinTable(name="property_owner",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    protected $owner;
-    
+    private $owners;
+
     /**
-     * @ORM\ManyToOne(targetEntity="Resident", inversedBy="properties")
-     * @ORM\JoinColumn(nullable=false)
+     * Constructor
      */
-    protected $resident;
-    
-    public function getId()
+    public function __construct()
     {
+        $this->residents = new ArrayCollection();
+        $this->owners = new ArrayCollection();
+    }
+    
+    function setNumber($number) {
+        $this->number = $number;
+    }
+    
+    function getId() {
         return $this->id;
     }
 
-    public function setNumber($number)
-    {
-        $this->number = $number;
-        return $this;
-    }
-
-    public function getNumber()
-    {
+    function getNumber() {
         return $this->number;
     }
 
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
+    function getPropertytype() {
+        return $this->propertytype;
     }
 
-    public function getType()
-    {
-        return $this->type;
-    }
-    
-    public function setAsl(Asl $asl)
-    {
-        $this->asl = $asl;
-        return $this;
-    }
-
-    public function getAsl()
-    {
+    function getAsl() {
         return $this->asl;
     }
-    
-    public function setOwner(Owner $owner)
-    {
-        $this->owner = $owner;
-        return $this;
-    }
 
-    public function getOwner()
-    {
-        return $this->owner;
+    function getResidents() {
+        return $this->residents;
     }
     
-    public function setResident(Resident $resident)
-    {
-        $this->resident = $resident;
-        return $this;
+    function getOwners() {
+        return $this->owners;
     }
 
-    public function getResident()
-    {
-        return $this->resident;
-    }
+
 }
 

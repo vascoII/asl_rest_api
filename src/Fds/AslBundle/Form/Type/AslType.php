@@ -15,7 +15,7 @@ class AslType extends AbstractType
     {
         $builder->add('name')
                 ->add('address')
-                ->add('postalCode')
+                ->add('postalcode')
                 ->add('city')
                 ->add('country');
     }

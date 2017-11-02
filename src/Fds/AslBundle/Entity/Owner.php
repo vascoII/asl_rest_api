@@ -3,197 +3,183 @@
 namespace Fds\AslBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * @ORM\Entity()
- * @ORM\Table(name="owners",
- *      uniqueConstraints={
- *          @ORM\UniqueConstraint(
- *              name="owner_firstName_lastName_email_unique",columns={"first_name", "last_name", "email"}
- *          )
- *      }
- * )
+ * Owner
+ *
+ * @ORM\Table(name="owner")
+ * @ORM\Entity
  */
 class Owner
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="firstName", type="string", length=255, nullable=false)
      */
-    protected $firstName;
+    private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="lastName", type="string", length=255, nullable=false)
      */
-    protected $lastName;
+    private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
-    protected $email;
+    private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
      */
-    protected $phone;
+    private $phone;
 
     /**
-     * @ORM\Column(type="boolean", unique=false, nullable=false)
+     * @var boolean
+     *
+     * @ORM\Column(name="propertyAsAddress", type="boolean", nullable=true)
      */
-    protected $propertyAsAdress;
+    private $propertyasaddress;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=false)
      */
-    protected $address;
+    private $address;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="postalcode", type="string", length=255, nullable=false)
      */
-    protected $postalCode;
+    private $postalcode;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=255, nullable=false)
      */
-    protected $city;
+    private $city;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=false, nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=255, nullable=false)
      */
-    protected $country;
+    private $country;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Fds\AslBundle\Entity\Property", mappedBy="resident")
+     */
+    private $property;
 
     /**
-     * @ORM\OneToMany(targetEntity="Property", mappedBy="owner")
-     * @var Property[]
+     * Constructor
      */
-    protected $properties;
-
     public function __construct()
     {
-        $this->properties = new ArrayCollection();
+        $this->property = new ArrayCollection();
+    }
+
+
+    function setFirstname($firstname) {
+        $this->firstname = $firstname;
+    }
+
+    function setLastname($lastname) {
+        $this->lastname = $lastname;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
+    function setPhone($phone) {
+        $this->phone = $phone;
+    }
+
+    function setPropertyasaddress($propertyasaddress) {
+        $this->propertyasaddress = $propertyasaddress;
+    }
+
+    function setAddress($address) {
+        $this->address = $address;
+    }
+
+    function setPostalcode($postalcode) {
+        $this->postalcode = $postalcode;
+    }
+
+    function setCity($city) {
+        $this->city = $city;
+    }
+
+    function setCountry($country) {
+        $this->country = $country;
     }
     
-    public function getId()
-    {
+    function getId() {
         return $this->id;
     }
 
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
+    function getFirstname() {
+        return $this->firstname;
     }
 
-    public function getFirstName()
-    {
-        return $this->firstName;
+    function getLastname() {
+        return $this->lastname;
     }
 
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getEmail()
-    {
+    function getEmail() {
         return $this->email;
     }
 
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getPhone()
-    {
+    function getPhone() {
         return $this->phone;
     }
 
-    public function setPropertyAsAdress($propertyAsAdress)
-    {
-        $this->propertyAsAdress = $propertyAsAdress;
-
-        return $this;
+    function getPropertyasaddress() {
+        return $this->propertyasaddress;
     }
 
-    public function getPropertyAsAdress()
-    {
-        return $this->propertyAsAdress;
-    }
-
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getAddress()
-    {
+    function getAddress() {
         return $this->address;
     }
 
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
+    function getPostalcode() {
+        return $this->postalcode;
     }
 
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCity()
-    {
+    function getCity() {
         return $this->city;
     }
 
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getCountry()
-    {
+    function getCountry() {
         return $this->country;
     }
     
-    public function getProperties()
-    {
-        return $this->properties;
+    function getProperty() {
+        return $this->property;
     }
+
 }
 

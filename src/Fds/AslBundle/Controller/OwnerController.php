@@ -17,6 +17,8 @@ class OwnerController extends Controller
      */
     public function getOwnersAction(Request $request)
     {
+        $owners = [];
+        
         $asl = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('FdsAslBundle:Asl')
                 ->findAll($request->get('asl_id'));
@@ -25,8 +27,19 @@ class OwnerController extends Controller
         if (empty((array) $asl)) {
             return $this->aslNotFound();
         }
-
-        return $asl->getOwners();
+        
+        $properties = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('FdsAslBundle:Property')
+            ->findByAsl($request->get('asl_id'));
+        
+        if (empty((array) $properties)) {
+            return $this->propertyNotFound();
+        }
+        
+        foreach($properties as $property){
+            $owners[] = $property->getOwners();
+        }
+        return $owners;
     }
     
     /**
@@ -166,6 +179,14 @@ class OwnerController extends Controller
         );
     }
     
+    private function propertyNotFound()
+    {
+        return FOSView::create(
+            ['message' => 'Properties not found'], 
+            Response::HTTP_NOT_FOUND
+        );
+    }
+            
     private function ownerNotFound()
     {
         return FOSView::create(

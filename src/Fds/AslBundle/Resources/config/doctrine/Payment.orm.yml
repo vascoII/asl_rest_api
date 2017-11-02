@@ -1,0 +1,95 @@
+Fds\AslBundle\Entity\Payment:
+    type: entity
+    table: payment
+    indexes:
+        FK_6D28840DDC058279:
+            columns:
+                - payment_type_id
+        FK_6D28840D549213EC:
+            columns:
+                - property_id
+        FK_6D28840D2DB0665B:
+            columns:
+                - membershipfee_id
+    id:
+        id:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        amount:
+            type: decimal
+            nullable: false
+            precision: 6
+            scale: 2
+        checknumber:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: checkNumber
+        banque:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        checkname:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: checkName
+        receiptdate:
+            type: date
+            nullable: false
+            column: receiptDate
+        bankingdate:
+            type: date
+            nullable: false
+            column: bankingDate
+        imageurl:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: imageUrl
+    manyToOne:
+        membershipfee:
+            targetEntity: Membershipfee
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                membershipfee_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        property:
+            targetEntity: Property
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                property_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        paymentType:
+            targetEntity: Paymenttype
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                payment_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

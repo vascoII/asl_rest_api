@@ -30,9 +30,9 @@ class Property
     private $number;
 
     /**
-     * @var \Fds\AslBundle\Entity\Propertytype
+     * @var Propertytype
      *
-     * @ORM\ManyToOne(targetEntity="Propertytype")
+     * @ORM\ManyToOne(targetEntity="Propertytype", inversedBy="properties")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="propertytype_id", referencedColumnName="id")
      * })
@@ -42,7 +42,7 @@ class Property
     /**
      * @var Asl
      *
-     * @ORM\ManyToOne(targetEntity="Asl")
+     * @ORM\ManyToOne(targetEntity="Asl", inversedBy="properties")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="asl_id", referencedColumnName="id")
      * })
@@ -52,30 +52,16 @@ class Property
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Resident", inversedBy="properties")
-     * @ORM\JoinTable(name="property_resident",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="resident_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity="Resident", cascade={"persist"})
+     *  
      */
     private $residents;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Owner", inversedBy="properties")
-     * @ORM\JoinTable(name="property_owner",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity="Owner", cascade={"persist"})
+     * 
      */
     private $owners;
 

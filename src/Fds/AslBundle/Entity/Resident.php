@@ -50,20 +50,7 @@ class Resident
      */
     private $phone;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Property", inversedBy="residents")
-     * @ORM\JoinTable(name="property_resident",
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="resident_id", referencedColumnName="id")
-     *   },
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $properties;
+    
 
     /**
      * Constructor

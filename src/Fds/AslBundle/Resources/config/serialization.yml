@@ -14,9 +14,9 @@ Fds\AslBundle\Entity\Asl:
         country:
             groups: ['asls','asl', 'property', 'membershipfee']
         properties:
-            groups: ['asl', 'property']
+            groups: ['asl']
         membershipfees:
-            groups: ['asl','membershipfee']
+            groups: ['asl']
 
 Fds\AslBundle\Entity\Property:
     attributes:
@@ -32,6 +32,15 @@ Fds\AslBundle\Entity\Property:
             groups: ['asl', 'property', 'owner']
         residents:
             groups: ['asl', 'property', 'resident']
+            
+Fds\AslBundle\Entity\Propertytype:
+    attributes:
+        id:
+            groups: ['asl', 'property', 'propertytype']
+        type:
+            groups: ['asl', 'property', 'propertytype']
+        properties:
+            groups: ['propertytype']
             
 Fds\AslBundle\Entity\MembershipFee:
     attributes:

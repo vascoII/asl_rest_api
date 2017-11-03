@@ -3,6 +3,7 @@
 namespace Fds\AslBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Propertytype
@@ -28,6 +29,16 @@ class Propertytype
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Property", mappedBy="propertytype")
+     * @var Property[]
+     */
+    private $properties;
+    
+    public function __construct()
+    {
+        $this->properties = new ArrayCollection();
+    }
 
     function setType($type) {
         $this->type = $type;
@@ -39,6 +50,10 @@ class Propertytype
 
     function getType() {
         return $this->type;
+    }
+    
+    function getProperties() {
+        return $this->properties;
     }
 
 

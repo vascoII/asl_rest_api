@@ -85,20 +85,7 @@ class Owner
      */
     private $country;
     
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Property", inversedBy="owners")
-     * @ORM\JoinTable(name="property_owner",
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
-     *   },
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
-     *   }
-     * )
-     */
-    private $properties;
+   
 
     /**
      * Constructor

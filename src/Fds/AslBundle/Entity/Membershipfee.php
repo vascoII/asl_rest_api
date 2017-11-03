@@ -5,43 +5,37 @@ namespace Fds\AslBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Membershipfee
- *
- * @ORM\Table(name="membershipfee", indexes={@ORM\Index(name="FK_EFBBF54824E8B3DA", columns={"asl_id"})})
- * @ORM\Entity
+ * @ORM\Entity()
+ * @ORM\Table(name="membershipfee",
+ *      uniqueConstraints={@ORM\UniqueConstraint(
+ *          name="year_asl_unique", columns={"year", "asl_id"})
+ *      }
+ * )
  */
 class Membershipfee
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     private $id;
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="year", type="date", nullable=false)
      */
     private $year;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="fee", type="decimal", precision=6, scale=2, nullable=true)
      */
     private $fee;
 
     /**
      * @var Asl
-     *
      * @ORM\ManyToOne(targetEntity="Asl", inversedBy="membershipfees")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="asl_id", referencedColumnName="id")
-     * })
      */
     private $asl;
 

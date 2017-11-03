@@ -13,6 +13,10 @@ Fds\AslBundle\Entity\Asl:
             groups: ['asls','asl', 'property', 'membershipfee']
         country:
             groups: ['asls','asl', 'property', 'membershipfee']
+        properties:
+            groups: ['asl', 'property']
+        membershipfees:
+            groups: ['asl','membershipfee']
 
 Fds\AslBundle\Entity\Property:
     attributes:

@@ -83,7 +83,7 @@ class Payment
     /**
      * @var \Fds\AslBundle\Entity\Property
      *
-     * @ORM\ManyToOne(targetEntity="Fds\AslBundle\Entity\Property")
+     * @ORM\ManyToOne(targetEntity="Property")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="property_id", referencedColumnName="id")
      * })
@@ -93,7 +93,7 @@ class Payment
     /**
      * @var \Fds\AslBundle\Entity\Paymenttype
      *
-     * @ORM\ManyToOne(targetEntity="Fds\AslBundle\Entity\Paymenttype")
+     * @ORM\ManyToOne(targetEntity="Paymenttype")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="payment_type_id", referencedColumnName="id")
      * })

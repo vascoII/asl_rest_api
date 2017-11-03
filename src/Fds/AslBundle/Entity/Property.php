@@ -52,7 +52,7 @@ class Property
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Resident", inversedBy="property")
+     * @ORM\ManyToMany(targetEntity="Resident", inversedBy="properties")
      * @ORM\JoinTable(name="property_resident",
      *   joinColumns={
      *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
@@ -67,7 +67,7 @@ class Property
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Owner", inversedBy="property")
+     * @ORM\ManyToMany(targetEntity="Owner", inversedBy="properties")
      * @ORM\JoinTable(name="property_owner",
      *   joinColumns={
      *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")

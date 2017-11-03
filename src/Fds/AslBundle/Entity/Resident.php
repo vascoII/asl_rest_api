@@ -53,16 +53,24 @@ class Resident
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Fds\AslBundle\Entity\Property", mappedBy="resident")
+     * @ORM\ManyToMany(targetEntity="Property", inversedBy="residents")
+     * @ORM\JoinTable(name="property_resident",
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="resident_id", referencedColumnName="id")
+     *   },
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="property_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $property;
+    private $properties;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->property = new ArrayCollection();
+        $this->properties = new ArrayCollection();
     }
     
     function setFirstname($firstname) {
@@ -101,8 +109,8 @@ class Resident
         return $this->phone;
     }
 
-    function getProperty() {
-        return $this->property;
+    function getProperties() {
+        return $this->properties;
     }
 
 }

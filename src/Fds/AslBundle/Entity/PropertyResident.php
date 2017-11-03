@@ -5,12 +5,12 @@ namespace Fds\AslBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PropertyOwner
+ * PropertyResident
  *
- * @ORM\Table(name="property_owner", indexes={@ORM\Index(name="owner_property_fk", columns={"owner_id"})})
+ * @ORM\Table(name="property_resident", indexes={@ORM\Index(name="resident_property_fk", columns={"resident_id"})})
  * @ORM\Entity
  */
-class PropertyOwner
+class PropertyResident
 {
     /**
      * @var integer
@@ -24,11 +24,11 @@ class PropertyOwner
     /**
      * @var integer
      *
-     * @ORM\Column(name="owner_id", type="bigint")
+     * @ORM\Column(name="resident_id", type="bigint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
-    private $ownerId;
+    private $residentId;
 
     /**
      * @var \DateTime
@@ -57,8 +57,8 @@ class PropertyOwner
         return $this->propertyId;
     }
 
-    function getOwnerId() {
-        return $this->ownerId;
+    function getResidentId() {
+        return $this->residentId;
     }
 
     function getStartdate() {

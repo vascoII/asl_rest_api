@@ -41,7 +41,15 @@ class AslController extends Controller
                 Response::HTTP_NOT_FOUND
             );
         }
-        
+        /**
+         * Return 
+         * {
+            "asl_properties",
+            "properties",
+                "owners",
+                "residents"
+            "membershipfees"
+         */
         return $asl;
     }
     

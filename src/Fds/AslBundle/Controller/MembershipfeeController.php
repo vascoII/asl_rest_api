@@ -7,15 +7,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as FOSRest; 
 use FOS\RestBundle\View\View as FOSView; 
-use Fds\AslBundle\Form\Type\MembershipFeeType;
-use Fds\AslBundle\Entity\MembershipFee;
+use Fds\AslBundle\Form\Type\MembershipfeeType;
+use Fds\AslBundle\Entity\Membershipfee;
 
-class MembershipFeeController extends Controller
+class MembershipfeeController extends Controller
 {
     /**
      * @FOSRest\View(serializerGroups={"membershipfee"})
      */
-    public function getMembershipFeesAction(Request $request)
+    public function getMembershipfeesAction(Request $request)
     {
         $asl = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('FdsAslBundle:Asl')
@@ -23,10 +23,13 @@ class MembershipFeeController extends Controller
         /* @var $asl Asl */
 
         if (empty((array) $asl)) {
-            return $this->aslNotFound();
+            return FOSView::create(
+                ['message' => 'Asl not found'], 
+                Response::HTTP_NOT_FOUND
+            );
         }
-
-        return $asl->getMembershipFees();
+        
+        return $asl->getMembershipfees();
     }
     
     /**
@@ -35,10 +38,10 @@ class MembershipFeeController extends Controller
      *     serializerGroups={"membershipfee"}
      *  )
      */
-    public function postMembershipFeeAction(Request $request)
+    public function postMembershipfeeAction(Request $request)
     {
-        $membershipfee = new MembershipFee();
-        $form = $this->createForm(MembershipFeeType::class, $membershipfee);
+        $membershipfee = new Membershipfee();
+        $form = $this->createForm(MembershipfeeType::class, $membershipfee);
 
         $form->submit($request->request->all());
 
@@ -55,23 +58,23 @@ class MembershipFeeController extends Controller
     /**
      * @FOSRest\View(serializerGroups={"membershipfee"})
      */
-    public function putMembershipFeeAction(Request $request)
+    public function putMembershipfeeAction(Request $request)
     {
-        return $this->updateMembershipFee($request, true);
+        return $this->updateMembershipfee($request, true);
     }
     
     /**
      * @FOSRest\View(serializerGroups={"membershipfee"})
      */
-    public function patchMembershipFeeAction(Request $request)
+    public function patchMembershipfeeAction(Request $request)
     {
-        return $this->updateMembershipFee($request, false);
+        return $this->updateMembershipfee($request, false);
     }
     
-    private function updateMembershipFee(Request $request, $clearMissing)
+    private function updateMembershipfee(Request $request, $clearMissing)
     {
         $membershipfee = $this->get('doctrine.orm.entity_manager')
-                ->getRepository('FdsAslBundle:MembershipFee')
+                ->getRepository('FdsAslBundle:Membershipfee')
                 ->find($request->get('membershipfee_id'));
         /* @var $membershipfee MembershipFee */
 
@@ -82,7 +85,7 @@ class MembershipFeeController extends Controller
             );
         }
         
-        $form = $this->createForm(MembershipFeeType::class, $membershipfee);
+        $form = $this->createForm(MembershipfeeType::class, $membershipfee);
 
         $form->submit($request->request->all(), $clearMissing);
 

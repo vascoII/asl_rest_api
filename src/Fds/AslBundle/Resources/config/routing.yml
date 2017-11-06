@@ -90,7 +90,7 @@ get_owner:
         asl_id: '\d+'
         property_id: '\d+'
 post_owner:
-    path:     /asls/{asl_id}/owners
+    path:     /owners
     defaults: { _controller: FdsAslBundle:Owner:postOwners }
     methods:  [POST]
     requirements:
@@ -135,7 +135,7 @@ get_resident:
         property_id: '\d+'
         resident_id: '\d+'
 post_resident:
-    path:     /asls/{asl_id}/residents
+    path:     /residents
     defaults: { _controller: FdsAslBundle:Resident:postResidents }
     methods:  [POST]
     requirements:
@@ -167,33 +167,33 @@ patch_resident:
 #Routing for MembershipFee Entity        
 get_membershipfee:
     path:     /asls/{asl_id}/membershipfees
-    defaults: { _controller: FdsAslBundle:MembershipFee:getMembershipFees }
+    defaults: { _controller: FdsAslBundle:Membershipfee:getMembershipFees }
     methods:  [GET]
     requirements:
         asl_id: '\d+'
 post_membershipfee:
     path:     /asls/{asl_id}/membershipfees
-    defaults: { _controller: FdsAslBundle:MembershipFee:postMembershipFee }
+    defaults: { _controller: FdsAslBundle:Membershipfee:postMembershipFee }
     methods:  [POST]
     requirements:
         asl_id: '\d+'
 delete_membershipfee:
     path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
-    defaults: { _controller: FdsAslBundle:MembershipFee:deleteMembershipFee }
+    defaults: { _controller: FdsAslBundle:Membershipfee:deleteMembershipFee }
     methods:  [DELETE]
     requirements:
         asl_id: '\d+'
         membershipfee_id: '\d+'
 put_membershipfee:
     path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
-    defaults: { _controller: FdsAslBundle:MembershipFee:putMembershipFee }
+    defaults: { _controller: FdsAslBundle:Membershipfee:putMembershipFee }
     methods:  [PUT]
     requirements:
         asl_id: '\d+'
         membershipfee_id: '\d+'
 patch_membershipfee:
     path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
-    defaults: { _controller: FdsAslBundle:MembershipFee:patchMembershipFee }
+    defaults: { _controller: FdsAslBundle:Membershipfee:patchMembershipFee }
     methods:  [PATCH]
     requirements:
         asl_id: '\d+'

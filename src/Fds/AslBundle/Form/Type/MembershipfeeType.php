@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MembershipFeeType extends AbstractType
+class MembershipfeeType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,7 +20,7 @@ class MembershipFeeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Fds\AslBundle\Entity\MembershipFee',
+            'data_class' => 'Fds\AslBundle\Entity\Membershipfee',
             'csrf_protection' => false
         ]);
     }

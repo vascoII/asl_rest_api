@@ -17,6 +17,8 @@ class ResidentController extends Controller
      */
     public function getResidentsAction(Request $request)
     {
+        $residents = [];
+        
         $asl = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('FdsAslBundle:Asl')
                 ->findAll($request->get('asl_id'));
@@ -25,8 +27,19 @@ class ResidentController extends Controller
         if (empty((array) $asl)) {
             return $this->aslNotFound();
         }
-
-        return $asl->getResidents();
+        
+        $properties = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('FdsAslBundle:Property')
+            ->findByAsl($request->get('asl_id'));
+        
+        if (empty((array) $properties)) {
+            return $this->propertyNotFound();
+        }
+        
+        foreach($properties as $property){
+            $residents[] = $property->getResidents();
+        }
+        return $residents;
     }
     
     /**

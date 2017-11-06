@@ -36,6 +36,9 @@ class Membershipfee
     /**
      * @var Asl
      * @ORM\ManyToOne(targetEntity="Asl", inversedBy="membershipfees")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="asl_id", referencedColumnName="id")
+     * })
      */
     private $asl;
 
@@ -48,10 +51,6 @@ class Membershipfee
         $this->fee = $fee;
     }
 
-    function setAsl(Asl $asl) {
-        $this->asl = $asl;
-    }
-    
     function getId() {
         return $this->id;
     }

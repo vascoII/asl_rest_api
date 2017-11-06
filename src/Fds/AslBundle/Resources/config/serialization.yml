@@ -36,20 +36,20 @@ Fds\AslBundle\Entity\Property:
 Fds\AslBundle\Entity\Propertytype:
     attributes:
         id:
-            groups: ['asl', 'property', 'propertytype']
+            groups: ['asl', 'property', 'propertytype', 'owner', 'resident']
         type:
-            groups: ['asl', 'property', 'propertytype']
+            groups: ['asl', 'property', 'propertytype', 'owner', 'resident']
         properties:
             groups: ['propertytype']
             
-Fds\AslBundle\Entity\MembershipFee:
+Fds\AslBundle\Entity\Membershipfee:
     attributes:
         id:
-            groups: ['asl', 'membershipfee']
+            groups: ['asl', 'property','membershipfee']
         year:
-            groups: ['asl', 'membershipfee']
+            groups: ['asl', 'property','membershipfee']
         fee:
-            groups: ['asl', 'membershipfee']
+            groups: ['asl', 'property','membershipfee']
         asl:
             groups: ['membershipfee']
             

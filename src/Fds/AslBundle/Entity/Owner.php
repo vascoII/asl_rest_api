@@ -53,35 +53,35 @@ class Owner
     /**
      * @var boolean
      *
-     * @ORM\Column(name="propertyAsAddress", type="boolean", nullable=true)
+     * @ORM\Column(name="propertyAsAddress", type="boolean", nullable=false)
      */
     private $propertyasaddress;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="postalcode", type="string", length=255, nullable=false)
+     * @ORM\Column(name="postalcode", type="string", length=255, nullable=true)
      */
     private $postalcode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255, nullable=false)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255, nullable=false)
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
      */
     private $country;
     

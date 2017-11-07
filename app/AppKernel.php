@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new AppBundle\AppBundle(),
             new Fds\AslBundle\FdsAslBundle(),
+            new Fds\AslMongoBundle\FdsAslMongoBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),            
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

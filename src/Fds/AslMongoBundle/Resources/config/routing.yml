@@ -1,0 +1,3 @@
+fds_asl_mongo_homepage:
+    path:     /
+    defaults: { _controller: FdsAslMongoBundle:Default:index }

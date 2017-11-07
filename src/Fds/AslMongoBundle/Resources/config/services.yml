@@ -1,0 +1,4 @@
+services:
+#    fds_asl_mongo.example:
+#        class: Fds\AslMongoBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

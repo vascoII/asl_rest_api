@@ -1,7 +1,3 @@
-fds_asl_mongo:
-    resource: "@FdsAslMongoBundle/Resources/config/routing.yml"
-    prefix:   /
-
 fds_asl:
     resource: "@FdsAslBundle/Resources/config/routing.yml"
     prefix:   /

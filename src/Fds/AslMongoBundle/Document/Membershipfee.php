@@ -2,25 +2,25 @@
 
 namespace Fds\AslMongoBundle\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @MongoDB\Document(collection="membershipfee")
+ * @ODM\Document(collection="membershipfee")
  */
 class Membershipfee
 {
     /**
-     * @Id(strategy="NONE", type="string")
+     * @ODM\Id(strategy="NONE", type="string")
      */
     private $id;
 
     /**
-     * @MongoDB\Field(type="date")
+     * @ODM\Field(type="date")
      */
     private $year;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $fee;
 

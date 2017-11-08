@@ -2,11 +2,9 @@
 
 namespace Fds\AslMongoBundle\Repository;
 
-/**
- * AslRepository
- *
- */
-class AslRepository extends \Doctrine\ODM\MongoDB\DocumentRepository
+use Doctrine\ODM\MongoDB\DocumentRepository;
+
+class AslRepository extends DocumentRepository
 {
     
 }

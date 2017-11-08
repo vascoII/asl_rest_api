@@ -2,51 +2,51 @@
 
 namespace Fds\AslMongoBundle\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @MongoDB\Document(collection="asl")
+ * @ODM\Document(collection="asl")
  */
 class Asl
 {
     /**
-     * @Id(strategy="NONE", type="string")
+     * @ODM\Id(strategy="NONE", type="string")
      */
     private $id;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $name;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $address;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $postalCode;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $city;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $country;
     
     /**
-     * @EmbedMany(targetDocument="Property")
+     * @ODM\EmbedMany(targetDocument="Property")
      */
     private $properties;
     
     /**
-     * @EmbedMany(targetDocument="Membershipfee")
+     * @ODM\EmbedMany(targetDocument="Membershipfee")
      */
     private $membershipfees;
     

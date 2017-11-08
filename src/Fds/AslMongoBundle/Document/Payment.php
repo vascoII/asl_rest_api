@@ -2,60 +2,60 @@
 
 namespace Fds\AslMongoBundle\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @MongoDB\Document(collection="payment")
+ * @ODM\Document(collection="payment")
  */
 class Payment
 {
     /**
-     * @Id(strategy="NONE", type="string")
+     * @ODM\Id(strategy="NONE", type="string")
      */
     private $id;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $amount;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $paymentType;
     
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $checkNumber;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $banque;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $checkName;
 
     /**
-     * @MongoDB\Field(type="date")
+     * @ODM\Field(type="date")
      */
     private $receiptDate;
 
     /**
-     * @MongoDB\Field(type="date")
+     * @ODM\Field(type="date")
      */
     private $bankingDate;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $imageUrl;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $membershipfeeId;
 

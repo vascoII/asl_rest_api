@@ -122,5 +122,38 @@ class AslController extends Controller
             return $form;
         }
     }
+    
+    /**
+     * 
+     * @param Request $request
+     * @return Asl
+     */
+    public function testAction(Request $request)
+    { 
+//        // connect
+//        $dm = $this->container->get('doctrine_mongodb.odm.default_connection');
+//        // select a database
+//        $db = $dm->selectDatabase('asl_rest_api');
+//        // select a collection (analogous to a relational database's table)
+//        $collection = $db->createCollection('asl');
+//        // add a record
+//        $document = $request->request->all();
+//        $collection->insert($document);
+        
+        $asl = new Asl();
+        $form = $this->createForm(AslType::class, $asl);
+
+        $form->submit($request->request->all()); 
+
+        if ($form->isValid()) {
+            $dm = $this->get('doctrine_mongodb')->getManager();
+            $dm->persist($asl);
+            $dm->flush();
+            return $asl;
+        } else {
+            var_dump($form);
+            die();
+        }
+    }
 
 }

@@ -2,35 +2,35 @@
 
 namespace Fds\AslMongoBundle\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @MongoDB\Document(collection="resident")
+ * @ODM\Document(collection="resident")
  */
 class Resident
 {
     /**
-     * @Id(strategy="NONE", type="string")
+     * @ODM\Id(strategy="NONE", type="string")
      */
     private $id;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $firstName;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $lastName;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $email;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
     private $phone;
 

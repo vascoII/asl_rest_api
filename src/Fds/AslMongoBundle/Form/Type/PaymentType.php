@@ -15,12 +15,12 @@ class PaymentType extends AbstractType
     {
         $builder->add('id')
                 ->add('amount')
-                ->add('checknumber')
+                ->add('checkNumber')
                 ->add('banque')
-                ->add('checkname')
-                ->add('receiptdate')
-                ->add('bankingdate')
-                ->add('imageurl')
+                ->add('checkName')
+                ->add('receiptDate')
+                ->add('bankingDate')
+                ->add('imageUrl')
                 ->add('membershipfeeId');
     }
     

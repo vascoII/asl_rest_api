@@ -18,9 +18,9 @@ class OwnerType extends AbstractType
                 ->add('lastName')
                 ->add('email')
                 ->add('phone')
-                ->add('propertyasaddress')
+                ->add('propertyAsAddress')
                 ->add('address')
-                ->add('postalcode')
+                ->add('postalCode')
                 ->add('city')
                 ->add('country');
     }

@@ -1,7 +1,12 @@
 fds_asl_homepage:
     path:     /
     defaults: { _controller: FdsAslMongoBundle:Default:index }
-#Routing for Asl Entity
+
+post_test:
+    path:     /test
+    defaults: { _controller: FdsAslMongoBundle:Asl:test }
+    methods:  [POST]
+    
 get_asls:
     path:     /asls
     defaults: { _controller: FdsAslMongoBundle:Asl:getAsls }

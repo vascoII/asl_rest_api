@@ -3,9 +3,10 @@
 namespace Fds\AslMongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @MongoDB\Document(collection="resident")
+ * @MongoDB\Document(collection="owner")
  */
 class Owner
 {
@@ -58,6 +59,17 @@ class Owner
      * @MongoDB\Field(type="string")
      */
     private $country;
+    
+    /**
+     * @EmbedMany(targetDocument="Payment")
+     */
+    private $payments;
+    
+    
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+    }
     
     
     public function setId($id)

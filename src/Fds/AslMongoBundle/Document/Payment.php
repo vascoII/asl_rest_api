@@ -3,7 +3,6 @@
 namespace Fds\AslMongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @MongoDB\Document(collection="payment")
@@ -20,6 +19,11 @@ class Payment
      */
     private $amount;
 
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $paymentType;
+    
     /**
      * @MongoDB\Field(type="string")
      */
@@ -51,35 +55,14 @@ class Payment
     private $imageurl;
 
     /**
-     * @var \Fds\AslBundle\Entity\Membershipfee
-     *
-     * @ORM\ManyToOne(targetEntity="Fds\AslBundle\Entity\Membershipfee")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="membershipfee_id", referencedColumnName="id")
-     * }) 
+     * @MongoDB\Field(type="string")
      */
-    private $membershipfee;
+    private $membershipfeeId;
 
-    /**
-     * @var \Fds\AslBundle\Entity\Property
-     *
-     * @ORM\ManyToOne(targetEntity="Property")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="property_id", referencedColumnName="id")
-     * })
-     */
-    private $property;
-
-    /**
-     * @var \Fds\AslBundle\Entity\Paymenttype
-     *
-     * @ORM\ManyToOne(targetEntity="Paymenttype")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="payment_type_id", referencedColumnName="id")
-     * })
-     */
-    private $paymentType;
-
+    
+    function setId($id) {
+        $this->id = $id;
+    }
 
     function setAmount($amount) {
         $this->amount = $amount;
@@ -109,18 +92,10 @@ class Payment
         $this->imageurl = $imageurl;
     }
 
-    function setMembershipfee(Membershipfee $membershipfee) {
-        $this->membershipfee = $membershipfee;
+    function setMembershipfeeId($membershipfeeId) {
+        $this->membershipfeeId = $membershipfeeId;
     }
 
-    function setProperty(Property $property) {
-        $this->property = $property;
-    }
-
-    function setPaymentType(Paymenttype $paymentType) {
-        $this->paymentType = $paymentType;
-    }
-    
     function getId() {
         return $this->id;
     }
@@ -153,18 +128,9 @@ class Payment
         return $this->imageurl;
     }
 
-    function getMembershipfee() {
-        return $this->membershipfee;
+    function getMembershipfeeId() {
+        return $this->membershipfeeId;
     }
 
-    function getProperty() {
-        return $this->property;
-    }
-
-    function getPaymentType() {
-        return $this->paymentType;
-    }
-
-    
 }
 

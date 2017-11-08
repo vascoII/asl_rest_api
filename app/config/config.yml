@@ -60,7 +60,16 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-
+        
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%mongodb_server%"
+            options: {}
+    default_database: asl_rest_api  
+    document_managers:
+        default:
+            auto_mapping: true
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -77,13 +86,3 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
-            
-doctrine_mongodb:
-    connections:
-        default:
-            server: "%mongodb_server%"
-            options: {}
-    default_database: asl_rest_api  
-    document_managers:
-        default:
-            auto_mapping: true

@@ -86,3 +86,13 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+        
+doctrine_mongodb:
+    connections:
+        default:
+            server: "%mongodb_server%"
+            options: {}
+    default_database: test_database
+    document_managers:
+        default:
+            auto_mapping: true

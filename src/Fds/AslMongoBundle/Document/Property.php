@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ODM\Document(collection="property")
+ * @ODM\Document
  */
 class Property
 {
@@ -26,12 +26,12 @@ class Property
     private $propertyType;
 
     /**
-     * @EmbedMany(targetDocument="Owner")
+     * @ODM\ReferenceMany(targetDocument="Resident", mappedBy="property")
      */
     private $residents;
     
     /**
-     * @EmbedMany(targetDocument="Owner")
+     * @ODM\ReferenceMany(targetDocument="Owner", mappedBy="property")
      */
     private $owners;
 

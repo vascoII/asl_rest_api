@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ODM\Document(collection="owner")
+ * @ODM\Document
  */
 class Owner
 {
@@ -61,7 +61,7 @@ class Owner
     private $country;
     
     /**
-     * @EmbedMany(targetDocument="Payment")
+     * @ODM\ReferenceMany(targetDocument="Payment", mappedBy="owner")
      */
     private $payments;
     

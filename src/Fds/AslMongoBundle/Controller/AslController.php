@@ -5,13 +5,7 @@ namespace Fds\AslMongoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\View as FOSView; 
-use Fds\AslMongoBundle\Form\Type\AslType;
-use Fds\AslMongoBundle\Form\Type\MembershipfeeType;
-use Fds\AslMongoBundle\Form\Type\OwnerType;
-use Fds\AslMongoBundle\Form\Type\PaymentType;
-use Fds\AslMongoBundle\Form\Type\PropertyType;
-use Fds\AslMongoBundle\Form\Type\ResidentType;
+
 use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Document\Membershipfee;
 use Fds\AslMongoBundle\Document\Owner;

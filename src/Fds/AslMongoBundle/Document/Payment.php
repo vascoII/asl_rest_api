@@ -5,7 +5,7 @@ namespace Fds\AslMongoBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="payment")
+ * @ODM\Document
  */
 class Payment
 {
@@ -60,75 +60,93 @@ class Payment
     private $membershipfeeId;
 
     
-    function setId($id) {
+    public function setId($id) 
+    {
         $this->id = $id;
     }
 
-    function setAmount($amount) {
+    public function setAmount($amount) 
+    {
         $this->amount = $amount;
     }
 
-    function setCheckNumber($checkNumber) {
+    public function setCheckNumber($checkNumber) 
+    {
         $this->checkNumber = $checkNumber;
     }
 
-    function setBanque($banque) {
+    public function setBanque($banque) 
+    {
         $this->banque = $banque;
     }
 
-    function setCheckName($checkName) {
+    public function setCheckName($checkName) 
+    {
         $this->checkName = $checkName;
     }
 
-    function setReceiptDate(\DateTime $receiptDate) {
+    public function setReceiptDate(\DateTime $receiptDate) 
+    {
         $this->receiptDate = $receiptDate;
     }
 
-    function setBankingDate(\DateTime $bankingDate) {
+    public function setBankingDate(\DateTime $bankingDate) 
+    {
         $this->bankingDate = $bankingDate;
     }
 
-    function setImageUrl($imageUrl) {
+    public function setImageUrl($imageUrl) 
+    {
         $this->imageUrl = $imageUrl;
     }
 
-    function setMembershipfeeId($membershipfeeId) {
+    public function setMembershipfeeId($membershipfeeId) 
+    {
         $this->membershipfeeId = $membershipfeeId;
     }
 
-    function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
-    function getAmount() {
+    public function getAmount() 
+    {
         return $this->amount;
     }
 
-    function getCheckNumber() {
+    public function getCheckNumber() 
+    {
         return $this->checkNumber;
     }
 
-    function getBanque() {
+    public function getBanque() 
+    {
         return $this->banque;
     }
 
-    function getCheckName() {
+    public function getCheckName() 
+    {
         return $this->checkName;
     }
 
-    function getReceiptDate() {
+    public function getReceiptDate() 
+    {
         return $this->receiptDate;
     }
 
-    function getBankingDate() {
+    public function getBankingDate() 
+    {
         return $this->bankingDate;
     }
 
-    function getImageUrl() {
+    public function getImageUrl() 
+    {
         return $this->imageUrl;
     }
 
-    function getMembershipfeeId() {
+    public function getMembershipfeeId() 
+    {
         return $this->membershipfeeId;
     }
 

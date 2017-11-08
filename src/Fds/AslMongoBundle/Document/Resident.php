@@ -5,7 +5,7 @@ namespace Fds\AslMongoBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="resident")
+ * @ODM\Document
  */
 class Resident
 {
@@ -40,39 +40,48 @@ class Resident
         $this->id = $id;
     }
     
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName) 
+    {
         $this->firstName = $firstName;
     }
 
-    public function setLastName($lastName) {
+    public function setLastName($lastName) 
+    {
         $this->lastName = $lastName;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email) 
+    {
         $this->email = $email;
     }
 
-    public function setPhone($phone) {
+    public function setPhone($phone) 
+    {
         $this->phone = $phone;
     }
 
-    public function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
-    public function getFirstName() {
+    public function getFirstName() 
+    {
         return $this->firstName;
     }
 
-    public function getLastName() {
+    public function getLastName() 
+    {
         return $this->lastName;
     }
 
-    public function getEmail() {
+    public function getEmail() 
+    {
         return $this->email;
     }
 
-    public function getPhone() {
+    public function getPhone() 
+    {
         return $this->phone;
     }
 

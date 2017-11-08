@@ -41,12 +41,12 @@ class Asl
     private $country;
     
     /**
-     * @ODM\EmbedMany(targetDocument="Property")
+     * @ODM\ReferenceMany(targetDocument="Property", mappedBy="asl")
      */
     private $properties;
     
     /**
-     * @ODM\EmbedMany(targetDocument="Membershipfee")
+     * @ODM\ReferenceMany(targetDocument="Membershipfee", mappedBy="asl")
      */
     private $membershipfees;
     
@@ -62,55 +62,55 @@ class Asl
         $this->id = $id;
     }
     
-    function setName($name) {
+    public function setName($name) {
         $this->name = $name;
     }
 
-    function setAddress($address) {
+    public function setAddress($address) {
         $this->address = $address;
     }
 
-    function setPostalCode($postalCode) {
+    public function setPostalCode($postalCode) {
         $this->postalCode = $postalCode;
     }
 
-    function setCity($city) {
+    public function setCity($city) {
         $this->city = $city;
     }
 
-    function setCountry($country) {
+    public function setCountry($country) {
         $this->country = $country;
     }
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getName() {
+    public function getName() {
         return $this->name;
     }
 
-    function getAddress() {
+    public function getAddress() {
         return $this->address;
     }
 
-    function getPostalCode() {
+    public function getPostalCode() {
         return $this->postalCode;
     }
 
-    function getCity() {
+    public function getCity() {
         return $this->city;
     }
 
-    function getCountry() {
+    public function getCountry() {
         return $this->country;
     }
     
-    function getProperties() {
+    public function getProperties() {
         return $this->properties;
     }
 
-    function getMembershipfees() {
+    public function getMembershipfees() {
         return $this->membershipfees;
     }
 

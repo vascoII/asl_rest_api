@@ -5,7 +5,7 @@ namespace Fds\AslMongoBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="membershipfee")
+ * @ODM\Document
  */
 class Membershipfee
 {
@@ -30,23 +30,28 @@ class Membershipfee
         $this->id = $id;
     }
 
-    function setYear(\DateTime $year) {
+    public function setYear(\DateTime $year) 
+    {
         $this->year = $year;
     }
 
-    function setFee($fee) {
+    public function setFee($fee) 
+    {
         $this->fee = $fee;
     }
 
-    function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
-    function getYear() {
+    public function getYear() 
+    {
         return $this->year;
     }
 
-    function getFee() {
+    public function getFee() 
+    {
         return $this->fee;
     }
 

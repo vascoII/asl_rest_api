@@ -17,12 +17,12 @@ class Resident
     /**
      * @MongoDB\Field(type="string")
      */
-    private $firstname;
+    private $firstName;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    private $lastname;
+    private $lastName;
 
     /**
      * @MongoDB\Field(type="string")
@@ -40,12 +40,12 @@ class Resident
         $this->id = $id;
     }
     
-    public function setFirstname($firstname) {
-        $this->firstname = $firstname;
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
     }
 
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
     }
 
     public function setEmail($email) {
@@ -60,12 +60,12 @@ class Resident
         return $this->id;
     }
 
-    public function getFirstname() {
-        return $this->firstname;
+    public function getFirstName() {
+        return $this->firstName;
     }
 
-    public function getLastname() {
-        return $this->lastname;
+    public function getLastName() {
+        return $this->lastName;
     }
 
     public function getEmail() {

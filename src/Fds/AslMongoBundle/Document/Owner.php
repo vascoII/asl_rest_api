@@ -18,12 +18,12 @@ class Owner
     /**
      * @MongoDB\Field(type="string")
      */
-    private $firstname;
+    private $firstName;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    private $lastname;
+    private $lastName;
 
     /**
      * @MongoDB\Field(type="string")
@@ -38,7 +38,7 @@ class Owner
     /**
      * @MongoDB\Field(type="boolean")
      */
-    private $propertyasaddress;
+    private $propertyAsAddress;
 
     /**
      * @MongoDB\Field(type="string")
@@ -48,7 +48,7 @@ class Owner
     /**
      * @MongoDB\Field(type="string")
      */
-    private $postalcode;
+    private $postalCode;
 
     /**
      * @MongoDB\Field(type="string")
@@ -77,12 +77,12 @@ class Owner
         $this->id = $id;
     }
 
-    public function setFirstname($firstname) {
-        $this->firstname = $firstname;
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
     }
 
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
     }
 
     public function setEmail($email) {
@@ -93,16 +93,16 @@ class Owner
         $this->phone = $phone;
     }
 
-    public function setPropertyasaddress($propertyasaddress) {
-        $this->propertyasaddress = $propertyasaddress;
+    public function setPropertyAsAddress($propertyAsAddress) {
+        $this->propertyAsAddress = $propertyAsAddress;
     }
 
     public function setAddress($address) {
         $this->address = $address;
     }
 
-    public function setPostalcode($postalcode) {
-        $this->postalcode = $postalcode;
+    public function setPostalCode($postalCode) {
+        $this->postalCode = $postalCode;
     }
 
     public function setCity($city) {
@@ -117,12 +117,12 @@ class Owner
         return $this->id;
     }
 
-    public function getFirstname() {
-        return $this->firstname;
+    public function getFirstName() {
+        return $this->firstName;
     }
 
-    public function getLastname() {
-        return $this->lastname;
+    public function getLastName() {
+        return $this->lastName;
     }
 
     public function getEmail() {
@@ -133,16 +133,16 @@ class Owner
         return $this->phone;
     }
 
-    public function getPropertyasaddress() {
-        return $this->propertyasaddress;
+    public function getPropertyAsAddress() {
+        return $this->propertyAsAddress;
     }
 
     public function getAddress() {
         return $this->address;
     }
 
-    public function getPostalcode() {
-        return $this->postalcode;
+    public function getPostalCode() {
+        return $this->postalCode;
     }
 
     public function getCity() {
@@ -151,6 +151,10 @@ class Owner
 
     public function getCountry() {
         return $this->country;
+    }
+    
+    public function getPayments() {
+        return $this->payments;
     }
 
 }

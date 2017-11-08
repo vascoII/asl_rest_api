@@ -27,7 +27,7 @@ class Payment
     /**
      * @MongoDB\Field(type="string")
      */
-    private $checknumber;
+    private $checkNumber;
 
     /**
      * @MongoDB\Field(type="string")
@@ -37,22 +37,22 @@ class Payment
     /**
      * @MongoDB\Field(type="string")
      */
-    private $checkname;
+    private $checkName;
 
     /**
      * @MongoDB\Field(type="date")
      */
-    private $receiptdate;
+    private $receiptDate;
 
     /**
      * @MongoDB\Field(type="date")
      */
-    private $bankingdate;
+    private $bankingDate;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    private $imageurl;
+    private $imageUrl;
 
     /**
      * @MongoDB\Field(type="string")
@@ -68,28 +68,28 @@ class Payment
         $this->amount = $amount;
     }
 
-    function setChecknumber($checknumber) {
-        $this->checknumber = $checknumber;
+    function setCheckNumber($checkNumber) {
+        $this->checkNumber = $checkNumber;
     }
 
     function setBanque($banque) {
         $this->banque = $banque;
     }
 
-    function setCheckname($checkname) {
-        $this->checkname = $checkname;
+    function setCheckName($checkName) {
+        $this->checkName = $checkName;
     }
 
-    function setReceiptdate(\DateTime $receiptdate) {
-        $this->receiptdate = $receiptdate;
+    function setReceiptDate(\DateTime $receiptDate) {
+        $this->receiptDate = $receiptDate;
     }
 
-    function setBankingdate(\DateTime $bankingdate) {
-        $this->bankingdate = $bankingdate;
+    function setBankingDate(\DateTime $bankingDate) {
+        $this->bankingDate = $bankingDate;
     }
 
-    function setImageurl($imageurl) {
-        $this->imageurl = $imageurl;
+    function setImageUrl($imageUrl) {
+        $this->imageUrl = $imageUrl;
     }
 
     function setMembershipfeeId($membershipfeeId) {
@@ -104,28 +104,28 @@ class Payment
         return $this->amount;
     }
 
-    function getChecknumber() {
-        return $this->checknumber;
+    function getCheckNumber() {
+        return $this->checkNumber;
     }
 
     function getBanque() {
         return $this->banque;
     }
 
-    function getCheckname() {
-        return $this->checkname;
+    function getCheckName() {
+        return $this->checkName;
     }
 
-    function getReceiptdate() {
-        return $this->receiptdate;
+    function getReceiptDate() {
+        return $this->receiptDate;
     }
 
-    function getBankingdate() {
-        return $this->bankingdate;
+    function getBankingDate() {
+        return $this->bankingDate;
     }
 
-    function getImageurl() {
-        return $this->imageurl;
+    function getImageUrl() {
+        return $this->imageUrl;
     }
 
     function getMembershipfeeId() {

@@ -28,7 +28,7 @@ class Asl
     /**
      * @MongoDB\Field(type="string")
      */
-    private $postalcode;
+    private $postalCode;
 
     /**
      * @MongoDB\Field(type="string")
@@ -70,8 +70,8 @@ class Asl
         $this->address = $address;
     }
 
-    function setPostalcode($postalcode) {
-        $this->postalcode = $postalcode;
+    function setPostalCode($postalCode) {
+        $this->postalCode = $postalCode;
     }
 
     function setCity($city) {
@@ -94,8 +94,8 @@ class Asl
         return $this->address;
     }
 
-    function getPostalcode() {
-        return $this->postalcode;
+    function getPostalCode() {
+        return $this->postalCode;
     }
 
     function getCity() {

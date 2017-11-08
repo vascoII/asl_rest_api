@@ -23,7 +23,7 @@ class Property
     /**
      * @MongoDB\Field(type="string")
      */
-    private $propertytype;
+    private $propertyType;
 
     /**
      * @EmbedMany(targetDocument="Owner")
@@ -53,8 +53,8 @@ class Property
         $this->number = $number;
     }
     
-    public function setPropertytype($propertytype) {
-        $this->propertytype = $propertytype;
+    public function setPropertyType($propertyType) {
+        $this->propertyType = $propertyType;
     }
     
     public function getId() {
@@ -65,8 +65,8 @@ class Property
         return $this->number;
     }
 
-    public function getPropertytype() {
-        return $this->propertytype;
+    public function getPropertyType() {
+        return $this->propertyType;
     }
 
     public function getResidents() {

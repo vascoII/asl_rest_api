@@ -10,7 +10,7 @@ get_asl:
         asl_id: '\d+'
 post_asl:
     path:     /asls
-    defaults: { _controller: FdsAslMongoBundle:Asl:postAsls }
+    defaults: { _controller: FdsAslMongoBundle:Asl:postAsl }
     methods:  [POST]
 delete_asl:
     path:     /asls/{asl_id}

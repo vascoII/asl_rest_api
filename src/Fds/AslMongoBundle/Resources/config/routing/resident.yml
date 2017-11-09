@@ -14,7 +14,7 @@ get_resident:
         resident_id: '\d+'
 post_resident:
     path:     /asls/{asl_id}/residents
-    defaults: { _controller: FdsAslMongoBundle:Resident:postResidents }
+    defaults: { _controller: FdsAslMongoBundle:Resident:postResident }
     methods:  [POST]
     requirements:
         asl_id: '\d+'

@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Resident;
 use Fds\AslMongoBundle\Form\ResidentType;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 /**
  * Resident controller.
@@ -29,7 +27,7 @@ class ResidentController extends Controller
         return new Response($serializer->serialize($residents, 'json'));
     }
     
-    public function postResidentsAction(Request $request)
+    public function postResidentAction(Request $request)
     {
         $serializer = $this->get('jms_serializer');
         $resident = $this->getDocumentManager()

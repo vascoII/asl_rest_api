@@ -3,6 +3,7 @@
 namespace Fds\AslMongoBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Fds\AslMongoBundle\Document\Asl;
 
 /**
  * AslRepository
@@ -12,4 +13,20 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class AslRepository extends DocumentRepository
 {
+    public function createAsl($datas, $identifier)
+    {
+        $asl = new Asl();
+        $asl->setIdentifier($identifier);
+        $asl->setName($datas->get('name'));
+        $asl->setAddress($datas->get('address'));
+        $asl->setPostalCode($datas->get('postalCode'));
+        $asl->setCity($datas->get('city'));
+        $asl->setCreatedAt(new \DateTime());
+
+        $this->dm->persist($asl);
+        $this->dm->flush();
+        
+        return $asl;
+    }
+    
 }

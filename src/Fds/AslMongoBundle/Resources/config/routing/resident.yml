@@ -1,0 +1,45 @@
+get_residents:
+    path:     /asls/{asl_id}/residents
+    defaults: { _controller: FdsAslMongoBundle:Resident:getResidents }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+get_resident:
+    path:     /asls/{asl_id}/properties/{property_id}/residents
+    defaults: { _controller: FdsAslMongoBundle:Resident:getResident }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+        resident_id: '\d+'
+post_resident:
+    path:     /asls/{asl_id}/residents
+    defaults: { _controller: FdsAslMongoBundle:Resident:postResidents }
+    methods:  [POST]
+    requirements:
+        asl_id: '\d+'
+delete_resident:
+    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
+    defaults: { _controller: FdsAslMongoBundle:Resident:deleteResident }
+    methods:  [DELETE]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+        resident_id: '\d+'
+put_resident:
+    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
+    defaults: { _controller: FdsAslMongoBundle:Resident:putResident }
+    methods:  [PUT]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+        resident_id: '\d+'
+patch_resident:
+    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
+    defaults: { _controller: FdsAslMongoBundle:Resident:patchResident }
+    methods:  [PATCH]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+        resident_id: '\d+'
+

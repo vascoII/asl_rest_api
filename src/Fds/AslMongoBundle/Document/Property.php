@@ -3,80 +3,156 @@
 namespace Fds\AslMongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ODM\Document
+ * Fds\AslMongoBundle\Document\Property
+ *
+ * @ODM\Document(
+ *     repositoryClass="Fds\AslMongoBundle\Repository\PropertyRepository"
+ * )
  */
 class Property
 {
     /**
-     * @ODM\Id(strategy="NONE", type="string")
+     * @var MongoId $id
+     * @ODM\Id(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $number
+     * @ODM\Field(name="number", type="string")
      */
-    private $number;
+    protected $number;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $propertyType
+     * @ODM\Field(name="propertyType", type="string")
      */
-    private $propertyType;
+    protected $propertyType;
 
     /**
-     * @ODM\ReferenceMany(targetDocument="Resident", mappedBy="property")
+     * @ODM\ReferenceMany(targetDocument="Resident", cascade="all")
      */
-    private $residents;
+    protected $residents;
+
+    /**
+     * @ODM\ReferenceMany(targetDocument="Owner", cascade="all")
+     */
+    protected $owners;
+
+    /** 
+     * @ODM\Field(type="date") 
+     */
+    protected $createdAt;
+    
     
     /**
-     * @ODM\ReferenceMany(targetDocument="Owner", mappedBy="property")
+     * Get id
+     * @return id $id
      */
-    private $owners;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function getId()
     {
-        $this->residents = new ArrayCollection();
-        $this->owners = new ArrayCollection();
-    }
-    
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    
-    public function setNumber($number) {
-        $this->number = $number;
-    }
-    
-    public function setPropertyType($propertyType) {
-        $this->propertyType = $propertyType;
-    }
-    
-    public function getId() {
         return $this->id;
     }
 
-    public function getNumber() {
+    /**
+     * Set number
+     * @param string $number
+     * @return $this
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+        return $this;
+    }
+
+    /**
+     * Get number
+     * @return string $number
+     */
+    public function getNumber()
+    {
         return $this->number;
     }
 
-    public function getPropertyType() {
+    /**
+     * Set propertyType
+     * @param string $propertyType
+     * @return $this
+     */
+    public function setPropertyType($propertyType)
+    {
+        $this->propertyType = $propertyType;
+        return $this;
+    }
+
+    /**
+     * Get propertyType
+     * @return string $propertyType
+     */
+    public function getPropertyType()
+    {
         return $this->propertyType;
     }
 
-    public function getResidents() {
+    /**
+     * Set residents
+     * @param Resident $resident
+     * @return $this
+     */
+    public function setResidents(Resident $resident)
+    {
+        array_push($this->residents, $resident);
+        return $this;
+    }
+
+    /**
+     * Get residents
+     * @return Resident[]
+     */
+    public function getResidents()
+    {
         return $this->residents;
     }
-    
-    public function getOwners() {
-        return $this->owners;
+
+    /**
+     * Set owners
+     * @param Owner $owner
+     * @return $this
+     */
+    public function setOwners(Owner $owner)
+    {
+        array_push($this->owners, $owner);
+        return $this;
     }
 
-
+    /**
+     * Get owners
+     * @return Owner[]
+     */
+    public function getOwners()
+    {
+        return $this->owners;
+    }
+    
+    /**
+     * Set createdAt
+     * @param date $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    
+    /**
+     * Get createAt
+     * @return date $createdAt
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 }
-

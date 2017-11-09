@@ -1,205 +1,33 @@
 fds_asl_homepage:
     path:     /
     defaults: { _controller: FdsAslMongoBundle:Default:index }
-
-post_test:
-    path:     /test
-    defaults: { _controller: FdsAslMongoBundle:Asl:test }
-    methods:  [POST]
     
-get_asls:
-    path:     /asls
-    defaults: { _controller: FdsAslMongoBundle:Asl:getAsls }
-    methods:  [GET]
-get_asl:
-    path:     /asls/{asl_id}
-    defaults: { _controller: FdsAslMongoBundle:Asl:getAsl }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-post_asl:
-    path:     /asls
-    defaults: { _controller: FdsAslMongoBundle:Asl:postAsls }
-    methods:  [POST]
-delete_asl:
-    path:     /asls/{asl_id}
-    defaults: { _controller: FdsAslMongoBundle:Asl:deleteAsl }
-    methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-put_asl:
-    path:     /asls/{asl_id}
-    defaults: { _controller: FdsAslMongoBundle:Asl:putAsl }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
-patch_asl:
-    path:     /asls/{asl_id}
-    defaults: { _controller: FdsAslMongoBundle:Asl:patchAsl }
-    methods:  [PATCH]
-    requirements:
-        asl_id: '\d+'
-#Routing for Property Entity        
-get_properties:
-    path:     /asls/{asl_id}/properties
-    defaults: { _controller: FdsAslMongoBundle:Property:getProperties }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-get_property:
-    path:     /asls/{asl_id}/properties/{property_id}
-    defaults: { _controller: FdsAslMongoBundle:Property:getProperty }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-post_property:
-    path:     /asls/{asl_id}/properties
-    defaults: { _controller: FdsAslMongoBundle:Property:postProperties }
-    methods:  [POST]
-    requirements:
-        asl_id: '\d+'
-delete_property:
-    path:     /asls/{asl_id}/properties/{property_id}
-    defaults: { _controller: FdsAslMongoBundle:Property:deleteProperty }
-    methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-put_property:
-    path:     /asls/{asl_id}/properties/{property_id}
-    defaults: { _controller: FdsAslMongoBundle:Property:putProperty }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-patch_property:
-    path:     /asls/{asl_id}/properties/{property_id}
-    defaults: { _controller: FdsAslMongoBundle:Property:patchProperty }
-    methods:  [PATCH]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-#Routing for Owner Entity        
-get_owners:
-    path:     /asls/{asl_id}/owners
-    defaults: { _controller: FdsAslMongoBundle:Owner:getOwners }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-get_owner:
-    path:     /asls/{asl_id}/properties/{property_id}/owners
-    defaults: { _controller: FdsAslMongoBundle:Owner:getOwner }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-post_owner:
-    path:     /owners
-    defaults: { _controller: FdsAslMongoBundle:Owner:postOwners }
-    methods:  [POST]
-    requirements:
-        asl_id: '\d+'
-delete_owner:
-    path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}
-    defaults: { _controller: FdsAslMongoBundle:Owner:deleteOwner }
-    methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        owner_id: '\d+'
-put_owner:
-    path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}
-    defaults: { _controller: FdsAslMongoBundle:Owner:putOwner }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        owner_id: '\d+'
-patch_owner:
-    path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}
-    defaults: { _controller: FdsAslMongoBundle:Owner:patchOwner }
-    methods:  [PATCH]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        owner_id: '\d+'
-#Routing for Resident Entity        
-get_residents:
-    path:     /asls/{asl_id}/residents
-    defaults: { _controller: FdsAslMongoBundle:Resident:getResidents }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-get_resident:
-    path:     /asls/{asl_id}/properties/{property_id}/residents
-    defaults: { _controller: FdsAslMongoBundle:Resident:getResident }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        resident_id: '\d+'
-post_resident:
-    path:     /residents
-    defaults: { _controller: FdsAslMongoBundle:Resident:postResidents }
-    methods:  [POST]
-    requirements:
-        asl_id: '\d+'
-delete_resident:
-    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
-    defaults: { _controller: FdsAslMongoBundle:Resident:deleteResident }
-    methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        resident_id: '\d+'
-put_resident:
-    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
-    defaults: { _controller: FdsAslMongoBundle:Resident:putResident }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        resident_id: '\d+'
-patch_resident:
-    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
-    defaults: { _controller: FdsAslMongoBundle:Resident:patchResident }
-    methods:  [PATCH]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        resident_id: '\d+'
-#Routing for MembershipFee Entity        
-get_membershipfee:
-    path:     /asls/{asl_id}/membershipfees
-    defaults: { _controller: FdsAslMongoBundle:Membershipfee:getMembershipFees }
-    methods:  [GET]
-    requirements:
-        asl_id: '\d+'
-post_membershipfee:
-    path:     /asls/{asl_id}/membershipfees
-    defaults: { _controller: FdsAslMongoBundle:Membershipfee:postMembershipFee }
-    methods:  [POST]
-    requirements:
-        asl_id: '\d+'
-delete_membershipfee:
-    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
-    defaults: { _controller: FdsAslMongoBundle:Membershipfee:deleteMembershipFee }
-    methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        membershipfee_id: '\d+'
-put_membershipfee:
-    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
-    defaults: { _controller: FdsAslMongoBundle:Membershipfee:putMembershipFee }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
-        membershipfee_id: '\d+'
-patch_membershipfee:
-    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
-    defaults: { _controller: FdsAslMongoBundle:Membershipfee:patchMembershipFee }
-    methods:  [PATCH]
-    requirements:
-        asl_id: '\d+'
-        membershipfee_id: '\d+'
+# Asl Routing
+fds_asls_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/asl.yml"
+    prefix:   /
+    
+# Membershipfee Routing        
+fds_membershipfees_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/membershipfee.yml"
+    prefix:   /
+
+# Owner Routing 
+fds_owners_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/owner.yml"
+    prefix:   /
+
+# Payment Routing 
+fds_payments_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/payment.yml"
+    prefix:   /
+
+# Property Routing
+fds_properties_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/property.yml"
+    prefix:   /
+    
+# Resident Routing 
+fds_residents_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/resident.yml"
+    prefix:   /

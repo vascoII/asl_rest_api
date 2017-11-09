@@ -5,84 +5,130 @@ namespace Fds\AslMongoBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document
+ * Fds\AslMongoBundle\Document\Resident
+ *
+ * @ODM\Document(
+ *     repositoryClass="Fds\AslMongoBundle\Repository\ResidentRepository"
+ * )
  */
 class Resident
 {
     /**
-     * @ODM\Id(strategy="NONE", type="string")
+     * @var MongoId $id
+     * @ODM\Id(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $firstName
+     * @ODM\Field(name="firstName", type="string")
      */
-    private $firstName;
+    protected $firstName;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $lastName
+     * @ODM\Field(name="lastName", type="string")
      */
-    private $lastName;
+    protected $lastName;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $email
+     * @ODM\Field(name="email", type="string")
      */
-    private $email;
+    protected $email;
 
-    /**
-     * @ODM\Field(type="string")
+    /** 
+     * @var date createdAt
+     * @ODM\Field(type="date") 
      */
-    private $phone;
-
+    protected $createdAt;
     
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    
-    public function setFirstName($firstName) 
-    {
-        $this->firstName = $firstName;
-    }
-
-    public function setLastName($lastName) 
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function setEmail($email) 
-    {
-        $this->email = $email;
-    }
-
-    public function setPhone($phone) 
-    {
-        $this->phone = $phone;
-    }
-
-    public function getId() 
+    /**
+     * Get id
+     * @return id $id
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getFirstName() 
+    /**
+     * Set firstName
+     * @param string $firstName
+     * @return $this
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     * @return string $firstName
+     */
+    public function getFirstName()
     {
         return $this->firstName;
     }
 
-    public function getLastName() 
+    /**
+     * Set lastName
+     * @param string $lastName
+     * @return $this
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     * @return string $lastName
+     */
+    public function getLastName()
     {
         return $this->lastName;
     }
 
-    public function getEmail() 
+    /**
+     * Set email
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * Get email
+     * @return string $email
+     */
+    public function getEmail()
     {
         return $this->email;
     }
-
-    public function getPhone() 
+    
+    /**
+     * Set createdAt
+     * @param date $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        return $this->phone;
+        $this->createdAt = $createdAt;
+        return $this;
     }
-
+    
+    /**
+     * Get createAt
+     * @return date $createdAt
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 }

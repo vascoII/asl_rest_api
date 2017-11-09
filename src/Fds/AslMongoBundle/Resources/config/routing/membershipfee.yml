@@ -1,0 +1,33 @@
+get_membershipfee:
+    path:     /asls/{asl_id}/membershipfees
+    defaults: { _controller: FdsAslMongoBundle:Membershipfee:getMembershipfees }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+post_membershipfee:
+    path:     /asls/{asl_id}/membershipfees
+    defaults: { _controller: FdsAslMongoBundle:Membershipfee:postMembershipfee }
+    methods:  [POST]
+    requirements:
+        asl_id: '\d+'
+delete_membershipfee:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
+    defaults: { _controller: FdsAslMongoBundle:Membershipfee:deleteMembershipfee }
+    methods:  [DELETE]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'
+put_membershipfee:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
+    defaults: { _controller: FdsAslMongoBundle:Membershipfee:putMembershipfee }
+    methods:  [PUT]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'
+patch_membershipfee:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}
+    defaults: { _controller: FdsAslMongoBundle:Membershipfee:patchMembershipfee }
+    methods:  [PATCH]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'

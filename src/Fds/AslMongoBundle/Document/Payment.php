@@ -5,150 +5,286 @@ namespace Fds\AslMongoBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document
+ * Fds\AslMongoBundle\Document\Payment
+ *
+ * @ODM\Document(
+ *     repositoryClass="Fds\AslMongoBundle\Repository\PaymentRepository"
+ * )
  */
 class Payment
 {
     /**
-     * @ODM\Id(strategy="NONE", type="string")
+     * @var MongoId $id
+     * @ODM\Id(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ODM\Field(type="string")
+     * @var float $amount
+     * @ODM\Field(name="amount", type="float")
      */
-    private $amount;
+    protected $amount;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $paymentType
+     * @ODM\Field(name="paymentType", type="string")
      */
-    private $paymentType;
-    
-    /**
-     * @ODM\Field(type="string")
-     */
-    private $checkNumber;
+    protected $paymentType;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $checkNumber
+     * @ODM\Field(name="checkNumber", type="string")
      */
-    private $banque;
+    protected $checkNumber;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $banque
+     * @ODM\Field(name="banque", type="string")
      */
-    private $checkName;
+    protected $banque;
 
     /**
-     * @ODM\Field(type="date")
+     * @var string $checkName
+     * @ODM\Field(name="checkName", type="string")
      */
-    private $receiptDate;
+    protected $checkName;
 
     /**
-     * @ODM\Field(type="date")
+     * @var date $receiptDate
+     * @ODM\Field(name="receiptDate", type="date")
      */
-    private $bankingDate;
+    protected $receiptDate;
 
     /**
-     * @ODM\Field(type="string")
+     * @var date $bankingDate
+     * @ODM\Field(name="bankingDate", type="date")
      */
-    private $imageUrl;
+    protected $bankingDate;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $imageUrl
+     * @ODM\Field(name="imageUrl", type="string")
      */
-    private $membershipfeeId;
+    protected $imageUrl;
 
-    
-    public function setId($id) 
-    {
-        $this->id = $id;
-    }
+    /**
+     * @ODM\ReferenceMany(targetDocument="Membershipfee", cascade="all")
+     */
+    protected $membershipfees = array();
 
-    public function setAmount($amount) 
-    {
-        $this->amount = $amount;
-    }
+    /** 
+     * @var date createdAt
+     * @ODM\Field(type="date") 
+     */
+    protected $createdAt;
 
-    public function setCheckNumber($checkNumber) 
-    {
-        $this->checkNumber = $checkNumber;
-    }
-
-    public function setBanque($banque) 
-    {
-        $this->banque = $banque;
-    }
-
-    public function setCheckName($checkName) 
-    {
-        $this->checkName = $checkName;
-    }
-
-    public function setReceiptDate(\DateTime $receiptDate) 
-    {
-        $this->receiptDate = $receiptDate;
-    }
-
-    public function setBankingDate(\DateTime $bankingDate) 
-    {
-        $this->bankingDate = $bankingDate;
-    }
-
-    public function setImageUrl($imageUrl) 
-    {
-        $this->imageUrl = $imageUrl;
-    }
-
-    public function setMembershipfeeId($membershipfeeId) 
-    {
-        $this->membershipfeeId = $membershipfeeId;
-    }
-
-    public function getId() 
+    /**
+     * Get id
+     * @return id $id
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getAmount() 
+    /**
+     * Set amount
+     * @param float $amount
+     * @return $this
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+        return $this;
+    }
+
+    /**
+     * Get amount
+     * @return float $amount
+     */
+    public function getAmount()
     {
         return $this->amount;
     }
 
-    public function getCheckNumber() 
+    /**
+     * Set paymentType
+     * @param string $paymentType
+     * @return $this
+     */
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
+        return $this;
+    }
+
+    /**
+     * Get paymentType
+     * @return string $paymentType
+     */
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    /**
+     * Set checkNumber
+     * @param string $checkNumber
+     * @return $this
+     */
+    public function setCheckNumber($checkNumber)
+    {
+        $this->checkNumber = $checkNumber;
+        return $this;
+    }
+
+    /**
+     * Get checkNumber
+     * @return string $checkNumber
+     */
+    public function getCheckNumber()
     {
         return $this->checkNumber;
     }
 
-    public function getBanque() 
+    /**
+     * Set banque
+     * @param string $banque
+     * @return $this
+     */
+    public function setBanque($banque)
+    {
+        $this->banque = $banque;
+        return $this;
+    }
+
+    /**
+     * Get banque
+     * @return string $banque
+     */
+    public function getBanque()
     {
         return $this->banque;
     }
 
-    public function getCheckName() 
+    /**
+     * Set checkName
+     * @param string $checkName
+     * @return $this
+     */
+    public function setCheckName($checkName)
+    {
+        $this->checkName = $checkName;
+        return $this;
+    }
+
+    /**
+     * Get checkName
+     * @return string $checkName
+     */
+    public function getCheckName()
     {
         return $this->checkName;
     }
 
-    public function getReceiptDate() 
+    /**
+     * Set receiptDate
+     * @param date $receiptDate
+     * @return $this
+     */
+    public function setReceiptDate(\DateTime $receiptDate)
+    {
+        $this->receiptDate = $receiptDate;
+        return $this;
+    }
+
+    /**
+     * Get receiptDate
+     * @return date $receiptDate
+     */
+    public function getReceiptDate()
     {
         return $this->receiptDate;
     }
 
-    public function getBankingDate() 
+    /**
+     * Set bankingDate
+     * @param date $bankingDate
+     * @return $this
+     */
+    public function setBankingDate(\DateTime $bankingDate)
+    {
+        $this->bankingDate = $bankingDate;
+        return $this;
+    }
+
+    /**
+     * Get bankingDate
+     * @return date $bankingDate
+     */
+    public function getBankingDate()
     {
         return $this->bankingDate;
     }
 
-    public function getImageUrl() 
+    /**
+     * Set imageUrl
+     * @param string $imageUrl
+     * @return $this
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+        return $this;
+    }
+
+    /**
+     * Get imageUrl
+     * @return string $imageUrl
+     */
+    public function getImageUrl()
     {
         return $this->imageUrl;
     }
 
-    public function getMembershipfeeId() 
+    /**
+     * Set membershipfees
+     * @param Membershipfee $membershipfee
+     * @return $this
+     */
+    
+    public function setMembershipfees(Membershipfee $membershipfee)
     {
-        return $this->membershipfeeId;
+        array_push($this->membershipfees, $membershipfee);
+        return $this;
     }
 
+    /**
+     * Get membershipfees
+     * @return Membershipfee[]
+     */
+    public function getMembershipfees()
+    {
+        return $this->membershipfees;
+    }
+    
+    /**
+     * Set createdAt
+     * @param date $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    
+    /**
+     * Get createAt
+     * @return date $createdAt
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 }
-

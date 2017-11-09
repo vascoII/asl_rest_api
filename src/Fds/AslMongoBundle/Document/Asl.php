@@ -3,116 +3,208 @@
 namespace Fds\AslMongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ODM\Document(collection="asl")
+ * Fds\AslMongoBundle\Document\Asl
+ *
+ * @ODM\Document(
+ *     repositoryClass="Fds\AslMongoBundle\Repository\AslRepository"
+ * )
  */
 class Asl
 {
     /**
-     * @ODM\Id(strategy="NONE", type="string")
+     * @var MongoId $id
+     * @ODM\Id(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $name
+     * @ODM\Field(name="name", type="string")
      */
-    private $name;
+    protected $name;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $address
+     * @ODM\Field(name="address", type="string")
      */
-    private $address;
+    protected $address;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $postalCode
+     * @ODM\Field(name="postalCode", type="string")
      */
-    private $postalCode;
+    protected $postalCode;
 
     /**
-     * @ODM\Field(type="string")
+     * @var string $city
+     * @ODM\Field(name="city", type="string")
      */
-    private $city;
+    protected $city;
 
     /**
-     * @ODM\Field(type="string")
+     * @ODM\ReferenceMany(targetDocument="Property", cascade="all")
      */
-    private $country;
+    protected $properties = array();
+
+    /**
+     * @ODM\ReferenceMany(targetDocument="Membershipfee", cascade="all")
+     */
+    protected $membershipfees = array();
+
+    /** 
+     * @ODM\Field(type="date") 
+     */
+    protected $createdAt;
+    
     
     /**
-     * @ODM\ReferenceMany(targetDocument="Property", mappedBy="asl")
+     * Get id
+     * @return id $id
      */
-    private $properties;
-    
-    /**
-     * @ODM\ReferenceMany(targetDocument="Membershipfee", mappedBy="asl")
-     */
-    private $membershipfees;
-    
-    
-    public function __construct()
+    public function getId()
     {
-        $this->properties = new ArrayCollection();
-        $this->membershipfees = new ArrayCollection();
-    }
-          
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function setAddress($address) {
-        $this->address = $address;
-    }
-
-    public function setPostalCode($postalCode) {
-        $this->postalCode = $postalCode;
-    }
-
-    public function setCity($city) {
-        $this->city = $city;
-    }
-
-    public function setCountry($country) {
-        $this->country = $country;
-    }
-    
-    public function getId() {
         return $this->id;
     }
 
-    public function getName() {
+    /**
+     * Set name
+     * @param string $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get name
+     * @return string $name
+     */
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getAddress() {
+    /**
+     * Set address
+     * @param string $address
+     * @return $this
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * Get address
+     * @return string $address
+     */
+    public function getAddress()
+    {
         return $this->address;
     }
 
-    public function getPostalCode() {
+    /**
+     * Set postalCode
+     * @param string $postalCode
+     * @return $this
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     * @return string $postalCode
+     */
+    public function getPostalCode()
+    {
         return $this->postalCode;
     }
 
-    public function getCity() {
+    /**
+     * Set city
+     * @param string $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * Get city
+     * @return string $city
+     */
+    public function getCity()
+    {
         return $this->city;
     }
 
-    public function getCountry() {
-        return $this->country;
+    /**
+     * Set properties
+     * @param Property $property
+     * @return $this
+     */
+    public function setProperties(Property $property)
+    {
+        array_push($this->properties, $property);
+        return $this;
     }
-    
-    public function getProperties() {
+
+    /**
+     * Get properties
+     * @return Property[]
+     */
+    public function getProperties()
+    {
         return $this->properties;
     }
 
-    public function getMembershipfees() {
-        return $this->membershipfees;
+    /**
+     * Set membershipfees
+     * @param Membershipfee $membershipfee
+     * @return $this
+     */
+    public function setMembershipfees(Membershipfee $membershipfee)
+    {
+        array_push($this->membershipfees, $membershipfee);
+        return $this;
     }
 
+    /**
+     * Get membershipfees
+     * @return Membershipfee[]
+     */
+    public function getMembershipfees()
+    {
+        return $this->membershipfees;
+    }
+    
+    /**
+     * Set createdAt
+     * @param date $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+    
+    /**
+     * Get createAt
+     * @return date $createdAt
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 }
-

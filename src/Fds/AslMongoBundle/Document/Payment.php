@@ -18,6 +18,12 @@ class Payment
      * @ODM\Id(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @var integer $identifier
+     * @ODM\Field(name="identifier", type="integer")
+     */
+    protected $identifier;
 
     /**
      * @var float $amount
@@ -87,6 +93,26 @@ class Payment
         return $this->id;
     }
 
+    /**
+     * Set identifier
+     * @param integer $identifier
+     * @return $this
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+        return $this;
+    }
+    
+    /**
+     * Get identifier
+     * @return integer $identifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+    
     /**
      * Set amount
      * @param float $amount

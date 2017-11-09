@@ -3,6 +3,7 @@
 namespace Fds\AslMongoBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Fds\AslMongoBundle\Document\Resident;
 
 /**
  * ResidentRepository
@@ -12,4 +13,19 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class ResidentRepository extends DocumentRepository
 {
+    public function createResident($datas, $identifier)
+    {
+        $resident = new Resident();
+        $resident->setIdentifier($identifier);
+        $resident->setFirstName($datas->get('firstName'));
+        $resident->setLastName($datas->get('lastName'));
+        $resident->setEmail($datas->get('email'));
+        $resident->setCreatedAt(new \DateTime());
+
+        $this->dm->persist($resident);
+        $this->dm->flush();
+        
+        return $resident;
+    }
+    
 }

@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Resident;
 use Fds\AslMongoBundle\Form\ResidentType;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use FOS\RestBundle\View\View as FOSView;
+
 
 /**
  * Resident controller.
@@ -17,16 +17,13 @@ class ResidentController extends Controller
 {
     public function getResidentsAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer');
+        $serializer = $this->get('jms_serializer'); 
         $residents = $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Resident')
             ->findAll();
 
         if (!$residents) {
-            return FOSView::create(
-                ['message' => 'No residents found'], 
-                Response::HTTP_NOT_FOUND
-            );
+            return $this->noDocumentFound();
         }
         
         return new Response($serializer->serialize($residents, 'json'));
@@ -34,17 +31,12 @@ class ResidentController extends Controller
     
     public function postResidentsAction(Request $request)
     {
-        $resident = new Resident();
-        $resident->setFirstName('Fabrice');
-        $resident->setLastName('Da Silva');
-        $resident->setEmail('fds@yahoo.fr');
-        $resident->setCreatedAt(new \DateTime());
+        $serializer = $this->get('jms_serializer');
+        $resident = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Resident')
+            ->createResident($request->request, $this->getIdPlusOneAdded());            
         
-        $dm = $this->getDocumentManager();
-        $dm->persist($resident);
-        $dm->flush();
-            
-        return new JsonResponse($resident);
+        return new Response($serializer->serialize($resident, 'json'));
     }
     
     /**
@@ -54,4 +46,25 @@ class ResidentController extends Controller
     {
         return $this->get('doctrine.odm.mongodb.document_manager');
     }
+
+    /*
+     * @return integer last document identifier + one
+     */
+    private function getIdPlusOneAdded()
+    {
+        $mongoService = 
+            $this->container->get('fds_mongoservice.getidplusoneadded');
+        return $mongoService->getIdPlusOneAdded('Resident');
+    }
+    
+    /**
+     * @return FOSView 
+     */
+    private function noDocumentFound()
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.nodocumentfound');
+        return $fosviewService->noDocumentFound('Resident');
+    }
+    
 }

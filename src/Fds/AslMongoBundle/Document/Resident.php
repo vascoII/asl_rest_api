@@ -20,6 +20,12 @@ class Resident
     protected $id;
 
     /**
+     * @var integer $identifier
+     * @ODM\Field(name="identifier", type="integer")
+     */
+    protected $identifier;
+    
+    /**
      * @var string $firstName
      * @ODM\Field(name="firstName", type="string")
      */
@@ -52,6 +58,26 @@ class Resident
         return $this->id;
     }
 
+    /**
+     * Set identifier
+     * @param integer $identifier
+     * @return $this
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+        return $this;
+    }
+    
+    /**
+     * Get identifier
+     * @return integer $identifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+    
     /**
      * Set firstName
      * @param string $firstName

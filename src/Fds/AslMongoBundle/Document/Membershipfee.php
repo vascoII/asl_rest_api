@@ -18,6 +18,12 @@ class Membershipfee
      * @ODM\Id(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @var integer $identifier
+     * @ODM\Field(name="identifier", type="integer")
+     */
+    protected $identifier;
 
     /**
      * @var date $year
@@ -32,7 +38,7 @@ class Membershipfee
     protected $fee;
     
     /**
-     * @ODM\eferenceOne(targetDocument="Membershipfee")
+     * @ODM\ReferenceOne(targetDocument="Membershipfee")
      */
     protected $asl;
 
@@ -52,6 +58,26 @@ class Membershipfee
         return $this->id;
     }
 
+    /**
+     * Set identifier
+     * @param integer $identifier
+     * @return $this
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+        return $this;
+    }
+    
+    /**
+     * Get identifier
+     * @return integer $identifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+    
     /**
      * Set year
      * @param date $year

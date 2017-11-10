@@ -9,3 +9,11 @@ services:
     # FOSView Service
     fds_fosviewservice.fosviewservice:
         class: Fds\AslMongoBundle\Service\FOSViewService
+        
+parameters:
+    constant_asl: Asl
+    constant_membershipfee: Membershipfee
+    constant_owner: Owner
+    constant_payment: Payment
+    constant_property: Property
+    constant_resident: Resident

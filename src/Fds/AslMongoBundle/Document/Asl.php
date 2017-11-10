@@ -3,6 +3,7 @@
 namespace Fds\AslMongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Fds\AslMongoBundle\Document\Asl
@@ -52,12 +53,12 @@ class Asl
     /**
      * @ODM\ReferenceMany(targetDocument="Property", cascade="all")
      */
-    protected $properties = array();
+    protected $properties;
 
     /**
      * @ODM\ReferenceMany(targetDocument="Membershipfee", cascade="all")
      */
-    protected $membershipfees = array();
+    protected $membershipfees;
 
     /** 
      * @ODM\Field(type="date") 
@@ -65,6 +66,13 @@ class Asl
     protected $createdAt;
     
     
+    public function __construct() 
+    {
+        parent::__construct();
+        $this->properties = new ArrayCollection();
+        $this->membershipfees = new ArrayCollection();
+    }
+
     /**
      * Get id
      * @return id $id
@@ -175,13 +183,13 @@ class Asl
     }
 
     /**
-     * Set properties
+     * Add properties
      * @param Property $property
      * @return $this
      */
-    public function setProperties(Property $property)
+    public function addProperties(Property $property)
     {
-        array_push($this->properties, $property);
+        $this->properties[] = $property;
         return $this;
     }
 
@@ -195,19 +203,19 @@ class Asl
     }
 
     /**
-     * Set membershipfees
+     * Add membershipfees
      * @param Membershipfee $membershipfee
      * @return $this
      */
-    public function setMembershipfees(Membershipfee $membershipfee)
+    public function addMembershipfees(Membershipfee $membershipfee)
     {
-        array_push($this->membershipfees, $membershipfee);
+        $this->membershipfees[] = $membershipfee;
         return $this;
     }
 
     /**
      * Get membershipfees
-     * @return Membershipfee[]
+     * @return array[]
      */
     public function getMembershipfees()
     {

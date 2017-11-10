@@ -38,7 +38,7 @@ class Membershipfee
     protected $fee;
     
     /**
-     * @ODM\ReferenceOne(targetDocument="Membershipfee")
+     * @ODM\ReferenceOne(targetDocument="Asl")
      */
     protected $asl;
 
@@ -116,6 +116,26 @@ class Membershipfee
     public function getFee()
     {
         return $this->fee;
+    }
+    
+    /**
+     * Set asl
+     * @param Asl $asl
+     * @return $this
+     */
+    public function setAsl($asl)
+    {
+        $this->asl = $asl;
+        return $this;
+    }
+
+    /**
+     * Get asl
+     * @return Asl $asl
+     */
+    public function getAsl()
+    {
+        return $this->asl;
     }
     
     /**

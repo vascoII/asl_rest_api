@@ -3,6 +3,8 @@
 namespace Fds\AslMongoBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Fds\AslMongoBundle\Document\Asl;
+use Fds\AslMongoBundle\Document\Membershipfee;
 
 /**
  * MembershipfeeRepository
@@ -12,4 +14,32 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class MembershipfeeRepository extends DocumentRepository
 {
+    public function createMembershipfee($datas, $identifier, $asl_id)
+    {
+        $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $asl_id);
+        
+        if ($asl) {
+            //Format string to DateTime
+            $date = new \DateTime($datas->get('year'));
+            
+            $membershipfee = new Membershipfee();
+            $membershipfee->setIdentifier($identifier);
+            $membershipfee->setYear($date);
+            $membershipfee->setFee($datas->get('fee'));
+            $membershipfee->setAsl($asl);
+            $membershipfee->setCreatedAt(new \DateTime());
+            
+            $this->dm->persist($membershipfee);
+            
+            $asl->addMembershipfees($membershipfee);
+            $this->dm->persist($asl);
+        } else {
+            return $this->noDocumentFound($this->getParameter('constant_asl'));
+        }
+        
+        $this->dm->flush();
+        
+        return $membershipfee;
+    }
 }

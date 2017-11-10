@@ -5,14 +5,12 @@ namespace Fds\AslMongoBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Fds\AslMongoBundle\Document\Asl;
-use Fds\AslMongoBundle\Form\AslType;
 
 /**
  * Asl controller.
  */
 class AslController extends CommonController
 {
-    const ASL = 'Asl';
     
     public function getAslsAction(Request $request)
     {
@@ -22,7 +20,7 @@ class AslController extends CommonController
             ->findAll();
 
         if (!$asls) {
-            return $this->noDocumentFound(self::ASL);
+            return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
         
         return new Response($serializer->serialize($asls, 'json'));
@@ -36,7 +34,7 @@ class AslController extends CommonController
             ->findOneByIdentifier((int) $request->get('asl_id'));
         /* @var $asl Asl */
         if (!$asl) {
-            return $this->noDocumentFound(self::ASL);
+            return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
         
         return new Response($serializer->serialize($asl, 'json'));
@@ -47,7 +45,10 @@ class AslController extends CommonController
         $serializer = $this->get('jms_serializer');
         $asl = $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Asl')
-            ->createAsl($request->request, $this->getIdPlusOneAdded(self::ASL));            
+            ->createAsl(
+                $request->request, 
+                $this->getIdPlusOneAdded($this->getParameter('constant_asl'))
+            );            
         
         return new Response($serializer->serialize($asl, 'json'));
     }
@@ -64,7 +65,7 @@ class AslController extends CommonController
             $dm->flush();
             return $this->documentRemoved($aslName);
         } else {
-            return $this->noDocumentFound(self::ASL);
+            return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
     }
     
@@ -83,9 +84,8 @@ class AslController extends CommonController
 
             return new Response($serializer->serialize($aslUpdated, 'json'));
         } else {
-            return $this->noDocumentFound(self::ASL);
+            return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
     }
-    
     
 }

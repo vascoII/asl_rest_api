@@ -3,14 +3,13 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Property;
 use Fds\AslMongoBundle\Form\PropertyType;
 
 /**
  * Property controller.
  */
-class PropertyController extends Controller
+class PropertyController extends CommonController
 {
     /**
      * Lists all Property documents.

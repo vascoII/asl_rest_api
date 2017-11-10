@@ -3,14 +3,13 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Owner;
 use Fds\AslMongoBundle\Form\OwnerType;
 
 /**
  * Owner controller.
  */
-class OwnerController extends Controller
+class OwnerController extends CommonController
 {
     /**
      * Lists all Owner documents.

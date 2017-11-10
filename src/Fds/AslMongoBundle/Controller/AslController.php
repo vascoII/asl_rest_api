@@ -4,15 +4,16 @@ namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Form\AslType;
 
 /**
  * Asl controller.
  */
-class AslController extends Controller
+class AslController extends CommonController
 {
+    const ASL = 'Asl';
+    
     public function getAslsAction(Request $request)
     {
         $serializer = $this->get('jms_serializer'); 
@@ -21,7 +22,7 @@ class AslController extends Controller
             ->findAll();
 
         if (!$asls) {
-            return $this->noDocumentFound();
+            return $this->noDocumentFound(self::ASL);
         }
         
         return new Response($serializer->serialize($asls, 'json'));
@@ -32,10 +33,10 @@ class AslController extends Controller
         $serializer = $this->get('jms_serializer');
         $asl = $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier($request->get('asl_id'));
+            ->findOneByIdentifier((int) $request->get('asl_id'));
         /* @var $asl Asl */
         if (!$asl) {
-            return $this->noDocumentFound();
+            return $this->noDocumentFound(self::ASL);
         }
         
         return new Response($serializer->serialize($asl, 'json'));
@@ -44,38 +45,27 @@ class AslController extends Controller
     public function postAslAction(Request $request)
     {
         $serializer = $this->get('jms_serializer');
-        $resident = $this->getDocumentManager()
+        $asl = $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Asl')
-            ->createAsl($request->request, $this->getIdPlusOneAdded());            
+            ->createAsl($request->request, $this->getIdPlusOneAdded(self::ASL));            
         
-        return new Response($serializer->serialize($resident, 'json'));
+        return new Response($serializer->serialize($asl, 'json'));
     }
     
-    /**
-     * @return DocumentManager
-     */
-    private function getDocumentManager()
+    public function deleteAslAction(Request $request)
     {
-        return $this->get('doctrine.odm.mongodb.document_manager');
+        $dm = $this->getDocumentManager();
+        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $request->get('asl_id'));
+;            
+        if ($asl) {
+            $aslName = $asl->getName();
+            $dm->remove($asl);
+            $dm->flush();
+            return $this->documentRemoved($aslName);
+        } else {
+            return $this->noDocumentFound(self::ASL);
+        }
     }
     
-    /*
-     * @return integer last document identifier + one
-     */
-    private function getIdPlusOneAdded()
-    {
-        $mongoService = 
-            $this->container->get('fds_mongoservice.getidplusoneadded');
-        return $mongoService->getIdPlusOneAdded('Asl');
-    }
-    
-    /**
-     * @return FOSView 
-     */
-    private function noDocumentFound()
-    {
-        $fosviewService = 
-            $this->container->get('fds_fosviewservice.nodocumentfound');
-        return $fosviewService->noDocumentFound('Asl');
-    }
 }

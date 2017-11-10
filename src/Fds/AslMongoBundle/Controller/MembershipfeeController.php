@@ -3,14 +3,13 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Membershipfee;
 use Fds\AslMongoBundle\Form\MembershipfeeType;
 
 /**
  * Membershipfee controller.
  */
-class MembershipfeeController extends Controller
+class MembershipfeeController extends CommonController
 {
     public function postMembershipfeeAction(Request $request)
     {

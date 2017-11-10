@@ -20,4 +20,15 @@ class FOSViewService
             Response::HTTP_NOT_FOUND
         );
     }
+    
+    /**
+     * @return FOSView 
+     */
+    public function documentRemoved($document)
+    {
+        return FOSView::create(
+            ['message' => $document.' removed'], 
+            Response::HTTP_ACCEPTED
+        );
+    }
 }

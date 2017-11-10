@@ -2,8 +2,10 @@ services:
 #    fds_asl.example:
 #        class: Fds\AslBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-    fds_mongoservice.getidplusoneadded:
+    # Mongo Service
+    fds_mongoservice.mongoservice:
         class: Fds\AslMongoBundle\Service\MongoService
         arguments: ["@doctrine.odm.mongodb.document_manager"]
-    fds_fosviewservice.nodocumentfound:
+    # FOSView Service
+    fds_fosviewservice.fosviewservice:
         class: Fds\AslMongoBundle\Service\FOSViewService

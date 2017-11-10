@@ -3,14 +3,13 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Payment;
 use Fds\AslMongoBundle\Form\PaymentType;
 
 /**
  * Payment controller.
  */
-class PaymentController extends Controller
+class PaymentController extends CommonController
 {
     /**
      * Lists all Payment documents.

@@ -4,14 +4,13 @@ namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fds\AslMongoBundle\Document\Resident;
 use Fds\AslMongoBundle\Form\ResidentType;
 
 /**
  * Resident controller.
  */
-class ResidentController extends Controller
+class ResidentController extends CommonController
 {
     public function getResidentsAction(Request $request)
     {

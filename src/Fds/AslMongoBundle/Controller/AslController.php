@@ -68,4 +68,24 @@ class AslController extends CommonController
         }
     }
     
+    public function patchAslAction(Request $request)
+    {  
+        $serializer = $this->get('jms_serializer');
+        
+        $dm = $this->getDocumentManager();
+        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $request->get('asl_id'));
+        
+        if ($asl) {
+            $aslUpdated = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Asl')
+            ->findAndUpdateAsl($request->request, $asl);            
+
+            return new Response($serializer->serialize($aslUpdated, 'json'));
+        } else {
+            return $this->noDocumentFound(self::ASL);
+        }
+    }
+    
+    
 }

@@ -18,12 +18,6 @@ delete_asl:
     methods:  [DELETE]
     requirements:
         asl_id: '\d+'
-put_asl:
-    path:     /asls/{asl_id}
-    defaults: { _controller: FdsAslMongoBundle:Asl:putAsl }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
 patch_asl:
     path:     /asls/{asl_id}
     defaults: { _controller: FdsAslMongoBundle:Asl:patchAsl }

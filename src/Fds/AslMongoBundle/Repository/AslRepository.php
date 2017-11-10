@@ -29,4 +29,23 @@ class AslRepository extends DocumentRepository
         return $asl;
     }
     
+    public function findAndUpdateAsl($datas, $asl)
+    {
+        $aslUpdate = $this->dm->createQueryBuilder('FdsAslMongoBundle:Asl')
+            ->findAndUpdate()
+            ->field('identifier')->equals((int) $asl->getIdentifier());
+            // Update found asl
+        foreach ($datas->all() as $key => $value) {
+            $aslUpdate->field($key)->set($value);
+        }
+        
+        $aslUpdate->getQuery()
+            ->execute();
+        
+        $aslUpdated = $this->dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $asl->getIdentifier());
+        
+        return $aslUpdated;
+    }
+    
 }

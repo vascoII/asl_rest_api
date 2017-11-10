@@ -35,33 +35,5 @@ class ResidentController extends CommonController
         
         return new Response($serializer->serialize($resident, 'json'));
     }
-    
-    /**
-     * @return DocumentManager
-     */
-    private function getDocumentManager()
-    {
-        return $this->get('doctrine.odm.mongodb.document_manager');
-    }
-
-    /*
-     * @return integer last document identifier + one
-     */
-    private function getIdPlusOneAdded()
-    {
-        $mongoService = 
-            $this->container->get('fds_mongoservice.getidplusoneadded');
-        return $mongoService->getIdPlusOneAdded('Resident');
-    }
-    
-    /**
-     * @return FOSView 
-     */
-    private function noDocumentFound()
-    {
-        $fosviewService = 
-            $this->container->get('fds_fosviewservice.nodocumentfound');
-        return $fosviewService->noDocumentFound('Resident');
-    }
-    
+       
 }

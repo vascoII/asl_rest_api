@@ -3,7 +3,6 @@
 namespace Fds\AslMongoBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Document\Membershipfee;
 
 /**
@@ -14,8 +13,12 @@ use Fds\AslMongoBundle\Document\Membershipfee;
  */
 class MembershipfeeRepository extends DocumentRepository
 {
-    public function createMembershipfee($datas, $identifier, $asl_id)
-    {
+    public function createMembershipfee(
+        $datas, 
+        $identifier, 
+        $asl_id, 
+        $noDocumentFound
+    ) {
         $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
             ->findOneByIdentifier((int) $asl_id);
         
@@ -35,7 +38,40 @@ class MembershipfeeRepository extends DocumentRepository
             $asl->addMembershipfees($membershipfee);
             $this->dm->persist($asl);
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $noDocumentFound;
+        }
+        
+        $this->dm->flush();
+        
+        return $membershipfee;
+    }
+    
+    
+    public function deleteMembershipfee(
+        $asl_id, 
+        $membershipfee_id,
+        $noDocumentFoundAsl,
+        $noDocumentFoundMembershipfee,
+        $documentRemoved
+    ) {
+        $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $asl_id);
+        
+        if ($asl) {
+            $membershipfees = $asl->getMembershipfees();
+            foreach ($membershipfees as $membershipfee) {
+                if (
+                    (int) $membershipfee->getIdentifier() == 
+                    (int) $membershipfee_id
+                ) {
+                    $this->dm->remove($membershipfee);
+                    $this->dm->flush();
+                    return $documentRemoved;
+                }
+            }
+            return $noDocumentFoundMembershipfee;
+        } else {
+            return $noDocumentFoundAsl;
         }
         
         $this->dm->flush();

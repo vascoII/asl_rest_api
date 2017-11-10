@@ -1,0 +1,31 @@
+
+# src/Fds/AslMongoBundle/Resources/config/serialization.yml
+Fds\AslMongoBundle\Document\Asl:
+    attributes:
+        id:
+            groups: ['asls','asl', 'property', 'membershipfee']
+        name:
+            groups: ['asls','asl', 'property', 'membershipfee']
+        address:
+            groups: ['asls','asl', 'property', 'membershipfee']
+        postalCode:
+            groups: ['asls','asl', 'property', 'membershipfee']
+        city:
+            groups: ['asls','asl', 'property', 'membershipfee']
+        country:
+            groups: ['asls','asl', 'property', 'membershipfee']
+        properties:
+            groups: ['asl']
+        membershipfees:
+            groups: ['asl']
+            
+Fds\AslMongoBundle\Document\Membershipfee:
+    attributes:
+        id:
+            groups: ['asl', 'membershipfees', 'membershipfee']
+        year:
+            groups: ['asl', 'membershipfees', 'membershipfee']
+        fee:
+            groups: ['asl', 'membershipfees', 'membershipfee']
+        asl:
+            groups: ['membershipfee']      

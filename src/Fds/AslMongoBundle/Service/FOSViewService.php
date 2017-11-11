@@ -35,6 +35,17 @@ class FOSViewService
     /**
      * @return FOSView 
      */
+    public function documentTracked($document)
+    {
+        return FOSView::create(
+            ['message' => $document.' tracked'], 
+            Response::HTTP_ACCEPTED
+        );
+    }
+    
+    /**
+     * @return FOSView 
+     */
     public function documentRemoveNotAllowed($document, $childrens)
     {
         return FOSView::create(

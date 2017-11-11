@@ -2,8 +2,7 @@
 
 namespace Fds\AslMongoBundle\Repository;
 
-use Doctrine\ODM\MongoDB\DocumentRepository;
-use Fds\AslMongoBundle\Document\Resident;
+use Fds\AslMongoBundle\Repository\CommonRepository;
 
 /**
  * ResidentRepository
@@ -13,19 +12,61 @@ use Fds\AslMongoBundle\Document\Resident;
  */
 class ResidentRepository extends DocumentRepository
 {
-    public function createResident($datas, $identifier)
-    {
+    public function createResident($request, $identifier, $asl, $property) {
+                        
         $resident = new Resident();
         $resident->setIdentifier($identifier);
-        $resident->setFirstName($datas->get('firstName'));
-        $resident->setLastName($datas->get('lastName'));
-        $resident->setEmail($datas->get('email'));
-        $resident->setCreatedAt(new \DateTime());
-
+        $resident->setFirstName($request->request->get('firstName'));
+        $resident->setLastName($request->request->get('lastName'));
+        $resident->setEmail($request->request->get('email'));
+        $resident->setAsl($asl);
+        $resident->setProperty($property);                
+            
         $this->dm->persist($resident);
+                
+        $property->addResidents($resident);
+        $this->dm->persist($property);
+            
         $this->dm->flush();
         
         return $resident;
     }
     
+    public function deleteResident($resident, $property) {
+        //remove resident reference in Property Document
+        $property->getResidents()->removeElement($resident);
+        $this->dm->persist($property);
+        //Remove Document resident
+        $this->dm->remove($resident);
+                    
+        $this->dm->flush();      
+    }
+    
+    public function keepTrackResident($resident, $property, $endAt) {                  
+        //remove resident reference in Property Document
+        $property->getResidents()->removeElement($resident);
+        $this->dm->persist($property);
+        //Add endAt to resident Element and delete relation to Property Element
+        //Format string to DateTime
+        $date = new \DateTime($endAt);
+        $resident->setEndAt($date);
+        $resident->setProperty('');
+        
+        $this->dm->flush();           
+    }
+    
+    public function findAndUpdateResident($datas, $resident)
+    {
+        $residentUpdate = $this->dm
+            ->createQueryBuilder('FdsAslMongoBundle:Resident')
+            ->findAndUpdate()
+            ->field('identifier')->equals((int) $resident->getIdentifier());
+        // Update found resident
+        foreach ($datas->all() as $key => $value) {
+            $residentUpdate->field($key)->set($value);
+        }
+        
+        $residentUpdate->getQuery()->execute();
+    }
+        
 }

@@ -1,11 +1,11 @@
 get_residents:
-    path:     /asls/{asl_id}/residents
+    path:     /asls/{asl_id}/properties/{property_id}/residents
     defaults: { _controller: FdsAslMongoBundle:Resident:getResidents }
     methods:  [GET]
     requirements:
         asl_id: '\d+'
 get_resident:
-    path:     /asls/{asl_id}/properties/{property_id}/residents
+    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
     defaults: { _controller: FdsAslMongoBundle:Resident:getResident }
     methods:  [GET]
     requirements:
@@ -13,7 +13,7 @@ get_resident:
         property_id: '\d+'
         resident_id: '\d+'
 post_resident:
-    path:     /asls/{asl_id}/residents
+    path:     /asls/{asl_id}/properties/{property_id}/residents
     defaults: { _controller: FdsAslMongoBundle:Resident:postResident }
     methods:  [POST]
     requirements:
@@ -22,14 +22,6 @@ delete_resident:
     path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
     defaults: { _controller: FdsAslMongoBundle:Resident:deleteResident }
     methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        resident_id: '\d+'
-put_resident:
-    path:     /asls/{asl_id}/properties/{property_id}/residents/{resident_id}
-    defaults: { _controller: FdsAslMongoBundle:Resident:putResident }
-    methods:  [PUT]
     requirements:
         asl_id: '\d+'
         property_id: '\d+'

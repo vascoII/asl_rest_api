@@ -13,21 +13,18 @@ use Fds\AslMongoBundle\Document\Asl;
  */
 class AslRepository extends DocumentRepository
 {
-    public function createAsl($datas, $identifier)
+    public function createAsl($request, $identifier)
     {
         $asl = new Asl();
         $asl->setIdentifier($identifier);
-        $asl->setName($datas->get('name'));
-        $asl->setAddress($datas->get('address'));
-        $asl->setPostalCode($datas->get('postalCode'));
-        $asl->setCity($datas->get('city'));
-        $asl->setCountry($datas->get('country'));
-        $asl->setCreatedAt(new \DateTime());
+        $asl->setName($request->request->get('name'));
+        $asl->setAddress($request->request->get('address'));
+        $asl->setPostalCode($request->request->get('postalCode'));
+        $asl->setCity($request->request->get('city'));
+        $asl->setCountry($request->request->get('country'));
 
         $this->dm->persist($asl);
         $this->dm->flush();
-        
-        return $asl;
     }
     
     public function findAndUpdateAsl($datas, $asl)

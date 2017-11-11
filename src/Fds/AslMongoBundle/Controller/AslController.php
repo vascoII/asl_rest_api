@@ -58,7 +58,7 @@ class AslController extends CommonController
         $dm = $this->getDocumentManager();
         $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
             ->findOneByIdentifier((int) $request->get('asl_id'));
-;            
+        
         if ($asl) {
             $aslName = $asl->getName();
             $aslMembershipfees = $asl->getMembershipfees(); 

@@ -84,6 +84,42 @@ class PropertyController extends CommonController
     
     public function deletePropertyAction(Request $request)
     { 
+        $dm = $this->getDocumentManager();
+        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $request->get('asl_id'));
+        
+        if ($asl) {
+            $criteria = [
+                'identifier' => (int) $request->get('property_id'),
+                'asl' => $asl
+            ];
+            $property = $dm->getRepository('FdsAslMongoBundle:Property')
+                ->findOneBy($criteria);
+
+            if ($property) {
+                $propertyNumber = $property->getNumber();
+                $propertyOwners = $property->getOwners(); 
+                $propertyResidents = $property->getResidents();
+                //Remove Property only if no residents and owners related
+                if (
+                    (!count($propertyOwners)) &&
+                    (!count($propertyResidents))     
+                ) {
+                    $dm->remove($property);
+                    $dm->flush();
+                    return $this->documentRemoved('Property N°:'.$propertyNumber);
+                } else {
+                    return $this->documentRemoveNotAllowed(
+                        'Property N°:'.$propertyNumber, 
+                        $this->getParameter('constant_own_or_pro') 
+                    );
+                }
+            } else {
+                return $this->noDocumentFound($this->getParameter('property_asl'));
+            }
+        } else {
+            return $this->noDocumentFound($this->getParameter('constant_asl'));
+        }
         $property = $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Property')
             ->deleteProperty(

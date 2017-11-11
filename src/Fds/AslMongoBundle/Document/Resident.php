@@ -43,12 +43,40 @@ class Resident
      */
     protected $email;
 
+    /**
+     * @ODM\ReferenceOne(targetDocument="Asl")
+     */
+    protected $asl;
+    
+    /**
+     * @ODM\ReferenceOne(targetDocument="Property")
+     */
+    protected $property;
+    
     /** 
      * @var date createdAt
      * @ODM\Field(type="date") 
      */
     protected $createdAt;
     
+    /** 
+     * @var date startAt
+     * @ODM\Field(type="date") 
+     */
+    protected $startAt;
+    
+    /** 
+     * @var date endAt
+     * @ODM\Field(type="date") 
+     */
+    protected $endAt;
+    
+    
+    public function __construct() 
+    {
+        $this->startAt = new \DateTime();
+        $this->createdAt = new \DateTime();
+    }
     /**
      * Get id
      * @return id $id
@@ -139,14 +167,43 @@ class Resident
     }
     
     /**
-     * Set createdAt
-     * @param date $createdAt
+     * Set asl
+     * @param Asl $asl
      * @return $this
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setAsl($asl)
     {
-        $this->createdAt = $createdAt;
+        $this->asl = $asl;
         return $this;
+    }
+
+    /**
+     * Get asl
+     * @return Asl $asl
+     */
+    public function getAsl()
+    {
+        return $this->asl;
+    }
+    
+    /**
+     * Set property
+     * @param Property $property
+     * @return $this
+     */
+    public function setProperty($property)
+    {
+        $this->property = $property;
+        return $this;
+    }
+
+    /**
+     * Get property
+     * @return Property $property
+     */
+    public function getProperty()
+    {
+        return $this->property;
     }
     
     /**
@@ -156,5 +213,45 @@ class Resident
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+    
+    /**
+     * Set startAt
+     * @param date $startAt
+     * @return $this
+     */
+    public function setStartAt(\DateTime $startAt)
+    {
+        $this->startAt = $startAt;
+        return $this;
+    }
+    
+    /**
+     * Get startAt
+     * @return date $startAt
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+    
+    /**
+     * Set endAt
+     * @param date $endAt
+     * @return $this
+     */
+    public function setEndAt(\DateTime $endAt)
+    {
+        $this->endAt = $endAt;
+        return $this;
+    }
+    
+    /**
+     * Get endAt
+     * @return date $endAt
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
     }
 }

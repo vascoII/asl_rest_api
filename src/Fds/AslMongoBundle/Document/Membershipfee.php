@@ -49,6 +49,11 @@ class Membershipfee
     protected $createdAt;
     
     
+    public function __construct() 
+    {
+        $this->createdAt = new \DateTime();
+    }
+    
     /**
      * Get id
      * @return id $id
@@ -136,17 +141,6 @@ class Membershipfee
     public function getAsl()
     {
         return $this->asl;
-    }
-    
-    /**
-     * Set createdAt
-     * @param date $createdAt
-     * @return $this
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
     }
     
     /**

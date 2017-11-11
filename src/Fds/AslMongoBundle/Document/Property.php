@@ -58,6 +58,12 @@ class Property
     protected $createdAt;
     
     
+    public function __construct() 
+    {
+        $this->residents = new ArrayCollection();
+        $this->owners = new ArrayCollection();
+    }
+    
     /**
      * Get id
      * @return id $id
@@ -128,13 +134,13 @@ class Property
     }
 
     /**
-     * Set residents
+     * Add residents
      * @param Resident $resident
      * @return $this
      */
-    public function setResidents(Resident $resident)
+    public function addResidents(Resident $resident)
     {
-        array_push($this->residents, $resident);
+        $this->residents[] = $resident;
         return $this;
     }
 
@@ -148,13 +154,13 @@ class Property
     }
 
     /**
-     * Set owners
+     * Add owners
      * @param Owner $owner
      * @return $this
      */
-    public function setOwners(Owner $owner)
+    public function addOwners(Owner $owner)
     {
-        array_push($this->owners, $owner);
+        $this->owners[] = $owner;
         return $this;
     }
 

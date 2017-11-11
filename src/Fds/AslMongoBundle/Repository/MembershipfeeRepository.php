@@ -13,74 +13,40 @@ use Fds\AslMongoBundle\Document\Membershipfee;
  */
 class MembershipfeeRepository extends DocumentRepository
 {
-    public function createMembershipfee(
-        $datas, 
-        $identifier, 
-        $asl_id, 
-        $noDocumentFound
-    ) {
-        $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $asl_id);
-        
-        if ($asl) {
-            //Format string to DateTime
-            $date = new \DateTime($datas->get('year'));
+    public function createMembershipfee($request, $identifier, $asl) 
+    {
+        //Format string to DateTime
+        $date = new \DateTime($request->request->get('year'));
             
-            $membershipfee = new Membershipfee();
-            $membershipfee->setIdentifier($identifier);
-            $membershipfee->setYear($date);
-            $membershipfee->setFee($datas->get('fee'));
-            $membershipfee->setAsl($asl);
-            $membershipfee->setCreatedAt(new \DateTime());
+        $membershipfee = new Membershipfee();
+        $membershipfee->setIdentifier($identifier);
+        $membershipfee->setYear($date);
+        $membershipfee->setFee($request->request->get('fee'));
+        $membershipfee->setAsl($asl);
             
-            $this->dm->persist($membershipfee);
+        $this->dm->persist($membershipfee);
             
-            $asl->addMembershipfees($membershipfee);
-            $this->dm->persist($asl);
-        } else {
-            return $noDocumentFound;
-        }
-        
+        $asl->addMembershipfees($membershipfee);
+        $this->dm->persist($asl);
         $this->dm->flush();
-        
-        return $membershipfee;
     }
     
     
-    public function deleteMembershipfee(
-        $asl_id, 
-        $membershipfee_id,
-        $noDocumentFoundAsl,
-        $noDocumentFoundMembershipfee,
-        $documentRemoved
-    ) {
-        $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $asl_id);
-        
-        if ($asl) {
-            $membershipfees = $asl->getMembershipfees();
-            foreach ($membershipfees as $membershipfee) {
-                if (
-                    (int) $membershipfee->getIdentifier() == 
-                    (int) $membershipfee_id
-                ) {
-                    //remove membershipfee reference in Asl Document
-                    $asl->getMembershipfees()->removeElement($membershipfee);
-                    //Remove Document membershipfee
-                    $this->dm->remove($membershipfee);
-                    
-                    $this->dm->flush();
-                    return $documentRemoved;
-                }
+    public function deleteMembershipfee($membershipfee_id, $asl) 
+    {
+        $membershipfees = $asl->getMembershipfees();
+        foreach ($membershipfees as $membershipfee) {
+            if (
+                (int) $membershipfee->getIdentifier() == 
+                (int) $membershipfee_id
+            ) {
+                //remove membershipfee reference in Asl Document
+                $asl->getMembershipfees()->removeElement($membershipfee);
+                //Remove Document membershipfee
+                $this->dm->remove($membershipfee);
+                $this->dm->flush();
             }
-            return $noDocumentFoundMembershipfee;
-        } else {
-            return $noDocumentFoundAsl;
         }
-        
-        $this->dm->flush();
-        
-        return $membershipfee;
     }
     
     public function findAndUpdateMembership($datas, $membershipfee)

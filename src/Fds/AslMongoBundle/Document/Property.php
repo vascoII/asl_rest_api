@@ -47,6 +47,11 @@ class Property
      */
     protected $owners;
 
+    /**
+     * @ODM\ReferenceOne(targetDocument="Asl")
+     */
+    protected $asl;
+    
     /** 
      * @ODM\Field(type="date") 
      */
@@ -160,6 +165,26 @@ class Property
     public function getOwners()
     {
         return $this->owners;
+    }
+    
+    /**
+     * Set asl
+     * @param Asl $asl
+     * @return $this
+     */
+    public function setAsl($asl)
+    {
+        $this->asl = $asl;
+        return $this;
+    }
+
+    /**
+     * Get asl
+     * @return Asl $asl
+     */
+    public function getAsl()
+    {
+        return $this->asl;
     }
     
     /**

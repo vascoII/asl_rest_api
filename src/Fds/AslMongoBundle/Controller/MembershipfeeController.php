@@ -24,7 +24,13 @@ class MembershipfeeController extends CommonController
 
         if ($asl) {
             $membershipfees = $asl->getMembershipfees();
-            return new Response($serializer->serialize($membershipfees, 'json'));
+            if (count($membershipfees)) {
+                return new Response($serializer->serialize($membershipfees, 'json'));
+            } else {
+                return $this->noDocumentFound(
+                    $this->getParameter('constant_membershipfee')
+                );
+            }
         } else {
             return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
@@ -100,11 +106,27 @@ class MembershipfeeController extends CommonController
             ->findOneByIdentifier((int) $request->get('asl_id'));
         
         if ($asl) {
-            $aslUpdated = $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Asl')
-            ->findAndUpdateAsl($request->request, $asl);            
+            $membershipfee = $dm->getRepository('FdsAslMongoBundle:Membershipfee')
+                ->findOneByIdentifier((int) $request->get('membershipfee_id'));
+            
+            if ($membershipfee) {
+                $this->getDocumentManager()
+                    ->getRepository('FdsAslMongoBundle:Membershipfee')
+                    ->findAndUpdateMembership($request->request, $membershipfee);            
 
-            return new Response($serializer->serialize($aslUpdated, 'json'));
+                $membershipfee = 
+                    $dm->getRepository('FdsAslMongoBundle:Membershipfee')
+                        ->findOneByIdentifier(
+                            (int) $request->get('membershipfee_id')
+                        );
+                return new Response(
+                    $serializer->serialize($membershipfee, 'json')
+                );
+            } else {
+                return $this->noDocumentFound(
+                    $this->getParameter('constant_membershipfee')
+                );
+            }
         } else {
             return $this->noDocumentFound($this->getParameter('constant_asl'));
         }

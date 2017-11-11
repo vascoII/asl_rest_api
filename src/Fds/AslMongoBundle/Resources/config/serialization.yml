@@ -3,7 +3,7 @@
 Fds\AslMongoBundle\Document\Asl:
     attributes:
         id:
-            groups: ['asls','asl', 'property', 'membershipfee']
+            groups: ['asls','asl', 'property',  'membershipfee']
         name:
             groups: ['asls','asl', 'property', 'membershipfee']
         address:

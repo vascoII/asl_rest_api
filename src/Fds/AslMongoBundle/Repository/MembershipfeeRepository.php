@@ -64,7 +64,11 @@ class MembershipfeeRepository extends DocumentRepository
                     (int) $membershipfee->getIdentifier() == 
                     (int) $membershipfee_id
                 ) {
+                    //remove membershipfee reference in Asl Document
+                    $asl->getMembershipfees()->removeElement($membershipfee);
+                    //Remove Document membershipfee
                     $this->dm->remove($membershipfee);
+                    
                     $this->dm->flush();
                     return $documentRemoved;
                 }
@@ -77,5 +81,20 @@ class MembershipfeeRepository extends DocumentRepository
         $this->dm->flush();
         
         return $membershipfee;
+    }
+    
+    public function findAndUpdateMembership($datas, $membershipfee)
+    {
+        $membershipfeeUpdate = $this->dm
+            ->createQueryBuilder('FdsAslMongoBundle:Membershipfee')
+            ->findAndUpdate()
+            ->field('identifier')->equals((int) $membershipfee->getIdentifier());
+        // Update found membershipfee
+        foreach ($datas->all() as $key => $value) {
+            $membershipfeeUpdate->field($key)->set($value);
+        }
+        
+        $membershipfeeUpdate->getQuery()
+            ->execute();
     }
 }

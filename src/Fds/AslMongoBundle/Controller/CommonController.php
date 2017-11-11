@@ -48,4 +48,23 @@ class CommonController extends Controller
             $this->container->get('fds_fosviewservice.fosviewservice');
         return $fosviewService->documentRemoved($document);
     }
+    
+    /**
+     * @return FOSView 
+     */
+    protected function documentRemoveNotAllowed($document, $childrens)
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->documentRemoveNotAllowed($document, $childrens);
+    }
+    /**
+     * @return void 
+     */
+    protected function clearCache()
+    {
+        $cacheService = 
+            $this->container->get('fds_cacheservice.cacheservice');
+        $cacheService->clearCache();
+    }
 }

@@ -38,7 +38,7 @@ class Membershipfee
     protected $fee;
     
     /**
-     * @ODM\ReferenceOne(targetDocument="Asl", cascade="all")
+     * @ODM\ReferenceOne(targetDocument="Asl")
      */
     protected $asl;
 

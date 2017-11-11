@@ -31,4 +31,17 @@ class FOSViewService
             Response::HTTP_ACCEPTED
         );
     }
+    
+    /**
+     * @return FOSView 
+     */
+    public function documentRemoveNotAllowed($document, $childrens)
+    {
+        return FOSView::create(
+            [
+                'message' => 
+                $document.' can not be removed : Remove '.$childrens.' before'], 
+            Response::HTTP_FORBIDDEN
+        );
+    }
 }

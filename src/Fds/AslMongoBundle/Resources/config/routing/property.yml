@@ -13,7 +13,7 @@ get_property:
         property_id: '\d+'
 post_property:
     path:     /asls/{asl_id}/properties
-    defaults: { _controller: FdsAslMongoBundle:Property:postProperties }
+    defaults: { _controller: FdsAslMongoBundle:Property:postProperty }
     methods:  [POST]
     requirements:
         asl_id: '\d+'
@@ -21,13 +21,6 @@ delete_property:
     path:     /asls/{asl_id}/properties/{property_id}
     defaults: { _controller: FdsAslMongoBundle:Property:deleteProperty }
     methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-put_property:
-    path:     /asls/{asl_id}/properties/{property_id}
-    defaults: { _controller: FdsAslMongoBundle:Property:putProperty }
-    methods:  [PUT]
     requirements:
         asl_id: '\d+'
         property_id: '\d+'

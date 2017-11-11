@@ -21,6 +21,7 @@ class AslRepository extends DocumentRepository
         $asl->setAddress($datas->get('address'));
         $asl->setPostalCode($datas->get('postalCode'));
         $asl->setCity($datas->get('city'));
+        $asl->setCountry($datas->get('country'));
         $asl->setCreatedAt(new \DateTime());
 
         $this->dm->persist($asl);
@@ -41,11 +42,6 @@ class AslRepository extends DocumentRepository
         
         $aslUpdate->getQuery()
             ->execute();
-        
-        $aslUpdated = $this->dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $asl->getIdentifier());
-        
-        return $aslUpdated;
     }
     
 }

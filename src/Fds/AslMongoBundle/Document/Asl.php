@@ -49,6 +49,12 @@ class Asl
      * @ODM\Field(name="city", type="string")
      */
     protected $city;
+    
+    /**
+     * @var string $city
+     * @ODM\Field(name="country", type="string")
+     */
+    protected $country;
 
     /**
      * @ODM\ReferenceMany(targetDocument="Property", cascade="all")
@@ -68,7 +74,6 @@ class Asl
     
     public function __construct() 
     {
-        parent::__construct();
         $this->properties = new ArrayCollection();
         $this->membershipfees = new ArrayCollection();
     }
@@ -180,6 +185,26 @@ class Asl
     public function getCity()
     {
         return $this->city;
+    }
+    
+    /**
+     * Set country
+     * @param string $country
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * Get country
+     * @return string $country
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
     /**

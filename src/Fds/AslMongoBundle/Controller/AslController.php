@@ -61,9 +61,22 @@ class AslController extends CommonController
 ;            
         if ($asl) {
             $aslName = $asl->getName();
-            $dm->remove($asl);
-            $dm->flush();
-            return $this->documentRemoved($aslName);
+            $aslMembershipfees = $asl->getMembershipfees(); 
+            $aslProperties = $asl->getProperties();
+            //Remove Asl only if no membershipfees and properties related
+            if (
+               (!count($aslMembershipfees)) &&
+               (!count($aslProperties))     
+            ) {
+                $dm->remove($asl);
+                $dm->flush();
+                return $this->documentRemoved($aslName);
+            } else {
+                return $this->documentRemoveNotAllowed(
+                    $aslName, 
+                    $this->getParameter('constant_mem_or_pro') 
+                );
+            }
         } else {
             return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
@@ -78,11 +91,16 @@ class AslController extends CommonController
             ->findOneByIdentifier((int) $request->get('asl_id'));
         
         if ($asl) {
-            $aslUpdated = $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Asl')
-            ->findAndUpdateAsl($request->request, $asl);            
+            $this->getDocumentManager()
+                ->getRepository('FdsAslMongoBundle:Asl')
+                ->findAndUpdateAsl($request->request, $asl);            
 
-            return new Response($serializer->serialize($aslUpdated, 'json'));
+            $this->clearCache();
+            
+            $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
+                ->findOneByIdentifier((int) $request->get('asl_id'));
+            
+            return new Response($serializer->serialize($asl, 'json'));
         } else {
             return $this->noDocumentFound($this->getParameter('constant_asl'));
         }

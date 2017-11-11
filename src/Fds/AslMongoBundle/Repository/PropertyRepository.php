@@ -3,6 +3,7 @@
 namespace Fds\AslMongoBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Fds\AslMongoBundle\Document\Property;
 
 /**
  * PropertyRepository
@@ -12,4 +13,84 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class PropertyRepository extends DocumentRepository
 {
+    public function createProperty(
+        $datas, 
+        $identifier, 
+        $asl_id, 
+        $noDocumentFound
+    ) {
+        $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $asl_id);
+        
+        if ($asl) {
+            $property = new Property();
+            $property->setIdentifier($identifier);
+            $property->setNumber($datas->get('number'));
+            $property->setPropertyType($datas->get('propertyType'));
+            $property->setAsl($asl);
+            $property->setCreatedAt(new \DateTime());
+            
+            $this->dm->persist($property);
+            
+            $asl->addProperties($property);
+            $this->dm->persist($asl);
+        } else {
+            return $noDocumentFound;
+        }
+        
+        $this->dm->flush();
+        
+        return $property;
+    }
+    
+    public function deleteProperty(
+        $asl_id, 
+        $property_id,
+        $noDocumentFoundProperty,
+        $noDocumentFoundAsl,
+        $documentRemoved
+    ) {
+        $asl = $this->dm->getRepository('FdsAslMongoBundle:Asl')
+            ->findOneByIdentifier((int) $asl_id);
+        
+        if ($asl) {
+            $properties = $asl->getProperties();
+            foreach ($properties as $property) {
+                if (
+                    (int) $property->getIdentifier() == 
+                    (int) $property_id
+                ) {
+                    //remove property reference in Asl Document
+                    $asl->getProperties()->removeElement($property);
+                    //Remove Document property
+                    $this->dm->remove($property);
+                    
+                    $this->dm->flush();
+                    return $documentRemoved;
+                }
+            }
+            return $noDocumentFoundProperty;
+        } else {
+            return $noDocumentFoundAsl;
+        }
+        
+        $this->dm->flush();
+        
+        return $property;
+    }
+    
+    public function findAndUpdateProperty($datas, $property)
+    {
+        $propertyUpdate = $this->dm
+            ->createQueryBuilder('FdsAslMongoBundle:Property')
+            ->findAndUpdate()
+            ->field('identifier')->equals((int) $property->getIdentifier());
+        // Update found membershipfee
+        foreach ($datas->all() as $key => $value) {
+            $propertyUpdate->field($key)->set($value);
+        }
+        
+        $propertyUpdate->getQuery()
+            ->execute();
+    }
 }

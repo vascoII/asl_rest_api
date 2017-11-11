@@ -74,9 +74,15 @@ class Payment
     protected $imageUrl;
 
     /**
+     * @ODM\ReferenceOne(targetDocument="Membershipfee")
+     */
+    protected $owner;
+    
+    /**
      * @ODM\ReferenceMany(targetDocument="Membershipfee", cascade="all")
      */
-    protected $membershipfees = array();
+    protected $membershipfees;
+    
 
     /** 
      * @var date createdAt
@@ -84,6 +90,13 @@ class Payment
      */
     protected $createdAt;
 
+    
+    public function __construct() 
+    {
+        $this->createdAt = new \DateTime();
+        $this->membershipfees = new ArrayCollection();
+    }
+    
     /**
      * Get id
      * @return id $id
@@ -274,14 +287,34 @@ class Payment
     }
 
     /**
-     * Set membershipfees
+     * Set owner
+     * @param Owner $owner
+     * @return $this
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+    /**
+     * Get owner
+     * @return Owner $owner
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+    
+    /**
+     * Add membershipfee
      * @param Membershipfee $membershipfee
      * @return $this
      */
     
-    public function setMembershipfees(Membershipfee $membershipfee)
+    public function addMembershipfees(Membershipfee $membershipfee)
     {
-        array_push($this->membershipfees, $membershipfee);
+        $this->membershipfees[] = $membershipfee;
         return $this;
     }
 

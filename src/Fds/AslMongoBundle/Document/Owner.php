@@ -79,17 +79,30 @@ class Owner
      */
     protected $country;
 
+    
     /**
      * @ODM\ReferenceMany(targetDocument="Payment", cascade="all")
      */
-    protected $payments = array();
+    protected $payments;
 
+    /**
+     * @ODM\ReferenceMany(targetDocument="Property", cascade="all")
+     */
+    protected $properties;
+    
     /** 
      * @var date createdAt
      * @ODM\Field(type="date") 
      */
     protected $createdAt;
     
+    
+    public function __construct() 
+    {
+        $this->createdAt = new \DateTime();
+        $this->properties = new ArrayCollection();
+        $this->payments = new ArrayCollection();
+    }
     
     /**
      * Get id
@@ -301,13 +314,13 @@ class Owner
     }
 
     /**
-     * Set payments
+     * Add payments
      * @param Payment $payment
      * @return $this
      */
-    public function setPayments(Payment $payment)
+    public function addPayments(Payment $payment)
     {
-        array_push($this->payments, $payment);
+        $this->payments[] = $payment;
         return $this;
     }
 
@@ -318,6 +331,26 @@ class Owner
     public function getPayments()
     {
         return $this->payments;
+    }
+    
+    /**
+     * Add property
+     * @param Property $property
+     * @return $this
+     */
+    public function addProperties(Property $property)
+    {
+        $this->properties[] = $property;
+        return $this;
+    }
+
+    /**
+     * Get properties
+     * @return Property[]
+     */
+    public function getProperties()
+    {
+        return $this->properties;
     }
     
     /**

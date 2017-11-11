@@ -60,6 +60,7 @@ class Property
     
     public function __construct() 
     {
+        $this->createdAt = new \DateTime();
         $this->residents = new ArrayCollection();
         $this->owners = new ArrayCollection();
     }

@@ -74,6 +74,7 @@ class Asl
     
     public function __construct() 
     {
+        $this->createdAt = new \DateTime();
         $this->properties = new ArrayCollection();
         $this->membershipfees = new ArrayCollection();
     }

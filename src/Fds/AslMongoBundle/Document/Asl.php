@@ -249,17 +249,6 @@ class Asl
     }
     
     /**
-     * Set createdAt
-     * @param date $createdAt
-     * @return $this
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
-    }
-    
-    /**
      * Get createAt
      * @return date $createdAt
      */

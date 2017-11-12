@@ -50,7 +50,7 @@ class FOSViewService
      * Not Found :: 404
      * @return FOSView
      */
-    public function noFound($document)
+    public function notFound($document)
     {
         return FOSView::create(
             ['message' => $document.' not found'], 

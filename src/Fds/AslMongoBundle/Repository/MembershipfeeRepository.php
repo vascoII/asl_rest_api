@@ -29,6 +29,8 @@ class MembershipfeeRepository extends DocumentRepository
         $asl->addMembershipfees($membershipfee);
         $this->dm->persist($asl);
         $this->dm->flush();
+        
+        return $membershipfee;
     }
     
     
@@ -49,18 +51,16 @@ class MembershipfeeRepository extends DocumentRepository
         }
     }
     
-    public function findAndUpdateMembership($datas, $membershipfee)
+    public function findAndUpdateMembership($request, $membershipfee)
     {
         $membershipfeeUpdate = $this->dm
             ->createQueryBuilder('FdsAslMongoBundle:Membershipfee')
             ->findAndUpdate()
             ->field('identifier')->equals((int) $membershipfee->getIdentifier());
         // Update found membershipfee
-        foreach ($datas->all() as $key => $value) {
+        foreach ($request->request->all() as $key => $value) {
             $membershipfeeUpdate->field($key)->set($value);
         }
-        
-        $membershipfeeUpdate->getQuery()
-            ->execute();
+        $membershipfeeUpdate->getQuery()->execute();
     }
 }

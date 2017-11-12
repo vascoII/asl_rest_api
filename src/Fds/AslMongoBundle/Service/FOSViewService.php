@@ -10,27 +10,67 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FOSViewService
 {
-    /**
-     * @return FOSView 
+    /*
+     * POST_Create :: 201
+     * @return FOSView
      */
-    public function noDocumentFound($document)
+    public function postCreate($url)
+    {
+        return FOSView::create(null, Response::HTTP_CREATED, ['Location' => $url]);
+    }
+    
+    /*
+     * GET_Read :: 200
+     * @return FOSView
+     */
+    public function getRead($data)
+    {
+        return FOSView::create($data, Response::HTTP_OK);
+    }
+    
+    /*
+     * PATCH_Update/Modify :: 200
+     * @return FOSView
+     */
+    public function patchUpdateModify()
+    {
+        return FOSView::create(null, Response::HTTP_OK);
+    }
+    
+    /*
+     * DELETE_Delete :: 200
+     * @return FOSView
+     */
+    public function deleteDelete()
+    {
+        return FOSView::create(null, Response::HTTP_OK);
+    }
+    
+    /*
+     * Not Found :: 404
+     * @return FOSView
+     */
+    public function noFound($document)
     {
         return FOSView::create(
-            ['message' => 'No '.$document.' found'], 
+            ['message' => $document.' not found'], 
             Response::HTTP_NOT_FOUND
         );
     }
     
-    /**
-     * @return FOSView 
+    /*
+     * Conflict :: 409 if resource already exists..
+     * @return FOSView
      */
-    public function documentRemoved($document)
+    public function conflict($data)
     {
-        return FOSView::create(
-            ['message' => $document.' removed'], 
-            Response::HTTP_ACCEPTED
-        );
+        return FOSView::create($data, Response::HTTP_CONFLICT);
     }
+    
+    /*
+     * Method Not Allowed :: 405
+     * @return FOSView
+     */
     
     /**
      * @return FOSView 
@@ -39,20 +79,8 @@ class FOSViewService
     {
         return FOSView::create(
             ['message' => $document.' tracked'], 
-            Response::HTTP_ACCEPTED
+            Response::HTTP_OK
         );
     }
     
-    /**
-     * @return FOSView 
-     */
-    public function documentRemoveNotAllowed($document, $childrens)
-    {
-        return FOSView::create(
-            [
-                'message' => 
-                $document.' can not be removed : Remove '.$childrens.' before'], 
-            Response::HTTP_FORBIDDEN
-        );
-    }
 }

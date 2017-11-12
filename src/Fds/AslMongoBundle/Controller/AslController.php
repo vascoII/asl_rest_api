@@ -3,7 +3,6 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\View\View as FOSView;
 use Fds\AslMongoBundle\Document\Asl;
@@ -13,29 +12,26 @@ use Fds\AslMongoBundle\Document\Asl;
  */
 class AslController extends CommonController
 {
-    public function getAslsAction(Request $request)
+    public function getAslsAction()
     {
-        $serializer = $this->get('jms_serializer'); 
         $asls = $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Asl')
             ->findAll();
 
         if (!$asls) {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $this->notFound($this->getParameter('constant_asl'));
         }
-        
-        return new Response($serializer->serialize($asls, 'json'));
+        return $this->getRead($asls);
     }
     
     public function getAslAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer'); 
         $asl = $this->aslExist($request->get('asl_id'));
         /* @var $asl Asl */
         if ($asl instanceof Asl) {
-            return new Response($serializer->serialize($asl, 'json'));
+            return $this->getRead($asl);
         } else {
-            return $asl;
+            return $this->notFound($this->getParameter('constant_asl'));
         }
     }
     
@@ -48,13 +44,7 @@ class AslController extends CommonController
             ->getRepository('FdsAslMongoBundle:Asl')
             ->createAsl($request, $getIdPlusOneAdded);            
         
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_CREATED);
-        $response->headers->set(
-            'Location', 
-            $request->getUri().'/'.$getIdPlusOneAdded
-        );
-        return $response;
+        return $this->postCreate($request->getUri().'/'.$getIdPlusOneAdded);
     }
     
     public function deleteAslAction(Request $request)
@@ -74,11 +64,12 @@ class AslController extends CommonController
             ) {
                 $dm->remove($asl);
                 $dm->flush();
-                return $this->documentRemoved($aslName);
+                return $this->deleteDelete();
             } else {
-                return $this->documentRemoveNotAllowed(
-                    $aslName, 
-                    $this->getParameter('constant_mem_or_pro') 
+                return $this->conflict(
+                    "$aslName can not be removed : Remove " .
+                    $this->getParameter('constant_mem_or_pro') .
+                    " before."
                 );
             }
         } else {
@@ -86,10 +77,12 @@ class AslController extends CommonController
         }
     }
     
+    /**
+     * @FOSRest\View(serializerGroups={"asl"})
+     */
     public function patchAslAction(Request $request)
     {  
         $serializer = $this->get('jms_serializer');
-        
         $dm = $this->getDocumentManager();
         $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
             ->findOneByIdentifier((int) $request->get('asl_id'));
@@ -105,7 +98,7 @@ class AslController extends CommonController
             
             return new Response($serializer->serialize($asl, 'json'));
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $this->notFound($this->getParameter('constant_asl'));
         }
     }
     

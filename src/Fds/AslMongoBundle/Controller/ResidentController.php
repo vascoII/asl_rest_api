@@ -99,21 +99,21 @@ class ResidentController extends CommonController
     
     public function postResidentAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer');
-        $resident = $this->getDocumentManager()
+        $getIdPlusOneAdded = $this->getIdPlusOneAdded(
+            $this->getParameter('constant_resident')
+        );
+        $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Resident')
             ->createResident(
-                $request->request, 
-                $this->getIdPlusOneAdded(
-                    $this->getParameter('constant_resident')
-                ),
+                $request, 
+                $getIdPlusOneAdded,
                 (int) $request->get('asl_id'),
                 (int) $request->get('property_id'),
                 $this->noDocumentFound($this->getParameter('constant_asl')),
                 $this->noDocumentFound($this->getParameter('constant_property'))
             );            
         
-        return new Response($serializer->serialize($resident, 'json'));
+        return $this->responseCreated($request->getUri().'/'.$getIdPlusOneAdded);
     }
     
     /**

@@ -3,12 +3,7 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Fds\AslMongoBundle\Document\Asl;
-use Fds\AslMongoBundle\Document\Membershipfee;
-use Fds\AslMongoBundle\Document\Owner;
-use Fds\AslMongoBundle\Document\Payment;
-use Fds\AslMongoBundle\Document\Property;
-use Fds\AslMongoBundle\Document\Resident;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Common controller.
@@ -36,24 +31,65 @@ class CommonController extends Controller
     }
     
     /**
-     * @return FOSView 
+     * @return FOSView
      */
-    protected function noDocumentFound($document)
+    protected function postCreate($url)
     {
         $fosviewService = 
             $this->container->get('fds_fosviewservice.fosviewservice');
-        return $fosviewService->noDocumentFound($document);
+        return $fosviewService->postCreate($url);
+    }
+    
+    /**
+     * @return FOSView
+     */
+    protected function getRead($data)
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->getRead($data);
+    }
+    
+    /**
+     * @return FOSView
+     */
+    protected function patchUpdateModify()
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->patchUpdateModify();
+    }
+    
+    /**
+     * @return FOSView
+     */
+    protected function deleteDelete()
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->deleteDelete();
+    }
+    
+    /**
+     * @return FOSView
+     */
+    protected function conflict($data)
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->conflict($data);
     }
     
     /**
      * @return FOSView 
      */
-    protected function documentRemoved($document)
+    protected function notFound($document)
     {
         $fosviewService = 
             $this->container->get('fds_fosviewservice.fosviewservice');
-        return $fosviewService->documentRemoved($document);
+        return $fosviewService->notFound($document);
     }
+    
     
     /**
      * @return FOSView 
@@ -65,15 +101,6 @@ class CommonController extends Controller
         return $fosviewService->documentTracked($document);
     }
     
-    /**
-     * @return FOSView 
-     */
-    protected function documentRemoveNotAllowed($document, $childrens)
-    {
-        $fosviewService = 
-            $this->container->get('fds_fosviewservice.fosviewservice');
-        return $fosviewService->documentRemoveNotAllowed($document, $childrens);
-    }
     /**
      * @return void 
      */
@@ -91,7 +118,7 @@ class CommonController extends Controller
         if ($asl) {
             return $asl;
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return false;
         }
     }
     
@@ -100,13 +127,14 @@ class CommonController extends Controller
             'identifier' => (int) $membershipfee_id,
             'asl' => $asl
         ];
-        $membershipfee = $this->dm->getRepository('FdsAslMongoBundle:Membershipfee')
+        $membershipfee = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Membershipfee')
             ->findOneBy($criteria);
 
         if ($membershipfee) {
             return $membershipfee;
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_membershipfee'));
+            return false;
         }
     }
     
@@ -122,7 +150,7 @@ class CommonController extends Controller
         if ($owner) {
             return $owner;    
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_owner'));
+            return false;
         }
     }
     
@@ -138,7 +166,7 @@ class CommonController extends Controller
         if ($payment) {
             return $payment;
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_payment'));
+            return false;
         }
     }
     
@@ -153,7 +181,7 @@ class CommonController extends Controller
         if ($property) {
             return $property;
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_property'));
+            return false;
         }
     }
     
@@ -169,7 +197,7 @@ class CommonController extends Controller
         if ($resident) {
             return $resident;
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_resident'));
+            return false;
         }
     }
 }

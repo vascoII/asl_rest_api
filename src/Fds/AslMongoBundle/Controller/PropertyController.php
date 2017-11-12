@@ -67,19 +67,19 @@ class PropertyController extends CommonController
     
     public function postPropertyAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer');
-        $property = $this->getDocumentManager()
+        $getIdPlusOneAdded = $this->getIdPlusOneAdded(
+            $this->getParameter('constant_property')
+        );
+        $this->getDocumentManager()
             ->getRepository('FdsAslMongoBundle:Property')
             ->createProperty(
                 $request->request, 
-                $this->getIdPlusOneAdded(
-                    $this->getParameter('constant_property')
-                ),
+                $getIdPlusOneAdded,
                 (int) $request->get('asl_id'),
                 $this->noDocumentFound($this->getParameter('constant_property'))
             );            
         
-        return new Response($serializer->serialize($property, 'json'));
+        return $this->responseCreated($request->getUri().'/'.$getIdPlusOneAdded);
     }
     
     public function deletePropertyAction(Request $request)

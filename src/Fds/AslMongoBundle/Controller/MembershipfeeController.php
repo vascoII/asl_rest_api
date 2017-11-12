@@ -4,8 +4,9 @@ namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Fds\AslMongoBundle\Document\Membershipfee;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
+use Fds\AslMongoBundle\Document\Asl;
+use Fds\AslMongoBundle\Document\Membershipfee;
 
 /**
  * Membershipfee controller.
@@ -67,68 +68,76 @@ class MembershipfeeController extends CommonController
     
     public function postMembershipfeeAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer');
-        $membershipfee = $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Membershipfee')
-            ->createMembershipfee(
-                $request->request, 
-                $this->getIdPlusOneAdded(
-                    $this->getParameter('constant_membershipfee')
-                ),
-                (int) $request->get('asl_id'),
-                $this->noDocumentFound($this->getParameter('constant_asl'))
-            );            
-        
-        return new Response($serializer->serialize($membershipfee, 'json'));
+        $getIdPlusOneAdded = $this->getIdPlusOneAdded(
+            $this->getParameter('constant_membershipfee')
+        );
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $this->getDocumentManager()
+                ->getRepository('FdsAslMongoBundle:Membershipfee')
+                ->createMembershipfee(
+                    $request, 
+                    $getIdPlusOneAdded,
+                    $asl
+                );
+            return $this->responseCreated($request->getUri().'/'.$getIdPlusOneAdded);
+        } else {
+            return $asl;
+        }
     }
     
     public function deleteMembershipfeeAction(Request $request)
     { 
-        $membershipfee = $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Membershipfee')
-            ->deleteMembershipfee(
-                (int) $request->get('asl_id'),
-                (int) $request->get('membershipfee_id'),
-                $this->noDocumentFound($this->getParameter('constant_asl')),
-                $this->noDocumentFound($this->getParameter('constant_membershipfee')),
-                $this->documentRemoved('Membershipfee')
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $membershipfee = $this->membershipfeeExist(
+                $request->get('membershipfee_id'), 
+                $asl
             );
-          
-        return $membershipfee;
+            if ($membershipfee instanceof Membershipfee) {
+                $membershipfee = $this->getDocumentManager()
+                    ->getRepository('FdsAslMongoBundle:Membershipfee')
+                    ->deleteMembershipfee(
+                        (int) $request->get('membershipfee_id'),
+                        $asl
+                    );
+                return $this->documentRemoved('Membership');
+            } else {
+                return $membershipfee;
+            }
+        } else {
+            return $asl;
+        }
     }
     
     public function patchMembershipfeeAction(Request $request)
     {  
         $serializer = $this->get('jms_serializer');
-        
         $dm = $this->getDocumentManager();
-        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $request->get('asl_id'));
         
-        if ($asl) {
-            $membershipfee = $dm->getRepository('FdsAslMongoBundle:Membershipfee')
-                ->findOneByIdentifier((int) $request->get('membershipfee_id'));
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $membershipfee = $this->membershipfeeExist(
+                $request->get('membershipfee_id'), 
+                $asl
+            );
+            if ($membershipfee instanceof Membershipfee) {
+                $dm->getRepository('FdsAslMongoBundle:Membershipfee')
+                    ->findAndUpdateMembership($request, $membershipfee);
+                
+                $this->clearCache();
+                $membershipfee = $dm->getRepository('FdsAslMongoBundle:Membershipfee')
+                    ->findOneByIdentifier((int) $request->get('membershipfee_id'));
             
-            if ($membershipfee) {
-                $this->getDocumentManager()
-                    ->getRepository('FdsAslMongoBundle:Membershipfee')
-                    ->findAndUpdateMembership($request->request, $membershipfee);            
-
-                $membershipfee = 
-                    $dm->getRepository('FdsAslMongoBundle:Membershipfee')
-                        ->findOneByIdentifier(
-                            (int) $request->get('membershipfee_id')
-                        );
-                return new Response(
-                    $serializer->serialize($membershipfee, 'json')
-                );
+                return new Response($serializer->serialize($membershipfee, 'json'));
             } else {
-                return $this->noDocumentFound(
-                    $this->getParameter('constant_membershipfee')
-                );
+                return $membershipfee;
             }
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $asl;
         }
     }
     

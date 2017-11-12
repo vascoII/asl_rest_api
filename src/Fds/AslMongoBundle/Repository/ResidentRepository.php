@@ -2,7 +2,8 @@
 
 namespace Fds\AslMongoBundle\Repository;
 
-use Fds\AslMongoBundle\Repository\CommonRepository;
+use Doctrine\ODM\MongoDB\DocumentRepository;
+use Fds\AslMongoBundle\Document\Resident;
 
 /**
  * ResidentRepository
@@ -55,14 +56,14 @@ class ResidentRepository extends DocumentRepository
         $this->dm->flush();           
     }
     
-    public function findAndUpdateResident($datas, $resident)
+    public function findAndUpdateResident($request, $resident)
     {
         $residentUpdate = $this->dm
             ->createQueryBuilder('FdsAslMongoBundle:Resident')
             ->findAndUpdate()
             ->field('identifier')->equals((int) $resident->getIdentifier());
         // Update found resident
-        foreach ($datas->all() as $key => $value) {
+        foreach ($request->request->all() as $key => $value) {
             $residentUpdate->field($key)->set($value);
         }
         

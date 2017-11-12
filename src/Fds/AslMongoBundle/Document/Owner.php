@@ -91,15 +91,22 @@ class Owner
     protected $properties;
     
     /** 
-     * @var date createdAt
+     * @var date startAt
      * @ODM\Field(type="date") 
      */
-    protected $createdAt;
+    protected $startAt;
+    
+    /** 
+     * @var date endAt
+     * @ODM\Field(type="date") 
+     */
+    protected $endAt;
     
     
     public function __construct() 
     {
         $this->createdAt = new \DateTime();
+        $this->startAt = new \DateTime();
         $this->properties = new ArrayCollection();
         $this->payments = new ArrayCollection();
     }
@@ -371,5 +378,45 @@ class Owner
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+    
+    /**
+     * Set startAt
+     * @param date $startAt
+     * @return $this
+     */
+    public function setStartAt(\DateTime $startAt)
+    {
+        $this->startAt = $startAt;
+        return $this;
+    }
+    
+    /**
+     * Get startAt
+     * @return date $startAt
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+    
+    /**
+     * Set endAt
+     * @param date $endAt
+     * @return $this
+     */
+    public function setEndAt(\DateTime $endAt)
+    {
+        $this->endAt = $endAt;
+        return $this;
+    }
+    
+    /**
+     * Get endAt
+     * @return date $endAt
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
     }
 }

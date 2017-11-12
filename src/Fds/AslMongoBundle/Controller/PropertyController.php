@@ -3,9 +3,8 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Document\Property;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 
 /**
  * Property controller.
@@ -13,90 +12,88 @@ use FOS\RestBundle\Controller\Annotations as FOSRest;
 class PropertyController extends CommonController
 {
     /**
-     * @FOSRest\View(serializerGroups={"properties"})
+     * @param Request $request
+     * @return property Collection
      */
     public function getPropertiesAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer'); 
-        $asl = $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $request->get('asl_id'));
-
-        if ($asl) {
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
             $properties = $asl->getProperties();
             if (count($properties)) {
-                return new Response($serializer->serialize($properties, 'json'));
+                return $this->getRead($properties);
             } else {
-                return $this->noDocumentFound(
+                return $this->notFound(
                     $this->getParameter('constant_property')
                 );
             }
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_property'));
+            return $this->notFound($this->getParameter('constant_asl'));
         }
     }
     
+    /**
+     * @param Request $request
+     * @return property Document
+     */
     public function getPropertyAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer'); 
-        $dm = $this->getDocumentManager();
-        
-        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $request->get('asl_id'));
-
-        if ($asl) {          
-            $properties = $asl->getProperties();
-            foreach ($properties as $property) {
-                if (
-                    (int) $property->getIdentifier() == 
-                    (int) $request->get('property_id')
-                ) {
-                    return new Response(
-                        $serializer->serialize($property, 'json')
-                    );
-                }
-            }
-                
-            return $this->noDocumentFound(
-                $this->getParameter('constant_property')
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $property = $this->propertyExist(
+                $request->get('property_id'), 
+                $asl
             );
+            if ($property instanceof Property) {
+                return $this->getRead($property);
+            } else {
+                return $this->notFound(
+                    $this->getParameter('constant_membershipfee')
+                );
+            }
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $this->notFound($this->getParameter('constant_asl'));
         }
     }
     
+    /**
+     * @param Request $request
+     * @return FOSView
+     */
     public function postPropertyAction(Request $request)
     {
         $getIdPlusOneAdded = $this->getIdPlusOneAdded(
-            $this->getParameter('constant_property')
+            $this->getParameter('constant_membershipfee')
         );
-        $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Property')
-            ->createProperty(
-                $request->request, 
-                $getIdPlusOneAdded,
-                (int) $request->get('asl_id'),
-                $this->noDocumentFound($this->getParameter('constant_property'))
-            );            
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $this->getDocumentManager()
+                ->getRepository('FdsAslMongoBundle:Property')
+                ->createProperty($request, $getIdPlusOneAdded, $asl);            
         
-        return $this->responseCreated($request->getUri().'/'.$getIdPlusOneAdded);
+            return $this->postCreate($request->getUri().'/'.$getIdPlusOneAdded);
+        } else {
+            return $this->notFound($this->getParameter('constant_asl'));
+        }
     }
     
+    /**
+     * @param Request $request
+     * @return FOSView
+     */
     public function deletePropertyAction(Request $request)
     { 
-        $dm = $this->getDocumentManager();
-        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $request->get('asl_id'));
-        
-        if ($asl) {
-            $criteria = [
-                'identifier' => (int) $request->get('property_id'),
-                'asl' => $asl
-            ];
-            $property = $dm->getRepository('FdsAslMongoBundle:Property')
-                ->findOneBy($criteria);
-
-            if ($property) {
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $property = $this->propertyExist(
+                $request->get('property_id'), 
+                $asl
+            );
+            if ($property instanceof Property) {
                 $propertyNumber = $property->getNumber();
                 $propertyOwners = $property->getOwners(); 
                 $propertyResidents = $property->getResidents();
@@ -105,9 +102,9 @@ class PropertyController extends CommonController
                     (!count($propertyOwners)) &&
                     (!count($propertyResidents))     
                 ) {
-                    $dm->remove($property);
-                    $dm->flush();
-                    return $this->documentRemoved('Property N°:'.$propertyNumber);
+                    $this->getDocumentManager()->remove($property);
+                    $this->getDocumentManager()->flush();
+                    return $this->deleteDelete();
                 } else {
                     return $this->documentRemoveNotAllowed(
                         'Property N°:'.$propertyNumber, 
@@ -120,51 +117,35 @@ class PropertyController extends CommonController
         } else {
             return $this->noDocumentFound($this->getParameter('constant_asl'));
         }
-        $property = $this->getDocumentManager()
-            ->getRepository('FdsAslMongoBundle:Property')
-            ->deleteProperty(
-                (int) $request->get('asl_id'),
-                (int) $request->get('property_id'),
-                $this->noDocumentFound($this->getParameter('constant_asl')),
-                $this->noDocumentFound($this->getParameter('constant_property')),
-                $this->documentRemoved('Property')
-            );
-          
-        return $property;
     }
     
+    /**
+     * @param Request $request
+     * @return FOSView
+     */
     public function patchPropertyAction(Request $request)
     {  
-        $serializer = $this->get('jms_serializer');
-        
-        $dm = $this->getDocumentManager();
-        $asl = $dm->getRepository('FdsAslMongoBundle:Asl')
-            ->findOneByIdentifier((int) $request->get('asl_id'));
-        
-        if ($asl) {
-            $property = $dm->getRepository('FdsAslMongoBundle:Property')
-                ->findOneByIdentifier((int) $request->get('property_id'));
-            
-            if ($property) {
+        $asl = $this->aslExist($request->get('asl_id'));
+        /* @var $asl Asl */
+        if ($asl instanceof Asl) {
+            $property = $this->propertyExist(
+                $request->get('property_id'), 
+                $asl
+            );
+            if ($property instanceof Property) {
                 $this->getDocumentManager()
                     ->getRepository('FdsAslMongoBundle:Property')
                     ->findAndUpdateProperty($request->request, $property);            
 
-                $property = 
-                    $dm->getRepository('FdsAslMongoBundle:Property')
-                        ->findOneByIdentifier(
-                            (int) $request->get('property_id')
-                        );
-                return new Response(
-                    $serializer->serialize($property, 'json')
-                );
+                return $this->patchUpdateModify();
             } else {
-                return $this->noDocumentFound(
+                return $this->notFound(
                     $this->getParameter('constant_property')
                 );
             }
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $this->notFound($this->getParameter('constant_asl'));
         }
     }
+    
 }

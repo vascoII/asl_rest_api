@@ -77,6 +77,7 @@ class Resident
         $this->startAt = new \DateTime();
         $this->createdAt = new \DateTime();
     }
+    
     /**
      * Get id
      * @return id $id

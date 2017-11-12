@@ -1,34 +1,35 @@
-get_owners:
+get_owners_asl:
     path:     /asls/{asl_id}/owners
-    defaults: { _controller: FdsAslMongoBundle:Owner:getOwners }
+    defaults: { _controller: FdsAslMongoBundle:Owner:getOwnersAsl }
     methods:  [GET]
     requirements:
         asl_id: '\d+'
-get_owner:
+get_owners_property:
     path:     /asls/{asl_id}/properties/{property_id}/owners
+    defaults: { _controller: FdsAslMongoBundle:Owner:getOwnersProperty }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+        property_id: '\d+'
+get_owner:
+    path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}
     defaults: { _controller: FdsAslMongoBundle:Owner:getOwner }
     methods:  [GET]
     requirements:
         asl_id: '\d+'
         property_id: '\d+'
+        owner_id: '\d+'
 post_owner:
-    path:     /owners
+    path:     /asls/{asl_id}/properties/{property_id}/owners
     defaults: { _controller: FdsAslMongoBundle:Owner:postOwners }
     methods:  [POST]
     requirements:
         asl_id: '\d+'
+        property_id: '\d+'
 delete_owner:
     path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}
     defaults: { _controller: FdsAslMongoBundle:Owner:deleteOwner }
     methods:  [DELETE]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        owner_id: '\d+'
-put_owner:
-    path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}
-    defaults: { _controller: FdsAslMongoBundle:Owner:putOwner }
-    methods:  [PUT]
     requirements:
         asl_id: '\d+'
         property_id: '\d+'
@@ -41,4 +42,3 @@ patch_owner:
         asl_id: '\d+'
         property_id: '\d+'
         owner_id: '\d+'
-

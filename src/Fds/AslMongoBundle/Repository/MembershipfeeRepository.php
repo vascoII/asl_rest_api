@@ -51,7 +51,7 @@ class MembershipfeeRepository extends DocumentRepository
         }
     }
     
-    public function findAndUpdateMembership($request, $membershipfee)
+    public function findAndUpdateMembershipfee($request, $membershipfee)
     {
         $membershipfeeUpdate = $this->dm
             ->createQueryBuilder('FdsAslMongoBundle:Membershipfee')

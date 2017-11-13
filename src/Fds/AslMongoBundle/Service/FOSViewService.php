@@ -20,6 +20,15 @@ class FOSViewService
     }
     
     /*
+     * POST_CreateViewer :: 202
+     * @return FOSView
+     */
+    public function postCreateUser($data)
+    {
+        return FOSView::create($data, Response::HTTP_ACCEPTED);
+    }
+    
+    /*
      * GET_Read :: 200
      * @return FOSView
      */

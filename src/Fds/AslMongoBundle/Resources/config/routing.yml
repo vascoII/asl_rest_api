@@ -31,3 +31,8 @@ fds_properties_mongo:
 fds_residents_mongo:
     resource: "@FdsAslMongoBundle/Resources/config/routing/resident.yml"
     prefix:   /
+    
+# User Routing 
+fds_users_mongo:
+    resource: "@FdsAslMongoBundle/Resources/config/routing/user.yml"
+    prefix:   /

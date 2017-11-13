@@ -1,0 +1,25 @@
+get_users:
+    path:     /asl/{asl_id}/users
+    defaults: { _controller: FdsAslMongoBundle:Owner:getUsers }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+post_user:
+    path:     /asls/{asl_id}/users
+    defaults: { _controller: FdsAslMongoBundle:User:postUser }
+    methods:  [POST]
+    requirements:
+        asl_id: '\d+'
+post_manager:
+    path:     /users
+    defaults: { _controller: FdsAslMongoBundle:User:postUser }
+    methods:  [POST]
+delete_user:
+    path:     /asls/{asl_id}/users/{user_id}
+    defaults: { _controller: FdsAslMongoBundle:User:deleteUser }
+    methods:  [DELETE]
+    requirements:
+        asl_id: '\d+'
+        user_id: '\d+'
+
+

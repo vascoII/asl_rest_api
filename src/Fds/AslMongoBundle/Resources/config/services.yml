@@ -5,6 +5,7 @@ parameters:
     constant_payment: Payment
     constant_property: Property
     constant_resident: Resident
+    constant_user: User
     constant_mem_or_pro: Property Or Membershipfee related
     constant_own_or_pro: Owner Or Resident related
     

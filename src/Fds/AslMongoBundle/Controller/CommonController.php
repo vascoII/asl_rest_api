@@ -3,15 +3,18 @@
 namespace Fds\AslMongoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Fds\AslMongoBundle\Document\Asl;
+use Fds\AslMongoBundle\Document\Owner;
+use Fds\AslMongoBundle\Document\Membershipfee;
+use Fds\AslMongoBundle\Document\Payment;
+use Fds\AslMongoBundle\Document\Property;
+use Fds\AslMongoBundle\Document\Resident;
 
 /**
  * Common controller.
  */
 class CommonController extends Controller
 {
-    
-    
     /**
      * @return DocumentManager
      */
@@ -38,6 +41,16 @@ class CommonController extends Controller
         $fosviewService = 
             $this->container->get('fds_fosviewservice.fosviewservice');
         return $fosviewService->postCreate($url);
+    }
+    
+    /**
+     * @return FOSView
+     */
+    protected function createUser($data)
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->postCreateUser($data);
     }
     
     /**
@@ -115,7 +128,7 @@ class CommonController extends Controller
         $asl = $this->getDocumentManager()->getRepository('FdsAslMongoBundle:Asl')
             ->findOneByIdentifier((int) $asl_id);
         
-        if ($asl) {
+        if ($asl instanceof Asl) {
             return $asl;
         } else {
             return false;
@@ -131,7 +144,7 @@ class CommonController extends Controller
             ->getRepository('FdsAslMongoBundle:Membershipfee')
             ->findOneBy($criteria);
 
-        if ($membershipfee) {
+        if ($membershipfee instanceof Membershipfee) {
             return $membershipfee;
         } else {
             return false;
@@ -148,7 +161,7 @@ class CommonController extends Controller
             ->getRepository('FdsAslMongoBundle:Owner')
             ->findOneBy($criteria);
 
-        if ($owner) {
+        if ($owner instanceof Owner) {
             return $owner;    
         } else {
             return false;
@@ -165,7 +178,7 @@ class CommonController extends Controller
             ->getRepository('FdsAslMongoBundle:Payment')
             ->findOneBy($criteria);
             
-        if ($payment) {
+        if ($payment instanceof Payment) {
             return $payment;
         } else {
             return false;
@@ -181,7 +194,7 @@ class CommonController extends Controller
             ->getRepository('FdsAslMongoBundle:Property')
             ->findOneBy($criteria);
             
-        if ($property) {
+        if ($property instanceof Property) {
             return $property;
         } else {
             return false;
@@ -198,10 +211,49 @@ class CommonController extends Controller
             ->getRepository('FdsAslMongoBundle:Resident')
             ->findOneBy($criteria);
             
-        if ($resident) {
+        if ($resident instanceof Resident) {
             return $resident;
         } else {
             return false;
         }
+    }
+    
+    protected function userExist($request)
+    {   //Viewer
+        if (count($request->get('asl_id')))
+        { 
+            $asl = $this->aslExist($request->get('asl_id'));
+
+            if ($asl instanceof Asl) {
+                $criteria = [
+                    'email' => $request->request->get('email'),
+                    'asl' => $asl,
+                    'user' => true
+                ];
+                $user = $this->getDocumentManager()
+                    ->getRepository('FdsAslMongoBundle:Owner')
+                    ->findOneBy($criteria);
+                
+                if ($user instanceof Owner) {
+                    $response = 'viewerExist';
+                } else {
+                    $response = 'viewer';
+                }
+            } else {
+                $response = 'bad_Asl';
+            }
+        } else { //Manager
+            $user = $this->getDocumentManager()
+                ->getRepository('FdsAslMongoBundle:User')
+                ->findOneByRole('Manager');
+            
+            if ($user) 
+            {
+                $response = 'managerExist';
+            } else {
+                $response = 'manager';
+            }
+        }
+        return $response;
     }
 }

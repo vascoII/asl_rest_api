@@ -79,7 +79,19 @@ class Owner
      * @ODM\Field(name="country", type="string")
      */
     protected $country;
+    
+    /**
+     * @var boolean $user
+     * @ODM\Field(name="user", type="boolean")
+     */
+    protected $user;
 
+    /**
+     * @var string $password
+     * @ODM\Field(name="password", type="string")
+     */
+    protected $password;
+    
     /**
      * @ODM\ReferenceOne(targetDocument="Asl")
      */
@@ -118,6 +130,7 @@ class Owner
     {
         $this->createdAt = new \DateTime();
         $this->startAt = new \DateTime();
+        $this->user = false;
         $this->properties = new ArrayCollection();
         $this->payments = new ArrayCollection();
     }
@@ -330,7 +343,47 @@ class Owner
     {
         return $this->country;
     }
+    
+    /**
+     * Set user
+     * @param boolean $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
 
+    /**
+     * Get user
+     * @return string $user
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set password
+     * @param string $password
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * Get password
+     * @return string $password
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    
     /**
      * Set asl
      * @param Asl $asl

@@ -142,9 +142,10 @@ class CommonController extends Controller
         $criteria = [
             'identifier' => (int) $owner_id,
             'asl' => $asl,
-            'property' => $property
+            'properties' => $property
         ];
-        $owner = $this->dm->getRepository('FdsAslMongoBundle:Owner')
+        $owner = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Owner')
             ->findOneBy($criteria);
 
         if ($owner) {
@@ -160,7 +161,8 @@ class CommonController extends Controller
             'asl' => $asl, 
             'owner' => $owner
         ];
-        $payment = $this->dm->getRepository('FdsAslMongoBundle:Payment')
+        $payment = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Payment')
             ->findOneBy($criteria);
             
         if ($payment) {
@@ -175,7 +177,8 @@ class CommonController extends Controller
             'identifier' => (int) $property_id,
             'asl' => $asl
         ];
-        $property = $this->dm->getRepository('FdsAslMongoBundle:Property')
+        $property = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Property')
             ->findOneBy($criteria);
             
         if ($property) {
@@ -191,7 +194,8 @@ class CommonController extends Controller
             'asl' => $asl,
             'property' => $property
         ];
-        $resident = $this->dm->getRepository('FdsAslMongoBundle:Resident')
+        $resident = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Resident')
             ->findOneBy($criteria);
             
         if ($resident) {

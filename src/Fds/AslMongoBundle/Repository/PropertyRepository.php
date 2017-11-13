@@ -17,10 +17,9 @@ class PropertyRepository extends DocumentRepository
     {
         $property = new Property();
         $property->setIdentifier($identifier);
-        $property->setNumber($datas->get('number'));
-        $property->setPropertyType($datas->get('propertyType'));
+        $property->setNumber($request->request->get('number'));
+        $property->setPropertyType($request->request->get('propertyType'));
         $property->setAsl($asl);
-        $property->setCreatedAt(new \DateTime());
             
         $this->dm->persist($property);
         

@@ -2,6 +2,7 @@
 
 namespace Fds\AslMongoBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use Fds\AslMongoBundle\Document\Asl;
@@ -15,6 +16,8 @@ use Fds\AslMongoBundle\Document\Owner;
 class OwnerController extends CommonController
 {
     /**
+     * @ApiDoc(description="Get Owners List for Asl")
+     * 
      * @param Request $request
      * @return owner Collection of an Asl
      */
@@ -49,6 +52,8 @@ class OwnerController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Get Owners List for Property of Asl")
+     * 
      * @param Request $request
      * @return owner Collection of a property
      */
@@ -81,6 +86,8 @@ class OwnerController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Get Owner for Property of Asl")
+     * 
      * @param Request $request
      * @return owner Document
      */
@@ -117,13 +124,15 @@ class OwnerController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Create Owner of Property of Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */
     public function postOwnerAction(Request $request)
     {
         $getIdPlusOneAdded = $this->getIdPlusOneAdded(
-            $this->getParameter('constant_resident')
+            $this->getParameter('constant_owner')
         );
         $asl = $this->aslExist($request->get('asl_id'));
         /* @var $asl Asl */
@@ -153,12 +162,12 @@ class OwnerController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Delete Owner of Property of Asl - 
+     Can remove owner only if no payment done
+     otherwise dissociated him to keep track")
      * 
      * @param Request $request
      * @return FOSView
-     * 
-     * Can remove owner only if no payment done
-     * otherwise dissociated him to keep track
      */
     public function deleteOwnerAction(Request $request)
     { 
@@ -208,6 +217,8 @@ class OwnerController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Update Owner of Property of Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */

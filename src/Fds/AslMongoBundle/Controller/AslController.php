@@ -2,6 +2,7 @@
 
 namespace Fds\AslMongoBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Fds\AslMongoBundle\Document\Asl;
 
@@ -11,6 +12,8 @@ use Fds\AslMongoBundle\Document\Asl;
 class AslController extends CommonController
 {
     /**
+     * @ApiDoc(description="Get Asls List")
+     * 
      * @return Asl Collection
      */
     public function getAslsAction()
@@ -26,6 +29,8 @@ class AslController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Get Asl")
+     * 
      * @param Request $request
      * @return Asl Document
      */
@@ -41,6 +46,8 @@ class AslController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Create Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */
@@ -57,6 +64,8 @@ class AslController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Delete Asl only if no Membershipfee or Property related")
+     * 
      * @param Request $request
      * @return FOSView
      */
@@ -89,6 +98,8 @@ class AslController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Update Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */

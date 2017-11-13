@@ -3,6 +3,7 @@
 namespace Fds\AslMongoBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Fds\AslMongoBundle\Document\Payment;
 
 /**
  * PaymentRepository
@@ -12,4 +13,14 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class PaymentRepository extends DocumentRepository
 {
+    
+    public function createPayment(
+        $request, 
+        $getIdPlusOneAdded, 
+        $asl, 
+        $property,
+        $owner
+    ) {                    
+        //Recherche 
+    }
 }

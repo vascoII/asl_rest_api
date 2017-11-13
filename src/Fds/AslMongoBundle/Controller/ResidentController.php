@@ -2,6 +2,7 @@
 
 namespace Fds\AslMongoBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Document\Property;
@@ -14,6 +15,8 @@ use Fds\AslMongoBundle\Document\Resident;
 class ResidentController extends CommonController
 {
     /**
+     * @ApiDoc(description="Get Residents List of Asl")
+     * 
      * @param Request $request
      * @return resident Collection
      */
@@ -46,6 +49,8 @@ class ResidentController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Get Property of Asl")
+     * 
      * @param Request $request
      * @return resident Document
      */
@@ -82,6 +87,8 @@ class ResidentController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Create Property of Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */
@@ -118,11 +125,11 @@ class ResidentController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Delete or Archive Resident of Asl")
      * 
      * @param Request $request
      * @return FOSView
-     * 
-     * Can remove resident or dissociated him to keep track
+     *
      */
     public function deleteResidentAction(Request $request)
     { 
@@ -173,6 +180,8 @@ class ResidentController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Update Resident of Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */

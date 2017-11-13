@@ -3,6 +3,7 @@
 namespace Fds\AslMongoBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Fds\AslMongoBundle\Document\Owner
@@ -79,6 +80,10 @@ class Owner
      */
     protected $country;
 
+    /**
+     * @ODM\ReferenceOne(targetDocument="Asl")
+     */
+    protected $asl;
     
     /**
      * @ODM\ReferenceMany(targetDocument="Payment", cascade="all")
@@ -89,6 +94,12 @@ class Owner
      * @ODM\ReferenceMany(targetDocument="Property", cascade="all")
      */
     protected $properties;
+    
+    /** 
+     * @var date createdAt
+     * @ODM\Field(type="date") 
+     */
+    protected $createdAt;
     
     /** 
      * @var date startAt
@@ -321,6 +332,26 @@ class Owner
     }
 
     /**
+     * Set asl
+     * @param Asl $asl
+     * @return $this
+     */
+    public function setAsl($asl)
+    {
+        $this->asl = $asl;
+        return $this;
+    }
+
+    /**
+     * Get asl
+     * @return Asl $asl
+     */
+    public function getAsl()
+    {
+        return $this->asl;
+    }
+    
+    /**
      * Add payments
      * @param Payment $payment
      * @return $this
@@ -358,17 +389,6 @@ class Owner
     public function getProperties()
     {
         return $this->properties;
-    }
-    
-    /**
-     * Set createdAt
-     * @param date $createdAt
-     * @return $this
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
     }
     
     /**

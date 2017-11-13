@@ -15,23 +15,30 @@ class OwnerRepository extends DocumentRepository
 {
     public function createOwner($request, $identifier, $asl, $property) {
                         
-        $owner = new Resident();
+        $owner = new Owner();
         $owner->setIdentifier($identifier);
         $owner->setFirstName($request->request->get('firstName'));
         $owner->setLastName($request->request->get('lastName'));
         $owner->setEmail($request->request->get('email'));
-        $owner->setEmail($request->request->get('phone'));
-        $owner->setEmail($request->request->get('propertyAsAddress'));
-        $owner->setEmail($request->request->get('address'));
-        $owner->setEmail($request->request->get('postalCode'));
-        $owner->setEmail($request->request->get('city'));
-        $owner->setEmail($request->request->get('country'));
+        $owner->setPhone($request->request->get('phone'));
+        $owner->setPropertyAsAddress($request->request->get('propertyAsAddress'));
+        if (!$request->request->get('propertyAsAddress')) {
+            $owner->setAddress($request->request->get('address'));
+            $owner->setPostalCode($request->request->get('postalCode'));
+            $owner->setCity($request->request->get('city'));
+            $owner->setCountry($request->request->get('country'));
+        }
+        if ($request->request->get('startAt')) {
+            //Format string to DateTime
+            $date = new \DateTime($request->request->get('startAt'));
+            $owner->setStartAt($date);
+        }
         $owner->setAsl($asl);
-        $owner->setProperty($property);                
+        $owner->addProperties($property);                
             
         $this->dm->persist($owner);
                 
-        $property->addResidents($owner);
+        $property->addOwners($owner);
         $this->dm->persist($property);
             
         $this->dm->flush();

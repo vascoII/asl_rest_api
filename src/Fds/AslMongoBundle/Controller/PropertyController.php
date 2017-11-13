@@ -2,6 +2,7 @@
 
 namespace Fds\AslMongoBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Document\Property;
@@ -12,6 +13,8 @@ use Fds\AslMongoBundle\Document\Property;
 class PropertyController extends CommonController
 {
     /**
+     * @ApiDoc(description="Get Properties List for Asl")
+     * 
      * @param Request $request
      * @return property Collection
      */
@@ -34,6 +37,8 @@ class PropertyController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Get Property of Asl")
+     * 
      * @param Request $request
      * @return property Document
      */
@@ -59,13 +64,15 @@ class PropertyController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Create Property of Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */
     public function postPropertyAction(Request $request)
     {
         $getIdPlusOneAdded = $this->getIdPlusOneAdded(
-            $this->getParameter('constant_membershipfee')
+            $this->getParameter('constant_property')
         );
         $asl = $this->aslExist($request->get('asl_id'));
         /* @var $asl Asl */
@@ -81,6 +88,9 @@ class PropertyController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Delete Property of Asl - 
+     Can remove Property only if no Resident or Owner related")
+     * 
      * @param Request $request
      * @return FOSView
      */
@@ -102,6 +112,9 @@ class PropertyController extends CommonController
                     (!count($propertyOwners)) &&
                     (!count($propertyResidents))     
                 ) {
+                    //remove membershipfee reference in Asl Document
+                    $asl->getProperties()->removeElement($property);
+                
                     $this->getDocumentManager()->remove($property);
                     $this->getDocumentManager()->flush();
                     return $this->deleteDelete();
@@ -112,14 +125,16 @@ class PropertyController extends CommonController
                     );
                 }
             } else {
-                return $this->noDocumentFound($this->getParameter('property_asl'));
+                return $this->notFound($this->getParameter('property_asl'));
             }
         } else {
-            return $this->noDocumentFound($this->getParameter('constant_asl'));
+            return $this->noFound($this->getParameter('constant_asl'));
         }
     }
     
     /**
+     * @ApiDoc(description="Update Property of Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */

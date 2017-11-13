@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Fds\AslMongoBundle\FdsAslMongoBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(), 
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

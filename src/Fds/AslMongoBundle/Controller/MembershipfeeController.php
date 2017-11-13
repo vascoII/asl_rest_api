@@ -2,6 +2,7 @@
 
 namespace Fds\AslMongoBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Fds\AslMongoBundle\Document\Asl;
 use Fds\AslMongoBundle\Document\Membershipfee;
@@ -12,6 +13,8 @@ use Fds\AslMongoBundle\Document\Membershipfee;
 class MembershipfeeController extends CommonController
 {
     /**
+     * @ApiDoc(description="Get Membershipfees List of Asl")
+     * 
      * @param Request $request
      * @return membershipfee Collection
      */
@@ -34,6 +37,8 @@ class MembershipfeeController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Get Membershipfee of Asl")
+     * 
      * @param Request $request
      * @return membershipfee Document
      */
@@ -59,6 +64,8 @@ class MembershipfeeController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Create Membershipfee for Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */
@@ -81,6 +88,8 @@ class MembershipfeeController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Delete Membershipfee for Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */
@@ -112,6 +121,8 @@ class MembershipfeeController extends CommonController
     }
     
     /**
+     * @ApiDoc(description="Update Membershipfee for Asl")
+     * 
      * @param Request $request
      * @return FOSView
      */

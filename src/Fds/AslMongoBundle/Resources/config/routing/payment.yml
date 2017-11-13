@@ -1,16 +1,27 @@
+#All payments done for Asl
 get_payments:
     path:     /asls/{asl_id}/payments
     defaults: { _controller: FdsAslMongoBundle:Payment:getPayments }
     methods:  [GET]
     requirements:
         asl_id: '\d+'
+#All payments done for a Membershipfee
 get_property_payments:
+    path:     /asls/{asl_id}/membershipfees/{membershipfee_id}/payments
+    defaults: { _controller: FdsAslMongoBundle:Payment:getMembershipfeePayments }
+    methods:  [GET]
+    requirements:
+        asl_id: '\d+'
+        membershipfee_id: '\d+'
+#All payements done for a Property 
+get_property_payment:
     path:     /asls/{asl_id}/properties/{property_id}/payments
-    defaults: { _controller: FdsAslMongoBundle:Payment:getPropertyPayments }
+    defaults: { _controller: FdsAslMongoBundle:Payment:getPropertyPayment }
     methods:  [GET]
     requirements:
         asl_id: '\d+'
         property_id: '\d+'
+#One payment for a Property
 get_property_payment:
     path:     /asls/{asl_id}/properties/{property_id}/payments/{payment_id}
     defaults: { _controller: FdsAslMongoBundle:Payment:getPropertyPayment }
@@ -19,6 +30,7 @@ get_property_payment:
         asl_id: '\d+'
         property_id: '\d+'
         payment_id: '\d+' 
+#All payments done for an Owner
 get_owner_payments:
     path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}/payments
     defaults: { _controller: FdsAslMongoBundle:Payment:getOwnerPayments }
@@ -27,6 +39,7 @@ get_owner_payments:
         asl_id: '\d+'
         property_id: '\d+'
         owner_id: '\d+'
+#One payment for an Owner
 get_owner_payment:
     path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}/payments/{payment_id}
     defaults: { _controller: FdsAslMongoBundle:Payment:getOwnerPayment }
@@ -36,6 +49,7 @@ get_owner_payment:
         property_id: '\d+'
         owner_id: '\d+'
         payment_id: '\d+'
+#Create Payment by Owner for Membershipfees
 post_owner_payment:
     path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}/payments
     defaults: { _controller: FdsAslMongoBundle:Payment:postPayments }
@@ -53,15 +67,7 @@ delete_owner_payment:
         property_id: '\d+'
         owner_id: '\d+'
         payment_id: '\d+'
-put_owner_payment:
-    path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}/payments/{payment_id}
-    defaults: { _controller: FdsAslMongoBundle:Owner:putPayment }
-    methods:  [PUT]
-    requirements:
-        asl_id: '\d+'
-        property_id: '\d+'
-        owner_id: '\d+'
-        payment_id: '\d+'
+
 patch_owner_payment:
     path:     /asls/{asl_id}/properties/{property_id}/owners/{owner_id}/payments/{payment_id}
     defaults: { _controller: FdsAslMongoBundle:Owner:patchPayment }

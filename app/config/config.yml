@@ -34,11 +34,6 @@ framework:
     serializer:
         enabled: true
 
-# Twig Configuration
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-
 # Doctrine Configuration
 doctrine:
     dbal:

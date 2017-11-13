@@ -21,7 +21,7 @@ get_owner:
         owner_id: '\d+'
 post_owner:
     path:     /asls/{asl_id}/properties/{property_id}/owners
-    defaults: { _controller: FdsAslMongoBundle:Owner:postOwners }
+    defaults: { _controller: FdsAslMongoBundle:Owner:postOwner }
     methods:  [POST]
     requirements:
         asl_id: '\d+'

@@ -2,6 +2,7 @@
 
 namespace Fds\AslMongoBundle\Controller;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 
 use Fds\AslMongoBundle\Document\Asl;

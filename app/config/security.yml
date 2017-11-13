@@ -3,7 +3,7 @@
 security:
 
     encoders:
-        Fds\AslMongoBundle\Document\User:
+        Fds\AuthBundle\Document\User:
             algorithm: bcrypt
             cost: 12
             

@@ -1,0 +1,4 @@
+# User Routing 
+fds_users_mongo:
+    resource: "@FdsAuthBundle/Resources/config/routing/user.yml"
+    prefix:   /

@@ -1,15 +1,15 @@
 <?php
 
-namespace Fds\AslMongoBundle\Document;
+namespace Fds\AuthBundle\Document;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Fds\AslMongoBundle\Document\User
+ * Fds\AuthBundle\Document\User
  *
  * @ODM\Document(
- *     repositoryClass="Fds\AslMongoBundle\Repository\UserRepository"
+ *     repositoryClass="Fds\AuthBundle\Repository\UserRepository"
  * )
  */
 class User implements UserInterface

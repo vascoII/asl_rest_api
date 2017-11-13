@@ -1,3 +1,7 @@
+fds_auth:
+    resource: "@FdsAuthBundle/Resources/config/routing.yml"
+    prefix:   /
+
 fds_asl_mongo:
     resource: "@FdsAslMongoBundle/Resources/config/routing.yml"
     prefix:   /

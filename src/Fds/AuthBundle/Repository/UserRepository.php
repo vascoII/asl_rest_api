@@ -1,9 +1,6 @@
 <?php
 
-namespace Fds\AslMongoBundle\Repository;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+namespace Fds\AuthBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
 

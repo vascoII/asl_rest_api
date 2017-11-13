@@ -218,42 +218,4 @@ class CommonController extends Controller
         }
     }
     
-    protected function userExist($request)
-    {   //Viewer
-        if (count($request->get('asl_id')))
-        { 
-            $asl = $this->aslExist($request->get('asl_id'));
-
-            if ($asl instanceof Asl) {
-                $criteria = [
-                    'email' => $request->request->get('email'),
-                    'asl' => $asl,
-                    'user' => true
-                ];
-                $user = $this->getDocumentManager()
-                    ->getRepository('FdsAslMongoBundle:Owner')
-                    ->findOneBy($criteria);
-                
-                if ($user instanceof Owner) {
-                    $response = 'viewerExist';
-                } else {
-                    $response = 'viewer';
-                }
-            } else {
-                $response = 'bad_Asl';
-            }
-        } else { //Manager
-            $user = $this->getDocumentManager()
-                ->getRepository('FdsAslMongoBundle:User')
-                ->findOneByRole('Manager');
-            
-            if ($user) 
-            {
-                $response = 'managerExist';
-            } else {
-                $response = 'manager';
-            }
-        }
-        return $response;
-    }
 }

@@ -12,5 +12,71 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class UserRepository extends DocumentRepository
 {
+    const ROLE_MANAGER = 'Manager';
+    const MANAGER_CREATED = 'MANAGER_CREATED';
+    const ROLE_OWNER = 'Owner';
+    const OWNER_USER_CREATED = 'OWNER_USER_CREATED';
+    const OWNER_USER_ALREADY_CREATED = 'OWNER_USER_ALREADY_CREATED';
+    const OWNER_USER_INVALID_DATA = 'OWNER_USER_INVALID_DATA';    
+    
+    public function postCreateUser(
+        $request, 
+        $viewer, 
+        $encoded,
+        $getIdPlusOneAdded
+    ) {
+        // La premiere creation est celle du manager de Asl <==> 
+        // $getIdPlusOneAdded == 1
+        if ($getIdPlusOneAdded == 1) {
+            $viewer->setIdentifier($getIdPlusOneAdded);
+            $viewer->setEmail($request->request->get('email'));
+            $viewer->setPassword($encoded);
+            $viewer->setRole(self::ROLE_MANAGER);
+            
+            $this->dm->persist($viewer);
+            $this->dm->flush();
+            
+            return self::MANAGER_CREATED;
+        } else { //Owner en tant que user
+            return $this->postCreateOwnerUser(
+                $request, 
+                $viewer, 
+                $encoded,
+                $getIdPlusOneAdded
+            );
+        }
+        
+    }
+    
+    public function postCreateOwnerUser(
+        $request, 
+        $viewer, 
+        $encoded,
+        $getIdPlusOneAdded
+    ) {
+        $owner = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Owner')
+            ->findOneByEmail($request->request->get('email'));
+
+        // ssi owner->email existe et non deja enregistré on cree ce user
+        if ($owner instanceof Owner && $owner->getUser == false) {
+            $viewer->setIdentifier($getIdPlusOneAdded);
+            $viewer->setEmail($request->request->get('email'));
+            $viewer->setPassword($encoded);
+            $viewer->setRole(self::ROLE_OWNER);
+            $this->dm->persist($viewer);
+            
+            $owner->setUser(true);
+            $this->dm->persist($owner);
+            
+            $this->dm->flush();
+            
+            return self::OWNER_USER_CREATED;
+        } elseif($owner instanceof Owner) { // owner deja enregistré comme user
+            return self::OWNER_USER_ALREADY_CREATED;
+        } else {
+            return self::OWNER_USER_INVALID_DATA;
+        }
+    }
     
 }

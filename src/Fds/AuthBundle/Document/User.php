@@ -43,8 +43,6 @@ class User implements UserInterface
      * @ODM\Field(name="password", type="string")
      */
     protected $password;
-
-    protected $plainPassword;
     
     
     /**

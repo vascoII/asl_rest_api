@@ -15,6 +15,13 @@ use Fds\AslMongoBundle\Document\Resident;
  */
 class CommonController extends Controller
 {
+    const ROLE_MANAGER = 'Manager';
+    const MANAGER_CREATED = 'MANAGER_CREATED';
+    const ROLE_OWNER = 'Owner';
+    const OWNER_USER_CREATED = 'OWNER_USER_CREATED';
+    const OWNER_USER_ALREADY_CREATED = 'OWNER_USER_ALREADY_CREATED';
+    const OWNER_USER_INVALID_DATA = 'OWNER_USER_INVALID_DATA';
+    const INVALID_DATA_EMAIL = 'Le champ Email n est pas reconnu en base.';
     /**
      * @return DocumentManager
      */
@@ -115,6 +122,16 @@ class CommonController extends Controller
     }
     
     /**
+     * @return FOSView 
+     */ 
+    protected function invalidCredentials($data)
+    {
+        $fosviewService = 
+            $this->container->get('fds_fosviewservice.fosviewservice');
+        return $fosviewService->invalidCredentials($data);
+    }
+    
+    /**
      * @return void 
      */
     protected function clearCache()
@@ -125,7 +142,8 @@ class CommonController extends Controller
     }
     
     protected function aslExist($asl_id) {
-        $asl = $this->getDocumentManager()->getRepository('FdsAslMongoBundle:Asl')
+        $asl = $this->getDocumentManager()
+            ->getRepository('FdsAslMongoBundle:Asl')
             ->findOneByIdentifier((int) $asl_id);
         
         if ($asl instanceof Asl) {

@@ -55,7 +55,7 @@ class FOSViewService
         return FOSView::create(null, Response::HTTP_OK);
     }
     
-    /*
+    /**
      * Not Found :: 404
      * @return FOSView
      */
@@ -67,7 +67,19 @@ class FOSViewService
         );
     }
     
-    /*
+    /**
+     * Not Found :: 400
+     * @return FOSView
+     */
+    public function invalidCredentials($data)
+    {
+        return FOSView::create(
+            ['message' => $data], 
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+    
+    /**
      * Conflict :: 409 if resource already exists..
      * @return FOSView
      */

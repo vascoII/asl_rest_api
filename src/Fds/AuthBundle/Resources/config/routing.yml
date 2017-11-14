@@ -2,3 +2,7 @@
 fds_users_mongo:
     resource: "@FdsAuthBundle/Resources/config/routing/user.yml"
     prefix:   /
+# Auth Token Routing
+fds_auth_token_mongo:
+    resource: "@FdsAuthBundle/Resources/config/routing/authtoken.yml"
+    prefix:   /

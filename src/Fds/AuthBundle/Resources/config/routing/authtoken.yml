@@ -1,0 +1,5 @@
+post_auth_tokens:
+    path:     /auth-tokens
+    defaults: { _controller: FdsAuthBundle:AuthToken:postAuthTokens }
+    methods:  [POST]
+
